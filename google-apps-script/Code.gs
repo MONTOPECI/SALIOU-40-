@@ -1,7 +1,7 @@
 /**
  * JUNIOR 40 – THE JOURNEY
  * Enregistre chaque réservation du site dans ce Google Sheet.
- * Version 3 : une ligne par personne (titulaire + accompagnants).
+ * Version 4 : une ligne par réservation, accompagnants dans la colonne J.
  *
  * Installation : voir google-apps-script/INSTALLATION.md
  */
@@ -11,12 +11,12 @@
 const SHEET_ID = "";
 
 const SHEET_NAME = "Réservations";
-const VERSION = "version 3, une ligne par personne";
+const VERSION = "version 4, colonne Accompagnants";
 const HEADERS = [
   "Date de réponse", "Référence", "Prénom", "Nom", "Présence",
-  "Passagers", "Siège", "Téléphone WhatsApp", "Message", "Rôle"
+  "Passagers", "Siège", "Téléphone WhatsApp", "Message", "Accompagnants"
 ];
-const ROLE_COL = HEADERS.length;          // colonne J
+const COMP_COL = HEADERS.length;          // colonne J
 const HEAD_STYLE = { bg: "#0b1530", fg: "#efe5cf" };
 
 /** Reçoit les réservations envoyées par le site. */
@@ -28,8 +28,8 @@ function doPost(e) {
     const sheet = getSheet_();
     const now = new Date();
     const yes = String(d.presence) === "Oui";
+    const names = yes ? companions_(d).map(function (c) { return (c.prenom + " " + c.nom).trim(); }) : [];
 
-    // 1) Titulaire de la réservation
     const rows = [[
       now,
       clean_(d.reference),
@@ -41,15 +41,8 @@ function doPost(e) {
       clean_(d.telephone),
       // Le site recopie les accompagnants dans le message (sécurité) : on les retire ici
       clean_(String(d.message || "").replace(/\s*\|?\s*Accompagnants : .*$/, "")),
-      "Titulaire"
+      clean_(names.join(", "))
     ]];
-
-    // 2) Une ligne par accompagnant, juste en dessous, avec la même référence
-    if (yes) {
-      companions_(d).forEach(function (c) {
-        rows.push([now, clean_(d.reference), clean_(c.prenom), clean_(c.nom), "Oui", "", "", "", "", "Accompagnant"]);
-      });
-    }
 
     sheet.getRange(sheet.getLastRow() + 1, 1, rows.length, HEADERS.length).setValues(rows);
     return json_({ ok: true, lignes: rows.length });
@@ -77,19 +70,18 @@ function companions_(d) {
 /**
  * Vérification depuis le navigateur :
  *  - …/exec          → affiche la version si l'application Web répond
- *  - …/exec?test=1   → ajoute une réservation TEST (1 titulaire + 1 accompagnant)
+ *  - …/exec?test=1   → ajoute une réservation TEST avec un accompagnant
  */
 function doGet(e) {
   if (e && e.parameter && e.parameter.test) {
     try {
       const sheet = getSheet_();
       const now = new Date();
-      sheet.getRange(sheet.getLastRow() + 1, 1, 2, HEADERS.length).setValues([
-        [now, "TEST", "Test", "Titulaire", "Oui", 2, "", "", "Lignes de test, à supprimer", "Titulaire"],
-        [now, "TEST", "Test", "Accompagnant", "Oui", "", "", "", "", "Accompagnant"]
+      sheet.getRange(sheet.getLastRow() + 1, 1, 1, HEADERS.length).setValues([
+        [now, "TEST", "Test", "Navigateur", "Oui", 2, "", "", "Ligne de test, à supprimer", "Accompagnant Test"]
       ]);
       return ContentService.createTextOutput(
-        "✅ Test réussi : 2 lignes TEST ont été ajoutées dans l'onglet « " + SHEET_NAME +
+        "✅ Test réussi : une ligne TEST a été ajoutée dans l'onglet « " + SHEET_NAME +
         " » du fichier « " + sheet.getParent().getName() + " ».");
     } catch (err) {
       return ContentService.createTextOutput("❌ Erreur : " + err);
@@ -117,9 +109,9 @@ function getSheet_() {
     sheet.getRange("L1").setValue("RÉCAPITULATIF");
   }
 
-  // En-tête : colonne J = « Rôle » (remplace « Accompagnants » des versions précédentes)
-  if (sheet.getRange(1, ROLE_COL).getValue() !== HEADERS[ROLE_COL - 1]) {
-    sheet.getRange(1, ROLE_COL).setValue(HEADERS[ROLE_COL - 1]);
+  // En-tête : colonne J = « Accompagnants »
+  if (sheet.getRange(1, COMP_COL).getValue() !== HEADERS[COMP_COL - 1]) {
+    sheet.getRange(1, COMP_COL).setValue(HEADERS[COMP_COL - 1]);
   }
   sheet.getRange(1, 1, 1, HEADERS.length)
     .setFontWeight("bold").setBackground(HEAD_STYLE.bg).setFontColor(HEAD_STYLE.fg);
@@ -128,21 +120,22 @@ function getSheet_() {
   return sheet;
 }
 
-/** Récapitulatif pour le traiteur : ne compte que les lignes « Titulaire » comme réponses. */
+/** Récapitulatif pour le traiteur (ignore d'éventuelles anciennes lignes « Accompagnant » de la version 3). */
 function updateSummary_(sheet) {
   // Retrouve le bloc récapitulatif (colonne K ou L selon la version qui l'a créé)
   const row1 = sheet.getRange(1, 11, 1, 3).getValues()[0];
   let col = 12;
   for (let i = 0; i < row1.length; i++) if (row1[i] === "RÉCAPITULATIF") col = 11 + i;
-  if (col <= ROLE_COL) col = 12;
+  if (col <= COMP_COL) col = 12;
 
   const notComp = 'J2:J,"<>Accompagnant"';
   const labels = [["RÉCAPITULATIF", ""],
                   ["Réponses reçues", '=COUNTIFS(B2:B,"<>",' + notComp + ')'],
                   ["Réponses « Oui »", '=COUNTIFS(E2:E,"Oui",' + notComp + ')'],
                   ["Réponses « Non »", '=COUNTIFS(E2:E,"Non",' + notComp + ')'],
-                  ["Total passagers confirmés", '=SUMIFS(F2:F,E2:E,"Oui",' + notComp + ')'],
-                  ["Noms listés (Oui)", '=COUNTIF(E2:E,"Oui")']];
+                  ["Total passagers confirmés", '=SUMIFS(F2:F,E2:E,"Oui",' + notComp + ')']];
+  // Retire la ligne « Noms listés » ajoutée par la version 3
+  if (sheet.getRange(6, col).getValue() === "Noms listés (Oui)") sheet.getRange(6, col, 1, 2).clearContent();
   const current = sheet.getRange(2, col + 1).getFormula();
   if (current === labels[1][1]) return;   // déjà à jour
 
