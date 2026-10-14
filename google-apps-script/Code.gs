@@ -5,6 +5,10 @@
  * Installation : voir google-apps-script/INSTALLATION.md
  */
 
+// Facultatif : l'identifiant du Google Sheet (la partie entre /d/ et /edit dans son adresse).
+// À remplir uniquement si le script n'a PAS été créé depuis le Sheet (Extensions → Apps Script).
+const SHEET_ID = "";
+
 const SHEET_NAME = "Réservations";
 const HEADERS = [
   "Date de réponse", "Référence", "Prénom", "Nom", "Présence",
@@ -37,8 +41,23 @@ function doPost(e) {
   }
 }
 
-/** Permet de vérifier que l'application Web répond (ouvrir l'URL /exec). */
-function doGet() {
+/**
+ * Vérification depuis le navigateur :
+ *  - …/exec          → affiche OK si l'application Web répond
+ *  - …/exec?test=1   → ajoute une ligne « TEST » dans l'onglet Réservations
+ */
+function doGet(e) {
+  if (e && e.parameter && e.parameter.test) {
+    try {
+      const sheet = getSheet_();
+      sheet.appendRow([new Date(), "TEST", "Test", "Navigateur", "Oui", 1, "", "", "Ligne de test, à supprimer"]);
+      return ContentService.createTextOutput(
+        "✅ Test réussi : une ligne TEST a été ajoutée dans l'onglet « " + SHEET_NAME +
+        " » du fichier « " + sheet.getParent().getName() + " ».");
+    } catch (err) {
+      return ContentService.createTextOutput("❌ Erreur : " + err);
+    }
+  }
   return ContentService.createTextOutput("JUNIOR 40 – enregistrement des réservations : OK");
 }
 
@@ -48,7 +67,8 @@ function setup() {
 }
 
 function getSheet_() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) throw new Error("Aucun Google Sheet relié : remplissez SHEET_ID en haut du script.");
   let sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) sheet = ss.insertSheet(SHEET_NAME);
   if (sheet.getLastRow() === 0) {
