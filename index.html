@@ -251,15 +251,6 @@
   .saved.warn{color:#8b2e1f}
   .link-btn{background:none;border:0;color:var(--ink-2);text-decoration:underline;cursor:pointer;font:inherit;font-size:.9rem}
 
-  /* Enregistrement mobile (QR) */
-  .checkin{display:flex;gap:18px;align-items:center;background:var(--navy);color:var(--ivory);border-radius:var(--r);padding:20px;border:1px solid rgba(169,127,79,.4)}
-  #qr{flex:none;width:120px;height:120px;padding:8px;background:var(--ivory);border-radius:8px}
-  #qr img,#qr canvas{width:100%!important;height:100%!important}
-  .checkin h3{font-family:var(--display);text-transform:uppercase;font-weight:700;letter-spacing:.06em;font-size:1.1rem}
-  .checkin p{font-size:.9rem;color:var(--ivory-2);margin:4px 0 12px}
-  .ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(201,163,111,.6);background:none;color:var(--bronze-l);font:inherit;font-weight:600;font-size:.86rem;padding:9px 14px;border-radius:999px;cursor:pointer}
-  .ghost svg{width:15px;height:15px}
-  @media (max-width:520px){.checkin{flex-direction:column;text-align:center}}
 
   footer{margin-top:56px;background:var(--navy);color:var(--ivory-2);padding:32px 0 44px;font-size:.82rem}
   footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
@@ -537,20 +528,6 @@
     </div>
   </section>
 
-  <!-- ================= ENREGISTREMENT MOBILE (QR) ================= -->
-  <section class="reveal">
-    <div class="checkin">
-      <div id="qr" role="img" aria-label="QR code vers la réservation"></div>
-      <div>
-        <h3>Enregistrement mobile</h3>
-        <p>Scannez ce QR code pour accéder directement à la réservation, ou partagez l'invitation à un autre passager.</p>
-        <button class="ghost" id="share" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
-          Partager l'invitation
-        </button>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer>
@@ -560,7 +537,6 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 /* =========================================================
    RÉGLAGES
@@ -928,21 +904,6 @@ function toIntl(cc, raw){
   }
 })();
 
-/* QR code vers la réservation */
-(function(){
-  const target = location.origin + location.pathname + "#reserver";
-  try {
-    new QRCode(document.getElementById("qr"), {text: target, width: 200, height: 200, colorDark: "#0b1530", colorLight: "#efe5cf", correctLevel: QRCode.CorrectLevel.M});
-  } catch (_) { document.getElementById("qr").classList.add("hidden"); }
-})();
-
-/* Partage */
-document.getElementById("share").addEventListener("click", async () => {
-  const url = location.origin + location.pathname;
-  const text = "✈️ JUNIOR 40 – THE JOURNEY · Vol J40 · Dimanche 20 décembre 2026 · Abidjan. Réservez votre siège :";
-  if (navigator.share) { try { await navigator.share({title: "JUNIOR 40 – The Journey", text, url}); } catch (_) {} }
-  else { window.open("https://wa.me/?text=" + encodeURIComponent(text + "\n" + url), "_blank"); }
-});
 </script>
 </body>
 </html>
