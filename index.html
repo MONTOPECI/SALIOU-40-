@@ -867,13 +867,13 @@ function toIntl(cc, raw){
         "📅 Dimanche 20 décembre 2026",
         "🕖 Embarquement : 19h00",
         "👥 " + pax + " passager" + (pax > 1 ? "s" : ""),
-        others.length ? "👥 Accompagné(e) de : " + others.join(", ") : "",
+        others.length ? "👥 Accompagné(e) de : " + others.join(", ") : null,
         "🔒 Porte : secrète, communiquée avant le départ",
         "Réf. " + ref,
         "",
         "Ma carte d'embarquement :",
         passLink(current)
-      ].filter((l, i, arr) => l !== "" || (i > 0 && arr[i-1] !== "")).join("\n");
+      ].filter(l => l !== null).join("\n");
       $("wa-self").href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
     }
 
