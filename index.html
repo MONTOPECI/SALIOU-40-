@@ -136,7 +136,8 @@
   .flight-main{display:grid;grid-template-columns:1fr auto;gap:18px;padding:20px 18px;align-items:center}
   .legs{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px}
   .time{font-size:1.7rem;font-weight:700;color:var(--navy);line-height:1}
-  .apt{font-weight:700;color:var(--ink);font-size:.92rem;margin-top:6px}
+  .apt{font-weight:700;color:var(--bronze-d);font-size:.7rem;letter-spacing:.14em;margin-bottom:6px}
+  .apt-s{margin-top:6px}
   .apt-s{font-size:.78rem;color:var(--ink-2)}
   .line{position:relative;text-align:center;font-size:.76rem;color:var(--ink-2)}
   .line .bar{height:2px;margin:8px 0;background:linear-gradient(90deg,var(--bronze) 50%,transparent 50%) 0 0/8px 2px;position:relative}
@@ -347,7 +348,7 @@
 
   <!-- ================= RÉSULTAT DE VOL ================= -->
   <section id="vol" class="reveal">
-    <div class="h2"><h2>Votre vol</h2><span>1 vol trouvé · le seul qui compte</span></div>
+    <div class="h2"><h2>Votre vol</h2><span><strong>Un seul vol trouvé, le seul qui compte</strong></span></div>
     <article class="flight">
       <div class="flight-top">
         <span><b>Vol J40</b> · Junior 40 Airways</span>
@@ -355,12 +356,12 @@
       </div>
       <div class="flight-main">
         <div class="legs">
-          <div><div class="time">1986</div><div class="apt">DÉPART</div><div class="apt-s">Le début du voyage</div></div>
+          <div><div class="apt">DÉPART</div><div class="time">19h00</div><div class="apt-s">20 décembre · Abidjan</div></div>
           <div class="line">Vol direct
             <div class="bar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg></div>
             Durée : 40 ans
           </div>
-          <div style="text-align:right"><div class="time">19:00</div><div class="apt">ABJ</div><div class="apt-s">20 déc. 2026</div></div>
+          <div style="text-align:right"><div class="apt">ARRIVÉE</div><div class="time">40 ans</div><div class="apt-s">de Junior</div></div>
         </div>
         <div class="fare">
           <div>
