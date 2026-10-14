@@ -12,7 +12,7 @@ const SHEET_ID = "";
 const SHEET_NAME = "Réservations";
 const HEADERS = [
   "Date de réponse", "Référence", "Prénom", "Nom", "Présence",
-  "Passagers", "Siège", "Téléphone WhatsApp", "Message"
+  "Passagers", "Siège", "Téléphone WhatsApp", "Message", "Accompagnants"
 ];
 
 /** Reçoit les réservations envoyées par le site. */
@@ -31,7 +31,8 @@ function doPost(e) {
       Number(d.passagers) || 0,
       clean_(d.siege),
       clean_(d.telephone),
-      clean_(d.message)
+      clean_(d.message),
+      clean_(d.accompagnants)
     ]);
     return json_({ ok: true });
   } catch (err) {
@@ -79,14 +80,19 @@ function getSheet_() {
     sheet.getRange("H:H").setNumberFormat("@");
 
     // Récapitulatif pour le traiteur
-    sheet.getRange("K1:L1").setValues([["RÉCAPITULATIF", ""]]).setFontWeight("bold");
-    sheet.getRange("K2:K5").setValues([["Réponses reçues"], ["Réponses « Oui »"], ["Réponses « Non »"], ["Total passagers confirmés"]]);
-    sheet.getRange("L2").setFormula('=COUNTA(B2:B)');
-    sheet.getRange("L3").setFormula('=COUNTIF(E2:E,"Oui")');
-    sheet.getRange("L4").setFormula('=COUNTIF(E2:E,"Non")');
-    sheet.getRange("L5").setFormula('=SUMIF(E2:E,"Oui",F2:F)');
-    sheet.getRange("K5:L5").setFontWeight("bold").setBackground("#efe5cf");
-    sheet.autoResizeColumns(1, 12);
+    sheet.getRange("L1:M1").setValues([["RÉCAPITULATIF", ""]]).setFontWeight("bold");
+    sheet.getRange("L2:L5").setValues([["Réponses reçues"], ["Réponses « Oui »"], ["Réponses « Non »"], ["Total passagers confirmés"]]);
+    sheet.getRange("M2").setFormula('=COUNTA(B2:B)');
+    sheet.getRange("M3").setFormula('=COUNTIF(E2:E,"Oui")');
+    sheet.getRange("M4").setFormula('=COUNTIF(E2:E,"Non")');
+    sheet.getRange("M5").setFormula('=SUMIF(E2:E,"Oui",F2:F)');
+    sheet.getRange("L5:M5").setFontWeight("bold").setBackground("#efe5cf");
+    sheet.autoResizeColumns(1, 13);
+  }
+  // Ajoute la colonne « Accompagnants » à un onglet créé avec une ancienne version
+  if (sheet.getRange(1, HEADERS.length).getValue() !== HEADERS[HEADERS.length - 1]) {
+    sheet.getRange(1, HEADERS.length).setValue(HEADERS[HEADERS.length - 1])
+      .setFontWeight("bold").setBackground("#0b1530").setFontColor("#efe5cf");
   }
   return sheet;
 }

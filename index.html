@@ -197,6 +197,10 @@
   textarea{min-height:80px;resize:vertical}
   input:focus,textarea:focus{border-color:var(--bronze);box-shadow:0 0 0 3px rgba(169,127,79,.2)}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .companions{display:grid;gap:16px;margin-top:16px}
+  .comp{border-left:2px solid var(--bronze);padding-left:14px}
+  .comp-t{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--bronze-d);margin-bottom:8px}
+  .comp label{font-size:.68rem}
   @media (max-width:520px){.row2{grid-template-columns:1fr}}
   .choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .choice input{position:absolute;opacity:0;pointer-events:none}
@@ -444,6 +448,7 @@
               <output id="pax" aria-live="polite">1</output>
               <button type="button" data-step="1" aria-label="Ajouter un passager">+</button>
             </div>
+            <div id="companions" class="companions hidden" aria-live="polite"></div>
           </div>
           <div>
             <label for="phone">Numéro WhatsApp</label>
@@ -505,6 +510,7 @@
             <div style="text-align:right"><div class="code">ABJ</div></div>
           </div>
           <div class="bp-f wide"><div class="k">Passager</div><div class="v" id="bp-name">—</div></div>
+          <div class="bp-f wide hidden" id="bp-with-row"><div class="k">Accompagné de</div><div class="v" id="bp-with">—</div></div>
           <div class="bp-f"><div class="k">Date</div><div class="v">20 DÉC 26</div></div>
           <div class="bp-f"><div class="k">Embarq.</div><div class="v">19:00</div></div>
           <div class="bp-f"><div class="k">Pax</div><div class="v" id="bp-pax">1</div></div>
@@ -615,6 +621,9 @@ function fillPass(p){
   $("bp-pax").textContent = p.p;
   $("bp-seat").textContent = p.s;
   $("bp-ref").textContent = p.r;
+  const w = Array.isArray(p.a) ? p.a : [];
+  $("bp-with").textContent = w.join(", ").toUpperCase();
+  $("bp-with-row").classList.toggle("hidden", !w.length);
 }
 
 /* Dessine la carte d'embarquement en image (1080 × 1350) */
@@ -673,6 +682,13 @@ async function passImage(p){
   while (g.measureText(name).width > cw-100 && name.length > 4) name = name.slice(0,-2);
   if (name !== p.n.toUpperCase()) name = name.trim() + "…";
   field("PASSAGER", name, x0+44, y0+420);
+  if (Array.isArray(p.a) && p.a.length) {
+    let w = "+ " + p.a.join(", ").toUpperCase();
+    g.textAlign="left"; g.fillStyle="#555a6b"; g.font=mono(500,22);
+    while (g.measureText(w).width > cw-90 && w.length > 6) w = w.slice(0,-2);
+    if (w !== "+ " + p.a.join(", ").toUpperCase()) w = w.trim() + "…";
+    g.fillText(w, x0+44, y0+508);
+  }
   const col = [x0+44, x0+44+cw/3, x0+44+2*cw/3];
   field("DATE", "20 DÉC 2026", col[0], y0+540);
   field("EMBARQUEMENT", "19:00", col[1], y0+540);
@@ -721,7 +737,37 @@ function toIntl(cc, raw){
   form.querySelectorAll("[data-step]").forEach(b => b.addEventListener("click", () => {
     pax = Math.min(10, Math.max(1, pax + Number(b.dataset.step)));
     $("pax").textContent = pax; $("sum-pax").textContent = pax;
+    renderCompanions();
   }));
+
+  /* Un bloc Prénom / Nom par passager supplémentaire (les saisies sont conservées) */
+  const keep = {};
+  function renderCompanions(){
+    const box = $("companions");
+    box.querySelectorAll("input").forEach(i => keep[i.id] = i.value);
+    box.innerHTML = "";
+    for (let i = 2; i <= pax; i++) {
+      const d = document.createElement("div");
+      d.className = "comp";
+      d.innerHTML =
+        '<div class="comp-t">Passager ' + i + '</div>' +
+        '<div class="row2">' +
+          '<div><label for="c' + i + '-first">Prénom</label><input id="c' + i + '-first" type="text" autocomplete="off"></div>' +
+          '<div><label for="c' + i + '-last">Nom</label><input id="c' + i + '-last" type="text" autocomplete="off"></div>' +
+        '</div>';
+      box.appendChild(d);
+      ["first","last"].forEach(k => { const id = "c" + i + "-" + k; if (keep[id]) $(id).value = keep[id]; });
+    }
+    box.classList.toggle("hidden", pax < 2);
+  }
+  function companionNames(){
+    const out = [];
+    for (let i = 2; i <= pax; i++) {
+      const f = ($("c" + i + "-first") || {}).value || "", l = ($("c" + i + "-last") || {}).value || "";
+      out.push({i, f: f.trim(), l: l.trim()});
+    }
+    return out;
+  }
   form.querySelectorAll("input[name=presence]").forEach(r => r.addEventListener("change", () => {
     const yes = form.presence.value === "oui";
     $("guests-row").classList.toggle("hidden", !yes);
@@ -749,6 +795,18 @@ function toIntl(cc, raw){
     const note = $("note").value.trim();
     const full = first + " " + last;
 
+    let others = [];
+    if (yes && pax > 1) {
+      const list = companionNames();
+      const missing = list.find(c => !c.f || !c.l);
+      if (missing) {
+        $("err").textContent = "Merci d'indiquer le prénom et le nom du passager " + missing.i + ".";
+        $("c" + missing.i + "-" + (missing.f ? "last" : "first")).focus();
+        return;
+      }
+      others = list.map(c => c.f + " " + c.l);
+    }
+
     // Siège et référence stables pour un même nom
     let h = 0; for (const c of full.toUpperCase()) h = (h * 31 + c.charCodeAt(0)) >>> 0;
     const seat = (1 + h % 12) + "ABCDEF"[h % 6];
@@ -766,7 +824,8 @@ function toIntl(cc, raw){
           body: JSON.stringify({
             reference: ref, prenom: first, nom: last,
             presence: yes ? "Oui" : "Non", passagers: yes ? pax : 0,
-            siege: yes ? seat : "", telephone: phone ? "+" + phone : "", message: note
+            siege: yes ? seat : "", telephone: phone ? "+" + phone : "", message: note,
+            accompagnants: others.join(", ")
           })
         });
         saved = true;
@@ -790,6 +849,7 @@ function toIntl(cc, raw){
       $("conf-text").textContent = "Junior sera triste de ne pas vous avoir à bord, mais votre réponse a bien été transmise.";
     } else {
       current = {n: full, p: pax, s: seat, r: ref};
+      if (others.length) current.a = others;
       fillPass(current);
       $("bp").classList.remove("hidden");
       $("wa-self").classList.remove("hidden");
@@ -805,12 +865,13 @@ function toIntl(cc, raw){
         "📅 Dimanche 20 décembre 2026",
         "🕖 Embarquement : 19h00",
         "💺 Siège " + seat + " · " + pax + " passager" + (pax > 1 ? "s" : ""),
+        others.length ? "👥 Accompagné(e) de : " + others.join(", ") : "",
         "🔒 Porte : secrète, communiquée avant le départ",
         "Réf. " + ref,
         "",
         "Ma carte d'embarquement :",
         passLink(current)
-      ].join("\n");
+      ].filter((l, i, arr) => l !== "" || (i > 0 && arr[i-1] !== "")).join("\n");
       $("wa-self").href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
     }
 
@@ -819,6 +880,7 @@ function toIntl(cc, raw){
         "✈️ *JUNIOR 40 – Réponse à l'invitation*",
         "Passager : " + full,
         "Présence : " + (yes ? "Oui ✅ (" + pax + " pers.)" : "Non"),
+        others.length ? "Accompagnants : " + others.join(", ") : "",
         phone ? "Téléphone : +" + phone : "",
         note ? "Message : " + note : "",
         yes ? "Réf. " + ref : ""
