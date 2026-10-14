@@ -168,14 +168,14 @@
   @media (max-width:760px){.info-grid{grid-template-columns:1fr}}
 
   /* Compte à rebours (tableau des départs) */
-  .board{background:var(--navy);color:var(--ivory);border-radius:var(--r);padding:20px 18px;border:1px solid rgba(169,127,79,.4)}
+  .board{background:radial-gradient(ellipse at 0% 100%, #1a2b5c, transparent 60%),linear-gradient(180deg,#0b1530,#13214a);color:var(--ivory);border-radius:var(--r);padding:20px 18px;border:1px solid rgba(169,127,79,.4)}
   .board-head{display:grid;grid-template-columns:1.2fr 1fr .8fr 1fr;gap:8px;font-size:.66rem;letter-spacing:.18em;color:var(--bronze-l);font-weight:700;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid rgba(169,127,79,.3)}
   .board-row{display:grid;grid-template-columns:1.2fr 1fr .8fr 1fr;gap:8px;padding:12px 0 18px;font-family:var(--mono);font-weight:700;font-size:.98rem;letter-spacing:.04em}
   .board-row .st{color:#e7c27a}
   .board-row .st i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e7c27a;margin-right:6px;animation:blink 1.4s infinite}
   @keyframes blink{50%{opacity:.25}}
   .cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-  .cd div{background:#0f1c40;border:1px solid rgba(169,127,79,.35);border-radius:8px;text-align:center;padding:12px 4px 8px;position:relative}
+  .cd div{background:rgba(11,21,48,.55);border:1px solid rgba(169,127,79,.35);border-radius:8px;text-align:center;padding:12px 4px 8px;position:relative}
   .cd div::after{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid rgba(0,0,0,.45)}
   .cd b{display:block;font-family:var(--mono);font-size:clamp(1.5rem,7vw,2.2rem);line-height:1;font-variant-numeric:tabular-nums}
   .cd small{font-size:.6rem;letter-spacing:.18em;color:var(--bronze-l);font-weight:700;text-transform:uppercase}
