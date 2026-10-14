@@ -794,7 +794,7 @@ function toIntl(cc, raw){
     const note = $("note").value.trim();
     const full = first + " " + last;
 
-    let others = [];
+    let others = [], othersList = [];
     if (yes && pax > 1) {
       const list = companionNames();
       const missing = list.find(c => !c.f || !c.l);
@@ -804,6 +804,7 @@ function toIntl(cc, raw){
         return;
       }
       others = list.map(c => c.f + " " + c.l);
+      othersList = list.map(c => ({prenom: c.f, nom: c.l}));
     }
 
     // Siège et référence stables pour un même nom
@@ -827,7 +828,8 @@ function toIntl(cc, raw){
             // Les accompagnants sont aussi ajoutés au message : ils arrivent dans le Sheet
             // même si le script Google n'a pas encore été mis à jour.
             message: [note, others.length ? "Accompagnants : " + others.join(", ") : ""].filter(Boolean).join(" | "),
-            accompagnants: others.join(", ")
+            accompagnants: others.join(", "),
+            accompagnants_liste: othersList
           })
         });
         saved = true;
