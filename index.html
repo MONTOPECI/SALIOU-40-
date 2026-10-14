@@ -234,6 +234,12 @@
   .confirm-txt h3{font-family:var(--display);color:var(--navy);font-size:1.35rem;letter-spacing:.05em}
   .confirm-txt p{color:var(--ink-2);margin-top:6px}
   .confirm-actions{max-width:560px;margin:18px auto 0;display:grid;gap:10px}
+  .phone-row{display:grid;grid-template-columns:auto 1fr;gap:8px}
+  select{font:inherit;font-size:1rem;color:var(--ink);background:#fff;border:1px solid rgba(27,31,46,.18);border-radius:10px;padding:0 10px;outline:none}
+  select:focus{border-color:var(--bronze);box-shadow:0 0 0 3px rgba(169,127,79,.2)}
+  .hint{font-size:.8rem;color:var(--ink-2);margin-top:6px}
+  .saved{text-align:center;font-size:.88rem;color:var(--ok);font-weight:600;min-height:1.2em}
+  .saved.warn{color:#8b2e1f}
   .link-btn{background:none;border:0;color:var(--ink-2);text-decoration:underline;cursor:pointer;font:inherit;font-size:.9rem}
 
   /* Enregistrement mobile (QR) */
@@ -416,7 +422,28 @@
               <button type="button" data-step="1" aria-label="Ajouter un passager">+</button>
             </div>
           </div>
-          <div><label for="phone">Téléphone / WhatsApp</label><input id="phone" type="tel" autocomplete="tel" placeholder="Pour recevoir la porte d'embarquement"></div>
+          <div>
+            <label for="phone">Numéro WhatsApp</label>
+            <div class="phone-row">
+              <select id="cc" aria-label="Indicatif du pays">
+                <option value="225" selected>🇨🇮 +225</option>
+                <option value="33">🇫🇷 +33</option>
+                <option value="1">🇨🇦 +1</option>
+                <option value="32">🇧🇪 +32</option>
+                <option value="41">🇨🇭 +41</option>
+                <option value="221">🇸🇳 +221</option>
+                <option value="226">🇧🇫 +226</option>
+                <option value="223">🇲🇱 +223</option>
+                <option value="228">🇹🇬 +228</option>
+                <option value="229">🇧🇯 +229</option>
+                <option value="237">🇨🇲 +237</option>
+                <option value="44">🇬🇧 +44</option>
+                <option value="">Autre (+…)</option>
+              </select>
+              <input id="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="07 00 00 00 00">
+            </div>
+            <p class="hint">Pour recevoir votre carte d'embarquement et le lieu secret.</p>
+          </div>
           <div><label for="note">Message pour Junior (facultatif)</label><textarea id="note" placeholder="Un mot, une allergie, un souvenir de voyage…"></textarea></div>
           <p class="err" id="err" role="alert"></p>
           <button class="btn dark block" type="submit">Confirmer ma réservation
@@ -466,10 +493,17 @@
         <div class="bp-stub"><div class="barcode" aria-hidden="true"></div><div class="bp-f" style="text-align:right"><div class="k">Réf.</div><div class="v" id="bp-ref">—</div></div></div>
       </div>
       <div class="confirm-actions">
-        <a class="btn wa block" id="wa-send" href="#" target="_blank" rel="noopener">
+        <p class="saved" id="saved" role="status"></p>
+        <a class="btn wa block" id="wa-self" href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 1.9 17.7L.5 23.5l6-1.6A11.8 11.8 0 0 0 20.5 3.5ZM12 21.3a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.6.9 1-3.5-.2-.4a9.8 9.8 0 1 1 8.2 4.6Zm5.4-7.3c-.3-.2-1.8-.9-2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8 8 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.6-.4Z"/></svg>
-          Envoyer ma confirmation sur WhatsApp
+          Recevoir ma carte sur WhatsApp
         </a>
+        <button class="btn dark block" id="save-img" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></svg>
+          Enregistrer ma carte (image)
+        </button>
+        <a class="btn dark block hidden" id="wa-host" href="#" target="_blank" rel="noopener">Prévenir Junior sur WhatsApp</a>
+        <a class="btn block hidden" id="see-invite" href="./">Voir l'invitation</a>
         <button class="link-btn" id="edit" type="button">Modifier ma réservation</button>
       </div>
     </div>
@@ -501,11 +535,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 /* =========================================================
-   RÉGLAGES — à compléter
-   whatsapp : numéro qui reçoit les réponses, au format
-              international SANS « + » ni espaces (ex. 2250700000000)
+   RÉGLAGES
+   sheetUrl : adresse de l'application Web Google Apps Script
+              (se termine par /exec) — enregistre chaque réservation
+   whatsapp : (facultatif) numéro de Junior / de l'organisatrice,
+              format international SANS « + » ni espaces
    ========================================================= */
 const CONFIG = {
+  sheetUrl: "",
   whatsapp: "",
   event: new Date("2026-12-20T19:00:00Z")   // Abidjan = GMT
 };
@@ -533,11 +570,129 @@ const CONFIG = {
   items.forEach(e => io.observe(e));
 })();
 
+/* ---------- Outils carte d'embarquement ---------- */
+const $ = id => document.getElementById(id);
+const BASE_URL = location.origin + location.pathname;
+
+function encodePass(p){
+  const json = JSON.stringify(p);
+  return btoa(unescape(encodeURIComponent(json))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+function decodePass(s){
+  try {
+    s = s.replace(/-/g,"+").replace(/_/g,"/"); while (s.length % 4) s += "=";
+    const p = JSON.parse(decodeURIComponent(escape(atob(s))));
+    return p && p.n ? p : null;
+  } catch (_) { return null; }
+}
+function passLink(p){ return BASE_URL + "?bp=" + encodePass(p); }
+
+function fillPass(p){
+  $("bp-name").textContent = p.n.toUpperCase();
+  $("bp-pax").textContent = p.p;
+  $("bp-seat").textContent = p.s;
+  $("bp-ref").textContent = p.r;
+}
+
+/* Dessine la carte d'embarquement en image (1080 × 1350) */
+async function passImage(p){
+  try { await document.fonts.ready; } catch(_){}
+  const W = 1080, H = 1350, c = document.createElement("canvas");
+  c.width = W; c.height = H;
+  const g = c.getContext("2d");
+  const navy="#0b1530", bronze="#a97f4f", bronzeL="#c9a36f", bronzeD="#7a5932", paper="#f6efdf", ink="#0b1530";
+  const disp = w => `700 ${w}px Cinzel, Georgia, serif`;
+  const sans = (w, s) => `${w} ${s}px Manrope, Arial, sans-serif`;
+
+  // fond
+  const bg = g.createLinearGradient(0,0,0,H); bg.addColorStop(0,"#0b1530"); bg.addColorStop(1,"#1a2b5c");
+  g.fillStyle = bg; g.fillRect(0,0,W,H);
+  g.strokeStyle = "rgba(201,163,111,.08)"; g.lineWidth = 1;
+  for (let x=0; x<W; x+=72){ g.beginPath(); g.moveTo(x,0); g.lineTo(x,H); g.stroke(); }
+  for (let y=0; y<H; y+=72){ g.beginPath(); g.moveTo(0,y); g.lineTo(W,y); g.stroke(); }
+
+  // titre
+  g.textAlign = "center";
+  g.fillStyle = bronzeL; g.font = sans(700, 26); g.fillText("JUNIOR 40 AIRWAYS  ·  VOL J40", W/2, 110);
+  g.fillStyle = "#efe5cf"; g.font = disp(64); g.fillText("THE JOURNEY", W/2, 190);
+
+  // carte
+  const x0=80, y0=250, cw=W-160, ch=980, r=28;
+  const rr = (x,y,w,h,rad) => { g.beginPath(); g.moveTo(x+rad,y); g.arcTo(x+w,y,x+w,y+h,rad); g.arcTo(x+w,y+h,x,y+h,rad); g.arcTo(x,y+h,x,y,rad); g.arcTo(x,y,x+w,y,rad); g.closePath(); };
+  g.save(); g.shadowColor="rgba(0,0,0,.45)"; g.shadowBlur=40; g.shadowOffsetY=16;
+  rr(x0,y0,cw,ch,r); g.fillStyle=paper; g.fill(); g.restore();
+  g.save(); rr(x0,y0,cw,ch,r); g.clip();
+  g.fillStyle = navy; g.fillRect(x0,y0,cw,110);
+  g.fillStyle = bronze; g.fillRect(x0,y0+110,cw,8);
+  g.restore();
+  g.textAlign = "left"; g.fillStyle="#efe5cf"; g.font = disp(38); g.fillText("BOARDING PASS", x0+44, y0+70);
+  g.textAlign = "right"; g.fillStyle=bronzeL; g.font = sans(700,22); g.fillText("VOL J40 · ABIDJAN", x0+cw-44, y0+68);
+
+  // route
+  g.textAlign="left"; g.fillStyle=ink; g.font=disp(120); g.fillText("J40", x0+44, y0+290);
+  g.textAlign="right"; g.fillText("ABJ", x0+cw-44, y0+290);
+  g.textAlign="left"; g.fillStyle="#555a6b"; g.font=sans(500,24);
+  g.fillText("40 ans de voyage", x0+48, y0+335);
+  g.textAlign="right"; g.fillText("Abidjan, Côte d'Ivoire", x0+cw-48, y0+335);
+  g.strokeStyle=bronze; g.lineWidth=3; g.setLineDash([12,10]);
+  g.beginPath(); g.moveTo(x0+340,y0+250); g.lineTo(x0+cw-340,y0+250); g.stroke(); g.setLineDash([]);
+  g.save(); g.translate(W/2, y0+250); g.fillStyle=bronzeD;
+  g.fill(new Path2D("M0,-34 L6,-8 L34,8 L34,14 L6,6 L4,24 L12,30 L12,34 L0,30 L-12,34 L-12,30 L-4,24 L-6,6 L-34,14 L-34,8 L-6,-8 Z"));
+  g.restore();
+
+  // champs
+  const field = (k, v, x, y, align="left") => {
+    g.textAlign=align; g.fillStyle=bronzeD; g.font=sans(700,22); g.fillText(k, x, y);
+    g.fillStyle=ink; g.font=sans(800,40); g.fillText(v, x, y+52);
+  };
+  let name = p.n.toUpperCase(); g.font = sans(800,40);
+  while (g.measureText(name).width > cw-100 && name.length > 4) name = name.slice(0,-2);
+  if (name !== p.n.toUpperCase()) name = name.trim() + "…";
+  field("PASSAGER", name, x0+44, y0+420);
+  const col = [x0+44, x0+44+cw/3, x0+44+2*cw/3];
+  field("DATE", "20 DÉC 2026", col[0], y0+540);
+  field("EMBARQUEMENT", "19:00", col[1], y0+540);
+  field("PASSAGERS", String(p.p), col[2], y0+540);
+  field("SIÈGE", p.s, col[0], y0+660);
+  field("PORTE", "SECRÈTE", col[1], y0+660);
+  field("CLASSE", "EXCEPTION", col[2], y0+660);
+
+  // perforation
+  const py = y0+780;
+  g.fillStyle = "#13214a";
+  g.beginPath(); g.arc(x0, py, 26, 0, Math.PI*2); g.fill();
+  g.beginPath(); g.arc(x0+cw, py, 26, 0, Math.PI*2); g.fill();
+  g.strokeStyle="rgba(122,89,50,.5)"; g.lineWidth=3; g.setLineDash([14,12]);
+  g.beginPath(); g.moveTo(x0+40,py); g.lineTo(x0+cw-40,py); g.stroke(); g.setLineDash([]);
+
+  // code-barres pseudo-aléatoire depuis la référence
+  let seed = 0; for (const ch of p.r + p.n) seed = (seed*31 + ch.charCodeAt(0)) >>> 0;
+  let bx = x0+44; g.fillStyle = ink;
+  while (bx < x0+560){ seed = (seed*1103515245 + 12345) >>> 0; const w = 2 + (seed>>>8)%5; if ((seed>>>4)%3) g.fillRect(bx, py+45, w, 110); bx += w + 2 + (seed>>>12)%4; }
+  g.textAlign="right"; g.fillStyle=bronzeD; g.font=sans(700,22); g.fillText("RÉFÉRENCE", x0+cw-44, py+70);
+  g.fillStyle=ink; g.font=disp(46); g.fillText(p.r, x0+cw-44, py+130);
+
+  // pied
+  g.textAlign="center"; g.fillStyle=bronzeL; g.font=sans(600,24);
+  g.fillText("Le lieu secret vous sera communiqué avant le départ", W/2, 1290);
+  return new Promise(res => c.toBlob(res, "image/png"));
+}
+
+/* Numéro WhatsApp au format international */
+function toIntl(cc, raw){
+  let d = (raw || "").replace(/[^\d+]/g,"");
+  if (d.startsWith("+")) return d.slice(1);
+  if (d.startsWith("00")) return d.slice(2);
+  if (!cc) return d;
+  // Côte d'Ivoire : on garde le 0 (numéros à 10 chiffres). Ailleurs : on le retire.
+  if (cc !== "225") d = d.replace(/^0+/,"");
+  return cc + d;
+}
+
 /* Réservation (RSVP) */
 (function(){
-  const form = document.getElementById("rsvp-form");
-  const $ = id => document.getElementById(id);
-  let pax = 1;
+  const form = $("rsvp-form");
+  let pax = 1, current = null;
 
   form.querySelectorAll("[data-step]").forEach(b => b.addEventListener("click", () => {
     pax = Math.min(10, Math.max(1, pax + Number(b.dataset.step)));
@@ -549,48 +704,118 @@ const CONFIG = {
     $("sum-pax").textContent = yes ? pax : "—";
   }));
 
-  form.addEventListener("submit", e => {
+  function showConfirmation(){
+    $("booking").classList.add("hidden");
+    $("confirmation").classList.remove("hidden");
+    $("confirmation").focus({preventScroll:true});
+    $("reserver").scrollIntoView({behavior:"smooth"});
+  }
+
+  form.addEventListener("submit", async e => {
     e.preventDefault();
     $("err").textContent = "";
     const first = $("first").value.trim(), last = $("last").value.trim();
     if (!first || !last) { $("err").textContent = "Merci d'indiquer votre prénom et votre nom."; (first ? $("last") : $("first")).focus(); return; }
 
     const yes = form.presence.value === "oui";
-    const phone = $("phone").value.trim(), note = $("note").value.trim();
+    const rawPhone = $("phone").value.trim();
+    const digits = rawPhone.replace(/\D/g,"");
+    if (yes && digits.length < 8) { $("err").textContent = "Merci d'indiquer votre numéro WhatsApp pour recevoir votre carte."; $("phone").focus(); return; }
+    const phone = digits ? toIntl($("cc").value, rawPhone) : "";
+    const note = $("note").value.trim();
     const full = first + " " + last;
 
-    // Siège et référence « aléatoires » mais stables pour un même nom
+    // Siège et référence stables pour un même nom
     let h = 0; for (const c of full.toUpperCase()) h = (h * 31 + c.charCodeAt(0)) >>> 0;
     const seat = (1 + h % 12) + "ABCDEF"[h % 6];
-    const ref = "J40-" + (h % 46656).toString(36).toUpperCase().padStart(3,"0") + (pax);
+    const ref = "J40-" + (h % 46656).toString(36).toUpperCase().padStart(3,"0") + (yes ? pax : 0);
 
-    $("bp-name").textContent = full.toUpperCase();
-    $("bp-pax").textContent = yes ? pax : "—";
-    $("bp-seat").textContent = yes ? seat : "—";
-    $("bp-ref").textContent = ref;
-    $("bp").classList.toggle("hidden", !yes);
-    $("conf-title").textContent = yes ? "Votre siège est prêt ✈️" : "Merci pour votre réponse";
-    $("conf-text").textContent = yes
-      ? "Dernière étape : envoyez votre confirmation à Junior sur WhatsApp pour valider votre embarquement."
-      : "Junior sera triste de ne pas vous avoir à bord. Envoyez-lui votre réponse sur WhatsApp.";
+    // 1) Enregistrement dans Google Sheets
+    const btn = form.querySelector("button[type=submit]");
+    btn.disabled = true; btn.style.opacity = .7;
+    let saved = false;
+    if (CONFIG.sheetUrl) {
+      try {
+        await fetch(CONFIG.sheetUrl, {
+          method: "POST", mode: "no-cors",
+          headers: {"Content-Type": "text/plain;charset=utf-8"},
+          body: JSON.stringify({
+            reference: ref, prenom: first, nom: last,
+            presence: yes ? "Oui" : "Non", passagers: yes ? pax : 0,
+            siege: yes ? seat : "", telephone: phone ? "+" + phone : "", message: note
+          })
+        });
+        saved = true;
+      } catch (_) { saved = false; }
+    }
+    btn.disabled = false; btn.style.opacity = "";
 
-    const lines = [
-      "✈️ *JUNIOR 40 – THE JOURNEY*",
-      "Réponse à l'invitation · Vol J40 · 20/12/2026",
-      "",
-      "Passager : " + full,
-      "Présence : " + (yes ? "Oui, j'embarque ✅" : "Je ne pourrai pas être là"),
-    ];
-    if (yes) { lines.push("Nombre de passagers : " + pax); lines.push("Siège : " + seat + " · Réf. " + ref); }
-    if (phone) lines.push("Téléphone : " + phone);
-    if (note) lines.push("Message : " + note);
-    const msg = encodeURIComponent(lines.join("\n"));
-    $("wa-send").href = CONFIG.whatsapp ? "https://wa.me/" + CONFIG.whatsapp + "?text=" + msg : "https://wa.me/?text=" + msg;
+    const s = $("saved");
+    s.classList.toggle("warn", CONFIG.sheetUrl && !saved);
+    s.textContent = !CONFIG.sheetUrl ? "" : saved ? "✓ Réservation enregistrée" : "La connexion a échoué. Réessayez dans un instant.";
+    if (CONFIG.sheetUrl && !saved) return;
 
-    $("booking").classList.add("hidden");
-    $("confirmation").classList.remove("hidden");
-    $("confirmation").focus();
-    document.getElementById("reserver").scrollIntoView({behavior:"smooth"});
+    // 2) Carte d'embarquement
+    $("see-invite").classList.add("hidden");
+    $("edit").classList.remove("hidden");
+    if (!yes) {
+      $("bp").classList.add("hidden");
+      $("wa-self").classList.add("hidden");
+      $("save-img").classList.add("hidden");
+      $("conf-title").textContent = "Merci pour votre réponse";
+      $("conf-text").textContent = "Junior sera triste de ne pas vous avoir à bord, mais votre réponse a bien été transmise.";
+    } else {
+      current = {n: full, p: pax, s: seat, r: ref};
+      fillPass(current);
+      $("bp").classList.remove("hidden");
+      $("wa-self").classList.remove("hidden");
+      $("save-img").classList.remove("hidden");
+      $("conf-title").textContent = "Bienvenue à bord, " + first + " ✈️";
+      $("conf-text").textContent = "Votre siège est réservé. Envoyez-vous votre carte d'embarquement sur WhatsApp pour la garder avec vous.";
+
+      const msg = [
+        "✈️ *JUNIOR 40 AIRWAYS – CARTE D'EMBARQUEMENT*",
+        "",
+        "Passager : *" + full + "*",
+        "Vol J40 · Abidjan (ABJ)",
+        "📅 Dimanche 20 décembre 2026",
+        "🕖 Embarquement : 19h00",
+        "💺 Siège " + seat + " · " + pax + " passager" + (pax > 1 ? "s" : ""),
+        "🔒 Porte : secrète, communiquée avant le départ",
+        "Réf. " + ref,
+        "",
+        "Ma carte d'embarquement :",
+        passLink(current)
+      ].join("\n");
+      $("wa-self").href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
+    }
+
+    if (CONFIG.whatsapp) {
+      const hostMsg = [
+        "✈️ *JUNIOR 40 – Réponse à l'invitation*",
+        "Passager : " + full,
+        "Présence : " + (yes ? "Oui ✅ (" + pax + " pers.)" : "Non"),
+        phone ? "Téléphone : +" + phone : "",
+        note ? "Message : " + note : "",
+        yes ? "Réf. " + ref : ""
+      ].filter(Boolean).join("\n");
+      $("wa-host").href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(hostMsg);
+      $("wa-host").classList.remove("hidden");
+    }
+    showConfirmation();
+  });
+
+  $("save-img").addEventListener("click", async () => {
+    if (!current) return;
+    const blob = await passImage(current);
+    const file = new File([blob], "carte-embarquement-J40.png", {type: "image/png"});
+    if (navigator.canShare && navigator.canShare({files: [file]})) {
+      try { await navigator.share({files: [file], title: "Carte d'embarquement J40", text: "Ma carte d'embarquement – JUNIOR 40 ✈️"}); return; } catch (_) { return; }
+    }
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = file.name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   });
 
   $("edit").addEventListener("click", () => {
@@ -598,6 +823,21 @@ const CONFIG = {
     $("booking").classList.remove("hidden");
     $("first").focus();
   });
+
+  // Ouverture d'une carte personnelle (?bp=…)
+  const bp = new URLSearchParams(location.search).get("bp");
+  const p = bp && decodePass(bp);
+  if (p) {
+    current = p;
+    fillPass(p);
+    $("conf-title").textContent = "Carte d'embarquement de " + p.n.split(" ")[0] + " ✈️";
+    $("conf-text").textContent = "Gardez-la précieusement : le lieu secret vous sera communiqué avant le départ.";
+    ["wa-self","wa-host","edit"].forEach(id => $(id).classList.add("hidden"));
+    $("see-invite").classList.remove("hidden");
+    $("booking").classList.add("hidden");
+    $("confirmation").classList.remove("hidden");
+    window.addEventListener("load", () => setTimeout(() => $("reserver").scrollIntoView({behavior:"smooth"}), 300));
+  }
 })();
 
 /* QR code vers la réservation */
