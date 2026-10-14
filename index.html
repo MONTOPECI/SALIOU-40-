@@ -823,7 +823,10 @@ function toIntl(cc, raw){
           body: JSON.stringify({
             reference: ref, prenom: first, nom: last,
             presence: yes ? "Oui" : "Non", passagers: yes ? pax : 0,
-            siege: yes ? seat : "", telephone: phone ? "+" + phone : "", message: note,
+            siege: yes ? seat : "", telephone: phone ? "+" + phone : "",
+            // Les accompagnants sont aussi ajoutés au message : ils arrivent dans le Sheet
+            // même si le script Google n'a pas encore été mis à jour.
+            message: [note, others.length ? "Accompagnants : " + others.join(", ") : ""].filter(Boolean).join(" | "),
             accompagnants: others.join(", ")
           })
         });

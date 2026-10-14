@@ -31,7 +31,8 @@ function doPost(e) {
       Number(d.passagers) || 0,
       clean_(d.siege),
       clean_(d.telephone),
-      clean_(d.message),
+      // Le site recopie les accompagnants dans le message (sécurité) : on les retire ici
+      clean_(String(d.message || "").replace(/\s*\|?\s*Accompagnants : .*$/, "")),
       clean_(d.accompagnants)
     ]);
     return json_({ ok: true });
@@ -51,7 +52,7 @@ function doGet(e) {
   if (e && e.parameter && e.parameter.test) {
     try {
       const sheet = getSheet_();
-      sheet.appendRow([new Date(), "TEST", "Test", "Navigateur", "Oui", 1, "", "", "Ligne de test, à supprimer"]);
+      sheet.appendRow([new Date(), "TEST", "Test", "Navigateur", "Oui", 2, "", "", "Ligne de test, à supprimer", "Accompagnant Test"]);
       return ContentService.createTextOutput(
         "✅ Test réussi : une ligne TEST a été ajoutée dans l'onglet « " + SHEET_NAME +
         " » du fichier « " + sheet.getParent().getName() + " ».");
@@ -59,7 +60,7 @@ function doGet(e) {
       return ContentService.createTextOutput("❌ Erreur : " + err);
     }
   }
-  return ContentService.createTextOutput("JUNIOR 40 – enregistrement des réservations : OK");
+  return ContentService.createTextOutput("JUNIOR 40 – enregistrement des réservations : OK (version 2, avec accompagnants)");
 }
 
 /** À lancer une fois depuis l'éditeur pour créer l'onglet et le récapitulatif. */
