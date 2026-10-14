@@ -68,15 +68,12 @@
       radial-gradient(ellipse at 80% 0%, rgba(201,163,111,.18), transparent 55%),
       radial-gradient(ellipse at 0% 100%, #1a2b5c, transparent 60%),
       linear-gradient(180deg,#0b1530,#13214a);
-    padding:46px 0 150px}
-  .hero::before{ /* méridiens */
-    content:"";position:absolute;inset:0;opacity:.08;pointer-events:none;
-    background-image:repeating-linear-gradient(0deg,transparent 0 71px,var(--bronze-l) 71px 72px),repeating-linear-gradient(90deg,transparent 0 71px,var(--bronze-l) 71px 72px)}
-  .hero .globe{position:absolute;right:-120px;top:-40px;width:520px;opacity:.16;pointer-events:none}
-  .hero .plane-trail{position:absolute;left:0;right:0;top:58%;height:120px;pointer-events:none;opacity:.55}
-  .hero .plane-trail .plane{animation:fly 14s linear infinite}
-  @keyframes fly{from{offset-distance:0%}to{offset-distance:100%}}
+    padding:46px 0 112px}
   .hero-inner{position:relative;max-width:640px}
+  /* Skyline : sa ligne de sol repose sur le haut du module de recherche */
+  .skyline{position:relative;margin-top:28px;pointer-events:none}
+  .skyline picture,.skyline img{display:block;width:100%;max-width:980px;height:auto;margin:0 auto}
+  .skyline img{opacity:.92}
   .kicker{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--bronze-l);border:1px solid rgba(201,163,111,.45);padding:6px 12px;border-radius:999px}
   .kicker i{width:6px;height:6px;border-radius:50%;background:var(--bronze-l);box-shadow:0 0 0 4px rgba(201,163,111,.2)}
   h1{font-family:var(--display);font-weight:700;font-size:clamp(2.3rem,9vw,4.2rem);line-height:1.02;letter-spacing:.04em;margin:18px 0 6px}
@@ -258,7 +255,7 @@
 
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease}
   .reveal.in{opacity:1;transform:none}
-  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.hero .plane-trail .plane,.board-row .st i{animation:none}}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.board-row .st i{animation:none}}
 </style>
 </head>
 <body>
@@ -280,20 +277,17 @@
 
 <!-- ================= HERO ================= -->
 <div class="hero" id="top">
-  <svg class="globe" viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="#c9a36f" stroke-width=".8">
-    <circle cx="100" cy="100" r="96"/>
-    <ellipse cx="100" cy="100" rx="40" ry="96"/><ellipse cx="100" cy="100" rx="72" ry="96"/>
-    <path d="M4 100h192M14 56h172M14 144h172M40 24h120M40 176h120"/>
-  </svg>
-  <svg class="plane-trail" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
-    <path id="trail" d="M-40 100 C 250 10, 650 10, 1040 80" fill="none" stroke="#c9a36f" stroke-width="1.2" stroke-dasharray="4 8"/>
-  </svg>
-
   <div class="wrap hero-inner">
     <span class="kicker"><i></i>Vol spécial · J40</span>
     <h1>JUNIOR <em>40</em><br>THE JOURNEY</h1>
     <p class="sub">40 YEARS AROUND THE WORLD</p>
     <p class="intro">« Certaines destinations marquent une vie… Aujourd'hui, je vous invite à embarquer avec moi pour une soirée d'exception, à l'occasion de mes 40 ans. »</p>
+  </div>
+  <div class="wrap skyline" aria-hidden="true">
+    <picture>
+      <source srcset="assets/skyline.webp" type="image/webp">
+      <img src="assets/skyline.png" alt="" width="2243" height="582" decoding="async">
+    </picture>
   </div>
 </div>
 
