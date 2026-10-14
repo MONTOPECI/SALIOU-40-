@@ -514,7 +514,7 @@
           <div class="bp-f"><div class="k">Embarq.</div><div class="v">19:00</div></div>
           <div class="bp-f"><div class="k">Pax</div><div class="v" id="bp-pax">1</div></div>
           <div class="bp-f"><div class="k">Classe</div><div class="v">EXCEPTION</div></div>
-          <div class="bp-f"><div class="k">Siège</div><div class="v" id="bp-seat">—</div></div>
+          <div class="bp-f"><div class="k">Vol</div><div class="v">J40</div></div>
           <div class="bp-f"><div class="k">Porte</div><div class="v">SECRÈTE</div></div>
         </div>
         <div class="bp-perf" aria-hidden="true"></div>
@@ -618,7 +618,6 @@ function passLink(p){ return BASE_URL + "?bp=" + encodePass(p); }
 function fillPass(p){
   $("bp-name").textContent = p.n.toUpperCase();
   $("bp-pax").textContent = p.p;
-  $("bp-seat").textContent = p.s;
   $("bp-ref").textContent = p.r;
   const w = Array.isArray(p.a) ? p.a : [];
   $("bp-with").textContent = w.join(", ").toUpperCase();
@@ -692,7 +691,7 @@ async function passImage(p){
   field("DATE", "20 DÉC 2026", col[0], y0+540);
   field("EMBARQUEMENT", "19:00", col[1], y0+540);
   field("PASSAGERS", String(p.p), col[2], y0+540);
-  field("SIÈGE", p.s, col[0], y0+660);
+  field("VOL", "J40", col[0], y0+660);
   field("PORTE", "SECRÈTE", col[1], y0+660);
   field("CLASSE", "EXCEPTION", col[2], y0+660);
 
@@ -807,9 +806,8 @@ function toIntl(cc, raw){
       othersList = list.map(c => ({prenom: c.f, nom: c.l}));
     }
 
-    // Siège et référence stables pour un même nom
+    // Référence stable pour un même nom
     let h = 0; for (const c of full.toUpperCase()) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-    const seat = (1 + h % 12) + "ABCDEF"[h % 6];
     const ref = "J40-" + (h % 46656).toString(36).toUpperCase().padStart(3,"0") + (yes ? pax : 0);
 
     // 1) Enregistrement dans Google Sheets
@@ -824,7 +822,7 @@ function toIntl(cc, raw){
           body: JSON.stringify({
             reference: ref, prenom: first, nom: last,
             presence: yes ? "Oui" : "Non", passagers: yes ? pax : 0,
-            siege: yes ? seat : "", telephone: phone ? "+" + phone : "",
+            siege: "", telephone: phone ? "+" + phone : "",
             // Les accompagnants sont aussi ajoutés au message : ils arrivent dans le Sheet
             // même si le script Google n'a pas encore été mis à jour.
             message: [note, others.length ? "Accompagnants : " + others.join(", ") : ""].filter(Boolean).join(" | "),
@@ -852,7 +850,7 @@ function toIntl(cc, raw){
       $("conf-title").textContent = "Merci pour votre réponse";
       $("conf-text").textContent = "Junior sera triste de ne pas vous avoir à bord, mais votre réponse a bien été transmise.";
     } else {
-      current = {n: full, p: pax, s: seat, r: ref};
+      current = {n: full, p: pax, r: ref};
       if (others.length) current.a = others;
       fillPass(current);
       $("bp").classList.remove("hidden");
@@ -868,7 +866,7 @@ function toIntl(cc, raw){
         "Vol J40 · Abidjan (ABJ)",
         "📅 Dimanche 20 décembre 2026",
         "🕖 Embarquement : 19h00",
-        "💺 Siège " + seat + " · " + pax + " passager" + (pax > 1 ? "s" : ""),
+        "👥 " + pax + " passager" + (pax > 1 ? "s" : ""),
         others.length ? "👥 Accompagné(e) de : " + others.join(", ") : "",
         "🔒 Porte : secrète, communiquée avant le départ",
         "Réf. " + ref,
