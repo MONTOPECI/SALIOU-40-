@@ -51,9 +51,11 @@
 
   /* ================= BARRE DE NAVIGATION ================= */
   .topbar{position:sticky;top:0;z-index:50;background:rgba(11,21,48,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(169,127,79,.35)}
-  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:80px}
   .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ivory)}
   .brand svg{width:30px;height:30px}
+  .brand-logo{display:block;height:64px;width:auto}
+  @media (max-width:640px){.brand-logo{height:56px}}
   .brand b{font-family:var(--display);font-weight:700;letter-spacing:.12em;font-size:1rem}
   .brand small{display:block;font-size:.58rem;letter-spacing:.32em;color:var(--bronze-l);font-weight:600;margin-top:-2px}
   .nav{display:flex;gap:22px;align-items:center}
@@ -123,7 +125,7 @@
   }
 
   /* ================= SECTIONS ================= */
-  section{padding:48px 0 8px;scroll-margin-top:62px}
+  section{padding:48px 0 8px;scroll-margin-top:80px}
   .h2{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
   .h2 h2{font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:1.45rem;letter-spacing:.06em;color:var(--ink)}
   .h2 span{font-size:.86rem;color:var(--ink-2)}
@@ -269,8 +271,10 @@
 <header class="topbar">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Junior 40 Airways">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="#c9a36f" stroke-width="1.2"/><path d="M20 3 23.5 20 20 37 16.5 20Z" fill="#c9a36f"/><path d="M3 20 20 16.5 37 20 20 23.5Z" fill="#7a5932"/><circle cx="20" cy="20" r="2.5" fill="#0b1530" stroke="#efe5cf"/></svg>
-      <span><b>JUNIOR 40</b><small>AIRWAYS</small></span>
+      <picture>
+        <source srcset="assets/logo-junior40.webp" type="image/webp">
+        <img class="brand-logo" src="assets/logo-junior40.png" alt="Junior 40 Airways" width="218" height="160">
+      </picture>
     </a>
     <nav class="nav">
       <a href="#vol">Mon vol</a>
