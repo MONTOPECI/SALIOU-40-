@@ -3,523 +3,488 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>JUNIOR 40 Airways – The Journey</title>
-<meta name="description" content="Vol J40 · Dimanche 20 décembre 2026 · Embarquement 19h00 · Abidjan. Réservez votre siège pour les 40 ans de Junior.">
-<meta name="theme-color" content="#0b1530">
+<title>Junior 40 Airways</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Vol J40 · Dimanche 20 décembre 2026 · Embarquement 19h00 · Abidjan. Confirmez votre présence aux 40 ans de Junior.">
+<meta name="theme-color" content="#EFE5CF">
 
 <!-- Aperçu WhatsApp / réseaux sociaux -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="JUNIOR 40 – THE JOURNEY ✈️">
-<meta property="og:description" content="40 Years Around the World · Vol J40 · Dimanche 20 décembre 2026 · Embarquement 19h00 · Abidjan">
+<meta property="og:title" content="JUNIOR 40 – THE JOURNEY">
+<meta property="og:description" content="40 Years Around the World · Vol J40 · Dim. 20 décembre 2026 · 19h00 · Abidjan">
 <meta property="og:image" content="https://montopeci.github.io/SALIOU-40-/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://montopeci.github.io/SALIOU-40-/">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --navy:#0b1530; --navy-2:#13214a; --navy-3:#1d2f62;
-    --bronze:#a97f4f; --bronze-l:#c9a36f; --bronze-d:#7a5932;
-    --ivory:#efe5cf; --ivory-2:#e6d9bc; --paper:#f6efdf;
-    --ink:#1b1f2e; --ink-2:#555a6b; --line:rgba(122,89,50,.28);
-    --ok:#2f6b4f;
-    --sans:'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --serif:'Cormorant Garamond', Georgia, serif;
-    --display:'Cinzel', Georgia, serif;
-    --r:14px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  svg{display:block}
-  a{color:inherit}
-  .wrap{max-width:980px;margin:0 auto;padding:0 16px}
-  .hidden{display:none!important}
+/* Mise en page : une colonne éditoriale sur fond crème, modules de réservation encadrés d'un filet 1px, comme un site de compagnie aérienne. */
+:root{
+  --bg:#EFE5CF;          /* fond principal (80 %) */
+  --surface:#FBF7EE;     /* champs, cartes, billet */
+  --ink:#131D28;         /* textes, titres, structure */
+  --ink-2:#4E5763;       /* texte secondaire */
+  --line:#D6C9AC;        /* filets de séparation */
+  --rule:rgba(19,29,40,.22); /* lignes du tableau */
+  --accent:#7A5932;      /* boutons, éléments clés */
+  --accent-hover:#634626;
+  --ok:#2F5A44;
+  --err:#8A2E1F;
+  --sans:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+  --r:4px;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg,canvas{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+[hidden],.hidden{display:none!important}
+h1,h2,h3{text-wrap:balance;font-weight:700;letter-spacing:-.01em}
 
-  /* Texture parchemin réutilisable */
-  .paper{
-    background-color:var(--paper);
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .33 0 0 0 0 .18 0 0 0 .13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+.wrap{width:100%;max-width:1040px;margin:0 auto;
+  padding-left:max(20px,env(safe-area-inset-left,0px));
+  padding-right:max(20px,env(safe-area-inset-right,0px))}
 
-  /* ================= BARRE DE NAVIGATION ================= */
-  .topbar{position:sticky;top:0;z-index:50;background:rgba(11,21,48,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(169,127,79,.35)}
-  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ivory)}
-  .brand svg{width:30px;height:30px}
-  .brand b{font-family:var(--display);font-weight:700;letter-spacing:.12em;font-size:1rem}
-  .brand small{display:block;font-size:.58rem;letter-spacing:.32em;color:var(--bronze-l);font-weight:600;margin-top:-2px}
-  .nav{display:flex;gap:22px;align-items:center}
-  .nav a{text-decoration:none;color:var(--ivory-2);font-size:.86rem;font-weight:500}
-  .nav a:hover{color:var(--bronze-l)}
-  .nav .cta{background:var(--bronze);color:var(--navy);padding:8px 14px;border-radius:999px;font-weight:700}
-  .nav .cta:hover{color:var(--navy);background:var(--bronze-l)}
-  @media (max-width:640px){.nav a:not(.cta){display:none}}
+.label{font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.mono{font-family:var(--mono)}
+.tnum{font-variant-numeric:tabular-nums}
 
-  /* ================= HERO ================= */
-  .hero{position:relative;color:var(--ivory);overflow:hidden;
-    background:
-      radial-gradient(ellipse at 80% 0%, rgba(201,163,111,.18), transparent 55%),
-      radial-gradient(ellipse at 0% 100%, #1a2b5c, transparent 60%),
-      linear-gradient(180deg,#0b1530,#13214a);
-    padding:46px 0 150px}
-  .hero::before{ /* méridiens */
-    content:"";position:absolute;inset:0;opacity:.08;pointer-events:none;
-    background-image:repeating-linear-gradient(0deg,transparent 0 71px,var(--bronze-l) 71px 72px),repeating-linear-gradient(90deg,transparent 0 71px,var(--bronze-l) 71px 72px)}
-  .hero .globe{position:absolute;right:-120px;top:-40px;width:520px;opacity:.16;pointer-events:none}
-  .hero .plane-trail{position:absolute;left:0;right:0;top:58%;height:120px;pointer-events:none;opacity:.55}
-  .hero .plane-trail .plane{animation:fly 14s linear infinite}
-  @keyframes fly{from{offset-distance:0%}to{offset-distance:100%}}
-  .hero-inner{position:relative;max-width:640px}
-  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--bronze-l);border:1px solid rgba(201,163,111,.45);padding:6px 12px;border-radius:999px}
-  .kicker i{width:6px;height:6px;border-radius:50%;background:var(--bronze-l);box-shadow:0 0 0 4px rgba(201,163,111,.2)}
-  h1{font-family:var(--display);font-weight:700;font-size:clamp(2.3rem,9vw,4.2rem);line-height:1.02;letter-spacing:.04em;margin:18px 0 6px}
-  h1 em{font-style:normal;background:linear-gradient(180deg,#e6c58f,var(--bronze) 60%,var(--bronze-d));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .hero .sub{font-family:var(--display);letter-spacing:.22em;font-size:clamp(.82rem,3.4vw,1.05rem);color:var(--bronze-l)}
-  .hero .intro{font-family:var(--serif);font-style:italic;font-size:clamp(1.25rem,4.6vw,1.5rem);line-height:1.4;color:var(--ivory-2);margin-top:22px;max-width:560px}
+/* ---------- Boutons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;
+  border:1px solid var(--accent);border-radius:var(--r);background:var(--accent);color:#fff;
+  font-weight:600;font-size:.9375rem;text-decoration:none;cursor:pointer;
+  transition:background-color .2s ease,border-color .2s ease,color .2s ease}
+.btn:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn:disabled{opacity:.6;cursor:progress}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--bg)}
+.btn.block{width:100%}
+.btn svg{width:18px;height:18px;flex:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-  /* ================= WIDGET DE RECHERCHE ================= */
-  .search{position:relative;z-index:5;margin-top:-112px;border-radius:var(--r);box-shadow:0 24px 60px rgba(11,21,48,.28);border:1px solid var(--line);overflow:hidden}
-  .tabs{display:flex;gap:4px;padding:10px 12px 0;background:var(--navy-2)}
-  .tab{font-size:.8rem;font-weight:600;color:var(--ivory-2);padding:10px 14px;border-radius:10px 10px 0 0;opacity:.7}
-  .tab.on{background:var(--paper);color:var(--navy);opacity:1}
-  .search-body{padding:18px}
-  .fields{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:stretch}
-  .f{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:rgba(255,255,255,.55)}
-  .f .k{font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze-d)}
-  .f .v{font-weight:700;font-size:1.05rem;color:var(--navy);margin-top:2px}
-  .f .s{font-size:.8rem;color:var(--ink-2)}
-  .swap{align-self:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;background:var(--paper);color:var(--bronze-d)}
-  .swap svg{width:18px;height:18px}
-  .fields-2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;text-decoration:none;
-    font-family:var(--sans);font-weight:700;font-size:1rem;color:var(--navy);
-    background:linear-gradient(180deg,#d4b07a,var(--bronze));border-radius:10px;padding:15px 22px;
-    box-shadow:0 8px 20px rgba(122,89,50,.3);transition:transform .15s,filter .2s}
-  .btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
-  .btn:active{transform:translateY(1px)}
-  .btn svg{width:18px;height:18px}
-  .btn.block{width:100%}
-  .btn.dark{background:linear-gradient(180deg,var(--navy-3),var(--navy));color:var(--ivory);box-shadow:0 8px 20px rgba(11,21,48,.3)}
-  .btn.wa{background:#1f8f57;color:#fff;box-shadow:0 8px 20px rgba(31,143,87,.3)}
-  .search .btn{margin-top:14px}
-  @media (max-width:640px){
-    .fields{grid-template-columns:1fr}
-    .swap{transform:rotate(90deg);justify-self:center;margin:-16px 0;position:relative;z-index:1}
-    .fields-2{grid-template-columns:1fr 1fr}
-    .fields-2 .f:last-child{grid-column:1/-1}
-  }
+/* ---------- En-tête ---------- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand .mark{width:30px;height:30px;border-radius:var(--r);background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:var(--mono);font-size:.6875rem;font-weight:600;letter-spacing:.02em}
+.brand b{font-weight:700;font-size:.9375rem;letter-spacing:.04em}
+.brand span{font-weight:400;color:var(--ink-2)}
+.nav{display:flex;align-items:center;gap:28px;font-size:.875rem}
+.nav a{text-decoration:none;color:var(--ink-2);transition:color .2s ease}
+.nav a:hover{color:var(--ink)}
+.nav .btn{min-height:38px;padding:0 16px;font-size:.8125rem;color:#fff}
+@media (max-width:719px){.nav a:not(.btn){display:none}}
 
-  /* ================= SECTIONS ================= */
-  section{padding:48px 0 8px;scroll-margin-top:62px}
-  .h2{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-  .h2 h2{font-family:var(--display);font-size:1.45rem;letter-spacing:.06em;color:var(--navy)}
-  .h2 span{font-size:.86rem;color:var(--ink-2)}
+/* ---------- Hero + module de réservation ---------- */
+.hero{padding-block:56px 40px}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;color:var(--accent);text-transform:uppercase}
+.hero h1{font-size:clamp(2.5rem,9vw,4.75rem);line-height:.98;letter-spacing:-.035em;margin-top:18px}
+.hero h1 span{display:block;font-weight:400;color:var(--ink-2)}
+.hero .sub{margin-top:18px;font-size:1rem;font-weight:500;letter-spacing:.02em}
+.hero .intro{margin-top:14px;max-width:56ch;color:var(--ink-2);font-size:1.0625rem}
 
-  /* Résultat de vol */
-  .flight{background:#fffaf0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 10px 30px rgba(11,21,48,.08)}
-  .flight-top{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line);font-size:.8rem;gap:10px;flex-wrap:wrap}
-  .badge{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
-  .badge.gold{background:rgba(169,127,79,.16);color:var(--bronze-d)}
-  .badge.red{background:rgba(139,46,31,.1);color:#8b2e1f}
-  .flight-main{display:grid;grid-template-columns:1fr auto;gap:18px;padding:20px 18px;align-items:center}
-  .legs{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px}
-  .time{font-size:1.7rem;font-weight:700;color:var(--navy);line-height:1}
-  .apt{font-weight:700;color:var(--ink);font-size:.92rem;margin-top:6px}
-  .apt-s{font-size:.78rem;color:var(--ink-2)}
-  .line{position:relative;text-align:center;font-size:.76rem;color:var(--ink-2)}
-  .line .bar{height:2px;margin:8px 0;background:linear-gradient(90deg,var(--bronze) 50%,transparent 50%) 0 0/8px 2px;position:relative}
-  .line .bar::before,.line .bar::after{content:"";position:absolute;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--bronze)}
-  .line .bar::before{left:-2px}.line .bar::after{right:-2px}
-  .line .bar svg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg);width:22px;height:22px;color:var(--navy);background:#fffaf0;padding:2px}
-  .fare{text-align:right;border-left:1px dashed var(--line);padding-left:18px}
-  .fare .cls{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-d)}
-  .fare .price{font-family:var(--display);font-size:1.7rem;color:var(--navy);font-weight:700;line-height:1.1}
-  .fare .old{font-size:.8rem;color:var(--ink-2)}
-  .fare .btn{margin-top:10px;padding:11px 18px;font-size:.92rem}
-  .amen{display:flex;gap:16px;flex-wrap:wrap;padding:12px 18px;background:rgba(169,127,79,.08);border-top:1px solid var(--line);font-size:.82rem;color:var(--ink-2)}
-  .amen span{display:inline-flex;align-items:center;gap:6px}
-  .amen svg{width:15px;height:15px;color:var(--bronze-d)}
-  @media (max-width:640px){
-    .flight-main{grid-template-columns:1fr}
-    .fare{border-left:0;border-top:1px dashed var(--line);padding:14px 0 0;display:flex;align-items:center;justify-content:space-between;text-align:left}
-    .fare .btn{margin:0}
-  }
+.booking{margin-top:44px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.tabs{display:flex;gap:28px;padding:0 20px;border-bottom:1px solid var(--line);font-size:.875rem}
+.tab{padding:14px 0;color:var(--ink-2);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab.on{color:var(--ink);font-weight:600;border-bottom-color:var(--accent)}
+.fields{display:grid;grid-template-columns:1fr}
+.field{padding:16px 20px;border-bottom:1px solid var(--line);min-width:0}
+.field .v{font-size:1.0625rem;font-weight:600;margin-top:4px}
+.field .s{font-size:.8125rem;color:var(--ink-2)}
+.booking-foot{padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.booking-foot p{font-size:.8125rem;color:var(--ink-2)}
+@media (max-width:719px){.booking-foot .btn{width:100%}}
+@media (min-width:720px){
+  .fields{grid-template-columns:1.1fr 1fr 1fr .8fr}
+  .field{border-bottom:0;border-right:1px solid var(--line)}
+  .field:last-child{border-right:0}
+  .fields{border-bottom:1px solid var(--line)}
+}
 
-  /* Infos voyageurs */
-  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  .info{background:#fffaf0;border:1px solid var(--line);border-radius:var(--r);padding:18px}
-  .info .ic{width:40px;height:40px;border-radius:10px;background:var(--navy);display:grid;place-items:center;color:var(--bronze-l);margin-bottom:12px}
-  .info .ic svg{width:20px;height:20px}
-  .info h3{font-size:.98rem;color:var(--navy);margin-bottom:4px}
-  .info p{font-size:.88rem;color:var(--ink-2)}
-  @media (max-width:760px){.info-grid{grid-template-columns:1fr}}
+/* ---------- Sections ---------- */
+section{padding-block:56px;border-top:1px solid var(--line);scroll-margin-top:64px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 20px;margin-bottom:24px}
+.sec-head h2{font-size:clamp(1.5rem,4.5vw,1.875rem);letter-spacing:-.02em}
+.sec-head p{font-size:.875rem;color:var(--ink-2)}
 
-  /* Compte à rebours (tableau des départs) */
-  .board{background:var(--navy);color:var(--ivory);border-radius:var(--r);padding:20px 18px;border:1px solid rgba(169,127,79,.4)}
-  .board-head{display:grid;grid-template-columns:1.2fr 1fr .8fr 1fr;gap:8px;font-size:.66rem;letter-spacing:.18em;color:var(--bronze-l);font-weight:700;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid rgba(169,127,79,.3)}
-  .board-row{display:grid;grid-template-columns:1.2fr 1fr .8fr 1fr;gap:8px;padding:12px 0 18px;font-family:'Courier New',monospace;font-weight:700;font-size:.98rem;letter-spacing:.06em}
-  .board-row .st{color:#e7c27a}
-  .board-row .st i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e7c27a;margin-right:6px;animation:blink 1.4s infinite}
-  @keyframes blink{50%{opacity:.25}}
-  .cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-  .cd div{background:#0f1c40;border:1px solid rgba(169,127,79,.35);border-radius:8px;text-align:center;padding:12px 4px 8px;position:relative}
-  .cd div::after{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid rgba(0,0,0,.45)}
-  .cd b{display:block;font-family:'Courier New',monospace;font-size:clamp(1.5rem,7vw,2.2rem);line-height:1;font-variant-numeric:tabular-nums}
-  .cd small{font-size:.6rem;letter-spacing:.18em;color:var(--bronze-l);font-weight:700;text-transform:uppercase}
-  @media (max-width:520px){.board-head,.board-row{grid-template-columns:1fr 1fr}.board-head span:nth-child(n+3),.board-row span:nth-child(n+3){display:none}}
+/* Résultat de vol */
+.searching{font-family:var(--mono);font-size:.875rem;color:var(--ink-2);padding:24px 0}
+.flight{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.flight-main{display:grid;grid-template-columns:1fr;gap:20px;padding:22px 20px}
+.carrier{display:flex;align-items:center;gap:12px;font-size:.8125rem;color:var(--ink-2)}
+.carrier .mark{width:36px;height:36px;border-radius:var(--r);background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:var(--mono);font-size:.75rem;font-weight:600}
+.carrier b{display:block;color:var(--ink);font-size:.9375rem}
+.legs{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px}
+.legs .t{font-family:var(--mono);font-size:1.75rem;font-weight:600;line-height:1}
+.legs .p{font-size:.8125rem;color:var(--ink-2);margin-top:6px}
+.legs .right{text-align:right}
+.track{text-align:center;font-size:.75rem;color:var(--ink-2)}
+.track i{display:block;height:1px;background:var(--ink);margin:8px 0;position:relative}
+.track i::before,.track i::after{content:"";position:absolute;top:-3px;width:7px;height:7px;border-radius:50%;background:var(--bg);border:1px solid var(--ink)}
+.track i::before{left:0}.track i::after{right:0}
+.fare{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:18px}
+.fare .price{font-size:1.5rem;font-weight:700;letter-spacing:-.01em}
+.fare .note{font-size:.8125rem;color:var(--ink-2)}
+.amen{padding:14px 20px;border-top:1px solid var(--line);font-size:.8125rem;color:var(--ink-2)}
+@media (min-width:860px){
+  .flight-main{grid-template-columns:200px 1fr 260px;align-items:center;gap:32px}
+  .fare{border-top:0;border-left:1px solid var(--line);padding:0 0 0 28px;flex-direction:column;align-items:stretch;gap:12px}
+}
 
-  /* ================= RÉSERVATION (RSVP) ================= */
-  .checkout{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;align-items:start}
-  @media (max-width:820px){.checkout{grid-template-columns:1fr}}
-  .card{background:#fffaf0;border:1px solid var(--line);border-radius:var(--r);padding:22px}
-  .steps{display:flex;gap:8px;margin-bottom:20px;font-size:.8rem;font-weight:600;color:var(--ink-2)}
-  .steps span{display:flex;align-items:center;gap:8px;flex:1}
-  .steps b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);font-size:.75rem}
-  .steps .on{color:var(--navy)}
-  .steps .on b{background:var(--navy);color:var(--ivory);border-color:var(--navy)}
-  .steps .done b{background:var(--ok);color:#fff;border-color:var(--ok)}
-  form{display:grid;gap:16px}
-  label,.lbl{display:block;font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
-  input[type=text],input[type=tel],textarea{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:#fff;border:1px solid rgba(27,31,46,.18);border-radius:10px;padding:13px 14px;outline:none;transition:border-color .2s,box-shadow .2s}
-  textarea{min-height:80px;resize:vertical}
-  input:focus,textarea:focus{border-color:var(--bronze);box-shadow:0 0 0 3px rgba(169,127,79,.2)}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media (max-width:520px){.row2{grid-template-columns:1fr}}
-  .choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .choice input{position:absolute;opacity:0;pointer-events:none}
-  .choice label{margin:0;cursor:pointer;text-transform:none;letter-spacing:0;font-size:.95rem;color:var(--ink);font-weight:600;
-    border:1.5px solid rgba(27,31,46,.16);border-radius:10px;padding:13px 12px;background:#fff;display:flex;gap:10px;align-items:center;transition:all .15s}
-  .choice label::before{content:"";width:16px;height:16px;border-radius:50%;border:2px solid rgba(27,31,46,.3);flex:none}
-  .choice input:checked+label{border-color:var(--navy);background:rgba(19,33,74,.05)}
-  .choice input:checked+label::before{border:5px solid var(--navy)}
-  .choice input:focus-visible+label{box-shadow:0 0 0 3px rgba(169,127,79,.35)}
-  .stepper{display:inline-flex;align-items:center;border:1px solid rgba(27,31,46,.18);border-radius:10px;background:#fff}
-  .stepper button{width:46px;height:46px;border:0;background:none;font-size:1.3rem;cursor:pointer;color:var(--navy)}
-  .stepper output{min-width:40px;text-align:center;font-weight:700;font-size:1.1rem}
-  .err{color:#8b2e1f;font-size:.88rem;min-height:1.2em}
+/* Tableau des départs */
+.table-scroll{overflow-x:auto}
+table.board{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.9375rem}
+.board th{text-align:left;font-family:var(--sans);font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);padding:0 12px 12px 0;border-bottom:1px solid var(--rule)}
+.board td{padding:16px 12px 16px 0;border-bottom:1px solid var(--rule);font-weight:500;white-space:nowrap}
+.board .status{color:var(--accent);font-weight:600}
+.countdown{margin-top:18px;font-family:var(--mono);font-size:.875rem;color:var(--ink-2)}
+.countdown b{color:var(--ink);font-weight:600}
 
-  .summary h3{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze-d);margin-bottom:12px}
-  .sum-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:.9rem}
-  .sum-row span:first-child{color:var(--ink-2)}
-  .sum-row span:last-child{font-weight:700;color:var(--navy);text-align:right}
-  .sum-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:14px}
-  .sum-total b{font-family:var(--display);font-size:1.5rem;color:var(--navy)}
-  .deadline{margin-top:16px;padding:12px 14px;border-radius:10px;background:rgba(139,46,31,.07);color:#7a2a1d;font-size:.86rem;display:flex;gap:10px;align-items:flex-start}
-  .deadline svg{width:18px;height:18px;flex:none;margin-top:1px}
+/* Infos voyageurs */
+.infos{display:grid;grid-template-columns:1fr;gap:28px}
+.info{border-top:1px solid var(--ink);padding-top:14px}
+.info h3{font-size:1rem;margin-bottom:6px}
+.info p{font-size:.9375rem;color:var(--ink-2)}
+@media (min-width:600px){.infos{grid-template-columns:1fr 1fr;gap:32px 28px}}
+@media (min-width:960px){.infos{grid-template-columns:repeat(4,1fr)}}
 
-  /* Carte d'embarquement générée */
-  .bp{border-radius:var(--r);overflow:hidden;box-shadow:0 20px 50px rgba(11,21,48,.25);border:1px solid var(--line);max-width:560px;margin:0 auto}
-  .bp-head{background:var(--navy);color:var(--ivory);display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:3px solid var(--bronze)}
-  .bp-head b{font-family:var(--display);letter-spacing:.14em;font-size:.95rem}
-  .bp-head small{font-size:.66rem;letter-spacing:.22em;color:var(--bronze-l);font-weight:700}
-  .bp-body{padding:20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px 12px}
-  .bp-body .route{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center}
-  .bp-body .code{font-family:var(--display);font-size:2.2rem;font-weight:700;color:var(--navy);line-height:1}
-  .bp-body .route svg{width:28px;color:var(--bronze-d);transform:rotate(90deg)}
-  .bp-f .k{font-size:.62rem;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--bronze-d)}
-  .bp-f .v{font-weight:700;color:var(--navy);font-size:1rem}
-  .bp-f.wide{grid-column:1/-1}
-  .bp-perf{height:20px;position:relative;background:radial-gradient(circle at 0 50%,var(--paper) 10px,transparent 11px) left/20px 20px no-repeat,radial-gradient(circle at 100% 50%,var(--paper) 10px,transparent 11px) right/20px 20px no-repeat}
-  .bp-perf::after{content:"";position:absolute;left:22px;right:22px;top:50%;border-top:2px dashed var(--line)}
-  .bp-stub{padding:8px 20px 20px;display:flex;justify-content:space-between;align-items:flex-end;gap:14px}
-  .barcode{height:42px;flex:1;max-width:240px;opacity:.8;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 13px)}
-  .confirm-txt{text-align:center;max-width:520px;margin:0 auto 20px}
-  .confirm-txt h3{font-family:var(--display);color:var(--navy);font-size:1.35rem;letter-spacing:.05em}
-  .confirm-txt p{color:var(--ink-2);margin-top:6px}
-  .confirm-actions{max-width:560px;margin:18px auto 0;display:grid;gap:10px}
-  .phone-row{display:grid;grid-template-columns:auto 1fr;gap:8px}
-  select{font:inherit;font-size:1rem;color:var(--ink);background:#fff;border:1px solid rgba(27,31,46,.18);border-radius:10px;padding:0 10px;outline:none}
-  select:focus{border-color:var(--bronze);box-shadow:0 0 0 3px rgba(169,127,79,.2)}
-  .hint{font-size:.8rem;color:var(--ink-2);margin-top:6px}
-  .saved{text-align:center;font-size:.88rem;color:var(--ok);font-weight:600;min-height:1.2em}
-  .saved.warn{color:#8b2e1f}
-  .link-btn{background:none;border:0;color:var(--ink-2);text-decoration:underline;cursor:pointer;font:inherit;font-size:.9rem}
+/* Check-in */
+.checkin{display:grid;grid-template-columns:1fr;gap:28px;align-items:start}
+@media (min-width:860px){.checkin{grid-template-columns:1.45fr 1fr;gap:40px}}
+.steps{display:flex;gap:20px;font-family:var(--mono);font-size:.75rem;color:var(--ink-2);margin-bottom:22px}
+.steps .on{color:var(--ink);font-weight:600}
+form{display:grid;gap:20px}
+.row2{display:grid;grid-template-columns:1fr;gap:20px}
+@media (min-width:560px){.row2{grid-template-columns:1fr 1fr}}
+label,.lbl{display:block;font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
+input[type=text],input[type=tel],textarea,select{
+  width:100%;min-height:48px;padding:12px 14px;background:var(--surface);
+  border:1px solid var(--ink);border-radius:var(--r);font-size:1rem;outline:none;
+  transition:border-color .2s ease,box-shadow .2s ease}
+textarea{min-height:96px;resize:vertical}
+input:focus,textarea:focus,select:focus{box-shadow:0 0 0 1px var(--ink)}
+input::placeholder,textarea::placeholder{color:#8A8F96}
+.phone-row{display:grid;grid-template-columns:auto 1fr;gap:8px}
+.phone-row select{width:auto;padding-right:8px}
+.hint{font-size:.8125rem;color:var(--ink-2);margin-top:8px}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);border-radius:var(--r);overflow:hidden}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{margin:0;min-height:48px;display:grid;place-items:center;text-align:center;padding:8px;
+  font-size:.9375rem;font-weight:500;letter-spacing:0;text-transform:none;cursor:pointer;background:var(--surface);
+  transition:background-color .2s ease,color .2s ease}
+.seg label+input+label{border-left:1px solid var(--ink)}
+.seg input:checked+label{background:var(--ink);color:var(--bg)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-3px}
+.stepper{display:inline-grid;grid-template-columns:48px 56px 48px;border:1px solid var(--ink);border-radius:var(--r);background:var(--surface)}
+.stepper button{border:0;background:none;font-size:1.25rem;cursor:pointer;height:46px;transition:background-color .2s ease}
+.stepper button:hover{background:var(--bg)}
+.stepper output{display:grid;place-items:center;font-family:var(--mono);font-weight:600;border-inline:1px solid var(--ink)}
+.err{color:var(--err);font-size:.875rem;min-height:1.25em}
 
-  /* Enregistrement mobile (QR) */
-  .checkin{display:flex;gap:18px;align-items:center;background:var(--navy);color:var(--ivory);border-radius:var(--r);padding:20px;border:1px solid rgba(169,127,79,.4)}
-  #qr{flex:none;width:120px;height:120px;padding:8px;background:var(--ivory);border-radius:8px}
-  #qr img,#qr canvas{width:100%!important;height:100%!important}
-  .checkin h3{font-family:var(--display);letter-spacing:.06em;font-size:1.1rem}
-  .checkin p{font-size:.9rem;color:var(--ivory-2);margin:4px 0 12px}
-  .ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(201,163,111,.6);background:none;color:var(--bronze-l);font:inherit;font-weight:600;font-size:.86rem;padding:9px 14px;border-radius:999px;cursor:pointer}
-  .ghost svg{width:15px;height:15px}
-  @media (max-width:520px){.checkin{flex-direction:column;text-align:center}}
+.summary{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:22px 20px}
+.summary h3{font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px}
+.summary dl{display:grid;grid-template-columns:auto 1fr}
+.summary dt,.summary dd{padding:11px 0;border-bottom:1px solid var(--line);font-size:.875rem}
+.summary dt{color:var(--ink-2)}
+.summary dd{text-align:right;font-family:var(--mono);font-weight:500}
+.summary .total dt,.summary .total dd{border-bottom:0;padding-top:16px;font-size:1rem;color:var(--ink);font-family:var(--sans);font-weight:700}
+.deadline{margin-top:14px;font-size:.8125rem;color:var(--ink-2);border-top:1px solid var(--ink);padding-top:12px}
+.deadline b{color:var(--ink)}
 
-  footer{margin-top:56px;background:var(--navy);color:var(--ivory-2);padding:32px 0 44px;font-size:.82rem}
-  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
-  footer .brand b{font-size:.9rem}
+/* Carte d'embarquement */
+.confirm{display:grid;gap:24px;justify-items:center}
+.confirm-head{text-align:center;max-width:46ch}
+.confirm-head h3{font-size:1.5rem;letter-spacing:-.02em}
+.confirm-head p{color:var(--ink-2);margin-top:6px}
+.pass{width:100%;max-width:400px;background:var(--surface);border:1px solid var(--ink);border-radius:var(--r);font-family:var(--mono);color:var(--ink)}
+.pass-top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--ink);font-size:.6875rem;letter-spacing:.08em}
+.pass-top b{font-family:var(--sans);font-size:.8125rem;letter-spacing:.06em}
+.pass-route{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;padding:20px 18px 6px}
+.pass-route .code{font-size:2.5rem;font-weight:600;line-height:1}
+.pass-route .city{font-size:.6875rem;color:var(--ink-2);margin-top:6px;letter-spacing:.04em}
+.pass-route .arrow{font-size:1.25rem;padding:0 10px 18px;color:var(--ink-2)}
+.pass-route .r{text-align:right}
+.pass-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 12px;padding:18px}
+.pf .k{font-size:.625rem;letter-spacing:.12em;color:var(--ink-2)}
+.pf .v{font-size:.9375rem;font-weight:600;margin-top:2px;word-break:break-word}
+.pf.wide{grid-column:1/-1}
+.pass-tear{border-top:1px dashed var(--ink);margin:0 18px}
+.pass-bottom{display:flex;align-items:center;gap:16px;padding:18px}
+#bp-qr{width:104px;height:104px;flex:none;background:var(--surface)}
+#bp-qr img,#bp-qr canvas{width:100%!important;height:100%!important}
+.pass-bottom .pf .v{font-size:1.125rem}
+.pass-bottom p{font-size:.6875rem;color:var(--ink-2);margin-top:8px;line-height:1.45}
+.confirm-actions{width:100%;max-width:400px;display:grid;gap:10px}
+.saved{text-align:center;font-size:.875rem;font-weight:600;color:var(--ok);min-height:1.25em}
+.saved.warn{color:var(--err)}
+.linkbtn{background:none;border:0;text-decoration:underline;text-underline-offset:3px;color:var(--ink-2);cursor:pointer;font-size:.875rem;padding:8px;justify-self:center}
 
-  .reveal{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease}
-  .reveal.in{opacity:1;transform:none}
-  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.hero .plane-trail .plane,.board-row .st i{animation:none}}
+/* Partage */
+.share{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:22px 20px}
+#qr{width:120px;height:120px}
+#qr img,#qr canvas{width:100%!important;height:100%!important}
+.share h3{font-size:1.125rem}
+.share p{font-size:.9375rem;color:var(--ink-2);margin:4px 0 16px;max-width:52ch}
+@media (min-width:600px){.share{grid-template-columns:auto 1fr;gap:28px}}
+
+footer{border-top:1px solid var(--line);padding-block:28px 40px;font-size:.8125rem;color:var(--ink-2)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 
-<!-- ================= NAVIGATION ================= -->
 <header class="topbar">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Junior 40 Airways">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="#c9a36f" stroke-width="1.2"/><path d="M20 3 23.5 20 20 37 16.5 20Z" fill="#c9a36f"/><path d="M3 20 20 16.5 37 20 20 23.5Z" fill="#7a5932"/><circle cx="20" cy="20" r="2.5" fill="#0b1530" stroke="#efe5cf"/></svg>
-      <span><b>JUNIOR 40</b><small>AIRWAYS</small></span>
+    <a class="brand" href="#top" aria-label="Junior 40 Airways, retour en haut">
+      <span class="mark" aria-hidden="true">J40</span>
+      <b>JUNIOR 40 <span>Airways</span></b>
     </a>
-    <nav class="nav">
+    <nav class="nav" aria-label="Navigation principale">
       <a href="#vol">Mon vol</a>
+      <a href="#departs">Départs</a>
       <a href="#infos">Infos voyageurs</a>
-      <a class="cta" href="#reserver">Réserver</a>
+      <a class="btn" href="#checkin">Check-in</a>
     </nav>
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
-<div class="hero" id="top">
-  <svg class="globe" viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="#c9a36f" stroke-width=".8">
-    <circle cx="100" cy="100" r="96"/>
-    <ellipse cx="100" cy="100" rx="40" ry="96"/><ellipse cx="100" cy="100" rx="72" ry="96"/>
-    <path d="M4 100h192M14 56h172M14 144h172M40 24h120M40 176h120"/>
-  </svg>
-  <svg class="plane-trail" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
-    <path id="trail" d="M-40 100 C 250 10, 650 10, 1040 80" fill="none" stroke="#c9a36f" stroke-width="1.2" stroke-dasharray="4 8"/>
-  </svg>
+<main id="top">
+  <!-- ============ HERO + MODULE DE RÉSERVATION ============ -->
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Vol spécial J40 · Invitation</p>
+      <h1>JUNIOR 40<span>The Journey</span></h1>
+      <p class="sub">40 Years Around the World</p>
+      <p class="intro">Certaines destinations marquent une vie… Aujourd'hui, je vous invite à embarquer avec moi pour une soirée d'exception, à l'occasion de mes 40 ans.</p>
 
-  <div class="wrap hero-inner">
-    <span class="kicker"><i></i>Vol spécial · J40</span>
-    <h1>JUNIOR <em>40</em><br>THE JOURNEY</h1>
-    <p class="sub">40 YEARS AROUND THE WORLD</p>
-    <p class="intro">« Certaines destinations marquent une vie… Aujourd'hui, je vous invite à embarquer avec moi pour une soirée d'exception, à l'occasion de mes 40 ans. »</p>
-  </div>
-</div>
-
-<main class="wrap">
-
-  <!-- ================= WIDGET DE RECHERCHE ================= -->
-  <div class="search paper">
-    <div class="tabs" role="presentation">
-      <span class="tab on">✈ Aller simple</span>
-      <span class="tab">Première classe</span>
-    </div>
-    <div class="search-body">
-      <div class="fields">
-        <div class="f"><div class="k">Départ</div><div class="v">Votre quotidien</div><div class="s">Partout dans le monde</div></div>
-        <div class="swap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg></div>
-        <div class="f"><div class="k">Destination</div><div class="v">Abidjan (ABJ)</div><div class="s">Côte d'Ivoire</div></div>
+      <div class="booking" role="search" aria-label="Recherche de vol">
+        <div class="tabs" aria-hidden="true">
+          <span class="tab on">Aller simple</span>
+          <span class="tab">Classe Exception</span>
+        </div>
+        <div class="fields">
+          <div class="field"><div class="label">Départ</div><div class="v">Votre quotidien</div><div class="s">Partout dans le monde</div></div>
+          <div class="field"><div class="label">Destination</div><div class="v">Abidjan (ABJ)</div><div class="s">Côte d'Ivoire</div></div>
+          <div class="field"><div class="label">Date</div><div class="v">Dim. 20 déc. 2026</div><div class="s">Embarquement 19:00</div></div>
+          <div class="field"><div class="label">Passagers</div><div class="v">1 adulte</div><div class="s">Classe Exception</div></div>
+        </div>
+        <div class="booking-foot">
+          <p>Lieu exact communiqué après confirmation.</p>
+          <button class="btn" id="search-btn" type="button">Rechercher les vols</button>
+        </div>
       </div>
-      <div class="fields-2">
-        <div class="f"><div class="k">Date</div><div class="v">Dim. 20 déc.</div><div class="s">2026</div></div>
-        <div class="f"><div class="k">Embarquement</div><div class="v">19h00</div><div class="s">Heure locale</div></div>
-        <div class="f"><div class="k">Classe</div><div class="v">Exception</div><div class="s">Soirée des 40 ans</div></div>
-      </div>
-      <a class="btn block" href="#vol">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        Rechercher les vols
-      </a>
     </div>
   </div>
 
-  <!-- ================= RÉSULTAT DE VOL ================= -->
-  <section id="vol" class="reveal">
-    <div class="h2"><h2>Votre vol</h2><span>1 vol trouvé · le seul qui compte</span></div>
-    <article class="flight">
-      <div class="flight-top">
-        <span><b>Vol J40</b> · Junior 40 Airways</span>
-        <span class="badge red">● Places limitées</span>
+  <!-- ============ SÉLECTION DU VOL ============ -->
+  <section id="vol" aria-labelledby="vol-t">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="vol-t">Votre vol</h2>
+        <p>Dimanche 20 décembre 2026 · <span id="result-count">1 vol disponible</span></p>
       </div>
-      <div class="flight-main">
-        <div class="legs">
-          <div><div class="time">1986</div><div class="apt">DÉPART</div><div class="apt-s">Le début du voyage</div></div>
-          <div class="line">Vol direct
-            <div class="bar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg></div>
-            Durée : 40 ans
+      <p class="searching hidden" id="searching" role="status">Recherche des disponibilités…</p>
+      <article class="flight" id="flight">
+        <div class="flight-main">
+          <div class="carrier">
+            <span class="mark" aria-hidden="true">J40</span>
+            <div><b>Vol J40</b>Junior 40 Airways</div>
           </div>
-          <div style="text-align:right"><div class="time">19:00</div><div class="apt">ABJ</div><div class="apt-s">20 déc. 2026</div></div>
-        </div>
-        <div class="fare">
-          <div>
-            <div class="cls">Classe Exception</div>
-            <div class="price">Offert</div>
-            <div class="old">Votre présence suffit</div>
+          <div class="legs">
+            <div><div class="t tnum">1986</div><div class="p">Départ · Le voyage commence</div></div>
+            <div class="track">Direct<i aria-hidden="true"></i>Durée : 40 ans</div>
+            <div class="right"><div class="t tnum">19:00</div><div class="p">ABJ · 20 déc. 2026</div></div>
           </div>
-          <a class="btn" href="#reserver">Sélectionner</a>
+          <div class="fare">
+            <div>
+              <div class="label">Classe Exception</div>
+              <div class="price">Offert</div>
+              <div class="note">Votre présence suffit</div>
+            </div>
+            <a class="btn" href="#checkin">Sélectionner</a>
+          </div>
         </div>
-      </div>
-      <div class="amen">
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 22h8M12 15v7M5 3h14l-2 7a5 5 0 0 1-10 0Z"/></svg>Bar à bord</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11h18M5 11V7a7 7 0 0 1 14 0v4M4 15h16l-1 5H5Z"/></svg>Dîner d'exception</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Musique &amp; danse</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Destination secrète</span>
-      </div>
-    </article>
+        <div class="amen">Dîner · Bar à bord · Musique et danse · Lieu tenu secret</div>
+      </article>
+    </div>
   </section>
 
-  <!-- ================= TABLEAU DES DÉPARTS ================= -->
-  <section class="reveal" aria-labelledby="dep">
-    <div class="h2"><h2 id="dep">Départs</h2><span>Abidjan · heure locale</span></div>
-    <div class="board">
-      <div class="board-head"><span>Vol</span><span>Destination</span><span>Heure</span><span>Statut</span></div>
-      <div class="board-row"><span>J40</span><span>ABIDJAN</span><span>19:00</span><span class="st"><i></i>À L'HEURE</span></div>
-      <div class="cd" role="timer" aria-label="Compte à rebours avant le départ">
-        <div><b id="cd-d">--</b><small>Jours</small></div>
-        <div><b id="cd-h">--</b><small>Heures</small></div>
-        <div><b id="cd-m">--</b><small>Min</small></div>
-        <div><b id="cd-s">--</b><small>Sec</small></div>
+  <!-- ============ TABLEAU DES DÉPARTS ============ -->
+  <section id="departs" aria-labelledby="dep-t">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="dep-t">Départs</h2>
+        <p>Abidjan · heure locale (GMT)</p>
+      </div>
+      <div class="table-scroll">
+        <table class="board">
+          <thead><tr><th scope="col">Vol</th><th scope="col">Destination</th><th scope="col">Heure</th><th scope="col">Statut</th></tr></thead>
+          <tbody><tr><td>J40</td><td>ABIDJAN</td><td class="tnum">19:00</td><td class="status">À L'HEURE</td></tr></tbody>
+        </table>
+      </div>
+      <p class="countdown" id="countdown" aria-live="off">Décollage le dimanche 20 décembre 2026 à 19:00.</p>
+    </div>
+  </section>
+
+  <!-- ============ INFOS VOYAGEURS ============ -->
+  <section id="infos" aria-labelledby="inf-t">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="inf-t">Infos voyageurs</h2></div>
+      <div class="infos">
+        <div class="info"><h3>Porte d'embarquement</h3><p>Le lieu exact à Abidjan reste secret. Il vous sera communiqué après confirmation de votre présence.</p></div>
+        <div class="info"><h3>Embarquement à 19:00</h3><p>Dimanche 20 décembre 2026. Merci d'arriver à l'heure, l'équipage n'attend pas.</p></div>
+        <div class="info"><h3>Réponse avant le 10 novembre</h3><p>Votre confirmation permet de finaliser le traiteur. Un passager confirmé est un passager servi.</p></div>
+        <div class="info"><h3>Tenue de voyage</h3><p>Le dress code sera dévoilé prochainement.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ================= INFOS VOYAGEURS ================= -->
-  <section id="infos" class="reveal">
-    <div class="h2"><h2>Infos voyageurs</h2></div>
-    <div class="info-grid">
-      <div class="info">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-        <h3>Porte d'embarquement secrète</h3>
-        <p>Le lieu exact à Abidjan vous sera communiqué après confirmation de votre réservation.</p>
+  <!-- ============ CHECK-IN (RSVP) ============ -->
+  <section id="checkin" aria-labelledby="chk-t">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="chk-t">Check-in</h2>
+        <p>Confirmez votre présence avant le 10 novembre 2026.</p>
       </div>
-      <div class="info">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <h3>Embarquement à 19h00</h3>
-        <p>Dimanche 20 décembre 2026. Merci d'arriver à l'heure : l'avion n'attend pas !</p>
-      </div>
-      <div class="info">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.4 4.6 16 3l-2 2h-4L8 3 3.6 4.6 5 9l2-.5V21h10V8.5l2 .5Z"/></svg></div>
-        <h3>Tenue de voyage</h3>
-        <p>Le dress code sera dévoilé très bientôt. Restez connectés.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- ================= RÉSERVATION ================= -->
-  <section id="reserver" class="reveal">
-    <div class="h2"><h2>Réserver mon siège</h2><span>Confirmation de présence</span></div>
+      <div class="checkin" id="booking">
+        <div>
+          <div class="steps" aria-hidden="true"><span class="on">01 Passager</span><span>02 Carte d'embarquement</span></div>
+          <form id="rsvp-form" novalidate>
+            <div class="row2">
+              <div><label for="first">Prénom</label><input id="first" type="text" autocomplete="given-name" required></div>
+              <div><label for="last">Nom</label><input id="last" type="text" autocomplete="family-name" required></div>
+            </div>
 
-    <div id="booking" class="checkout">
-      <div class="card">
-        <div class="steps"><span class="on"><b>1</b>Passager</span><span><b>2</b>Carte d'embarquement</span></div>
-        <form id="rsvp-form" novalidate>
-          <div class="row2">
-            <div><label for="first">Prénom</label><input id="first" type="text" autocomplete="given-name" required></div>
-            <div><label for="last">Nom</label><input id="last" type="text" autocomplete="family-name" required></div>
+            <div>
+              <span class="lbl" id="pres-l">Serez-vous à bord ?</span>
+              <div class="seg" role="radiogroup" aria-labelledby="pres-l">
+                <input type="radio" name="presence" id="p-yes" value="oui" checked><label for="p-yes">Oui, j'embarque</label>
+                <input type="radio" name="presence" id="p-no" value="non"><label for="p-no">Je ne pourrai pas</label>
+              </div>
+            </div>
+
+            <div id="guests-row">
+              <span class="lbl" id="pax-l">Nombre de passagers, vous compris</span>
+              <div class="stepper" role="group" aria-labelledby="pax-l">
+                <button type="button" data-step="-1" aria-label="Retirer un passager">−</button>
+                <output id="pax" aria-live="polite">1</output>
+                <button type="button" data-step="1" aria-label="Ajouter un passager">+</button>
+              </div>
+            </div>
+
+            <div>
+              <label for="phone">Numéro WhatsApp</label>
+              <div class="phone-row">
+                <select id="cc" aria-label="Indicatif du pays">
+                  <option value="225" selected>CI +225</option>
+                  <option value="33">FR +33</option>
+                  <option value="1">CA +1</option>
+                  <option value="32">BE +32</option>
+                  <option value="41">CH +41</option>
+                  <option value="221">SN +221</option>
+                  <option value="226">BF +226</option>
+                  <option value="223">ML +223</option>
+                  <option value="228">TG +228</option>
+                  <option value="229">BJ +229</option>
+                  <option value="237">CM +237</option>
+                  <option value="44">UK +44</option>
+                  <option value="">Autre</option>
+                </select>
+                <input id="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="07 00 00 00 00">
+              </div>
+              <p class="hint">Pour recevoir votre carte d'embarquement et le lieu de la soirée.</p>
+            </div>
+
+            <div><label for="note">Message pour Junior (facultatif)</label><textarea id="note" placeholder="Un mot, une allergie, un souvenir de voyage"></textarea></div>
+
+            <p class="err" id="err" role="alert"></p>
+            <button class="btn block" type="submit" id="submit-btn">Confirmer ma présence</button>
+          </form>
+        </div>
+
+        <aside class="summary" aria-label="Récapitulatif">
+          <h3>Récapitulatif</h3>
+          <dl>
+            <dt>Vol</dt><dd>J40 · Direct</dd>
+            <dt>Destination</dt><dd>Abidjan (ABJ)</dd>
+            <dt>Date</dt><dd>20.12.2026</dd>
+            <dt>Embarquement</dt><dd>19:00</dd>
+            <dt>Passagers</dt><dd id="sum-pax">1</dd>
+            <div class="total" style="display:contents"><dt>Total</dt><dd>Offert</dd></div>
+          </dl>
+          <p class="deadline">Réponse souhaitée avant le <b>10 novembre 2026</b>, pour finaliser le traiteur.</p>
+        </aside>
+      </div>
+
+      <!-- Confirmation -->
+      <div class="confirm hidden" id="confirmation" tabindex="-1">
+        <div class="confirm-head">
+          <h3 id="conf-title">Bienvenue à bord</h3>
+          <p id="conf-text">Votre siège est réservé.</p>
+        </div>
+
+        <div class="pass" id="bp">
+          <div class="pass-top"><b>JUNIOR 40 AIRWAYS</b><span>CARTE D'EMBARQUEMENT</span></div>
+          <div class="pass-route">
+            <div><div class="code">J40</div><div class="city">40 ANS DE VOYAGE</div></div>
+            <div class="arrow" aria-hidden="true">→</div>
+            <div class="r"><div class="code">ABJ</div><div class="city">ABIDJAN</div></div>
           </div>
-          <div>
-            <span class="lbl" id="pres-l">Serez-vous du voyage ?</span>
-            <div class="choice" role="radiogroup" aria-labelledby="pres-l">
-              <input type="radio" name="presence" id="p-yes" value="oui" checked><label for="p-yes">Oui, j'embarque</label>
-              <input type="radio" name="presence" id="p-no" value="non"><label for="p-no">Je ne pourrai pas</label>
+          <div class="pass-grid">
+            <div class="pf wide"><div class="k">PASSAGER</div><div class="v" id="bp-name">—</div></div>
+            <div class="pf"><div class="k">DATE</div><div class="v">20 DÉC 26</div></div>
+            <div class="pf"><div class="k">EMBARQ.</div><div class="v">19:00</div></div>
+            <div class="pf"><div class="k">PAX</div><div class="v" id="bp-pax">1</div></div>
+            <div class="pf"><div class="k">CLASSE</div><div class="v">EXCEPTION</div></div>
+            <div class="pf"><div class="k">SIÈGE</div><div class="v" id="bp-seat">—</div></div>
+            <div class="pf"><div class="k">PORTE</div><div class="v">SECRÈTE</div></div>
+          </div>
+          <div class="pass-tear" aria-hidden="true"></div>
+          <div class="pass-bottom">
+            <div id="bp-qr" role="img" aria-label="QR code de la carte d'embarquement"></div>
+            <div>
+              <div class="pf"><div class="k">RÉFÉRENCE</div><div class="v" id="bp-ref">—</div></div>
+              <p>Lieu communiqué avant le départ. Présentez cette carte à l'embarquement.</p>
             </div>
           </div>
-          <div id="guests-row">
-            <span class="lbl" id="pax-l">Nombre de passagers (vous compris)</span>
-            <div class="stepper" aria-labelledby="pax-l">
-              <button type="button" data-step="-1" aria-label="Retirer un passager">−</button>
-              <output id="pax" aria-live="polite">1</output>
-              <button type="button" data-step="1" aria-label="Ajouter un passager">+</button>
-            </div>
-          </div>
-          <div>
-            <label for="phone">Numéro WhatsApp</label>
-            <div class="phone-row">
-              <select id="cc" aria-label="Indicatif du pays">
-                <option value="225" selected>🇨🇮 +225</option>
-                <option value="33">🇫🇷 +33</option>
-                <option value="1">🇨🇦 +1</option>
-                <option value="32">🇧🇪 +32</option>
-                <option value="41">🇨🇭 +41</option>
-                <option value="221">🇸🇳 +221</option>
-                <option value="226">🇧🇫 +226</option>
-                <option value="223">🇲🇱 +223</option>
-                <option value="228">🇹🇬 +228</option>
-                <option value="229">🇧🇯 +229</option>
-                <option value="237">🇨🇲 +237</option>
-                <option value="44">🇬🇧 +44</option>
-                <option value="">Autre (+…)</option>
-              </select>
-              <input id="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="07 00 00 00 00">
-            </div>
-            <p class="hint">Pour recevoir votre carte d'embarquement et le lieu secret.</p>
-          </div>
-          <div><label for="note">Message pour Junior (facultatif)</label><textarea id="note" placeholder="Un mot, une allergie, un souvenir de voyage…"></textarea></div>
-          <p class="err" id="err" role="alert"></p>
-          <button class="btn dark block" type="submit">Confirmer ma réservation
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-        </form>
-      </div>
-
-      <aside class="card summary paper">
-        <h3>Récapitulatif du voyage</h3>
-        <div class="sum-row"><span>Vol</span><span>J40 · Direct</span></div>
-        <div class="sum-row"><span>Destination</span><span>Abidjan (ABJ)</span></div>
-        <div class="sum-row"><span>Date</span><span>Dim. 20 déc. 2026</span></div>
-        <div class="sum-row"><span>Embarquement</span><span>19h00</span></div>
-        <div class="sum-row"><span>Passagers</span><span id="sum-pax">1</span></div>
-        <div class="sum-total"><span>Total</span><b>Offert</b></div>
-        <div class="deadline">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          <span>Réservation avant le <b>10 novembre 2026</b>, pour finaliser le traiteur.</span>
         </div>
-      </aside>
-    </div>
 
-    <!-- Confirmation : carte d'embarquement générée -->
-    <div id="confirmation" class="hidden" tabindex="-1">
-      <div class="confirm-txt">
-        <h3 id="conf-title">Réservation presque terminée ✈️</h3>
-        <p id="conf-text">Dernière étape : envoyez votre confirmation à Junior sur WhatsApp.</p>
-      </div>
-      <div class="bp paper" id="bp">
-        <div class="bp-head"><b>BOARDING PASS</b><small>JUNIOR 40 AIRWAYS</small></div>
-        <div class="bp-body">
-          <div class="route">
-            <div><div class="code">J40</div></div>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>
-            <div style="text-align:right"><div class="code">ABJ</div></div>
-          </div>
-          <div class="bp-f wide"><div class="k">Passager</div><div class="v" id="bp-name">—</div></div>
-          <div class="bp-f"><div class="k">Date</div><div class="v">20 DÉC 26</div></div>
-          <div class="bp-f"><div class="k">Embarq.</div><div class="v">19:00</div></div>
-          <div class="bp-f"><div class="k">Pax</div><div class="v" id="bp-pax">1</div></div>
-          <div class="bp-f"><div class="k">Classe</div><div class="v">EXCEPTION</div></div>
-          <div class="bp-f"><div class="k">Siège</div><div class="v" id="bp-seat">—</div></div>
-          <div class="bp-f"><div class="k">Porte</div><div class="v">SECRÈTE</div></div>
+        <div class="confirm-actions">
+          <p class="saved" id="saved" role="status"></p>
+          <a class="btn block" id="wa-self" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 1.9 17.7L.5 23.5l6-1.6A11.8 11.8 0 0 0 20.5 3.5ZM12 21.3a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.6.9 1-3.5-.2-.4a9.8 9.8 0 1 1 8.2 4.6Zm5.4-7.3c-.3-.2-1.8-.9-2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8 8 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.6-.4Z"/></svg>
+            Recevoir ma carte sur WhatsApp
+          </a>
+          <button class="btn ghost block" id="save-img" type="button">Enregistrer la carte en image</button>
+          <a class="btn ghost block hidden" id="wa-host" href="#" target="_blank" rel="noopener">Prévenir Junior sur WhatsApp</a>
+          <a class="btn ghost block hidden" id="see-invite" href="./">Voir l'invitation</a>
+          <button class="linkbtn" id="edit" type="button">Modifier ma réponse</button>
         </div>
-        <div class="bp-perf" aria-hidden="true"></div>
-        <div class="bp-stub"><div class="barcode" aria-hidden="true"></div><div class="bp-f" style="text-align:right"><div class="k">Réf.</div><div class="v" id="bp-ref">—</div></div></div>
-      </div>
-      <div class="confirm-actions">
-        <p class="saved" id="saved" role="status"></p>
-        <a class="btn wa block" id="wa-self" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 1.9 17.7L.5 23.5l6-1.6A11.8 11.8 0 0 0 20.5 3.5ZM12 21.3a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.6.9 1-3.5-.2-.4a9.8 9.8 0 1 1 8.2 4.6Zm5.4-7.3c-.3-.2-1.8-.9-2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8 8 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.6-.4Z"/></svg>
-          Recevoir ma carte sur WhatsApp
-        </a>
-        <button class="btn dark block" id="save-img" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></svg>
-          Enregistrer ma carte (image)
-        </button>
-        <a class="btn dark block hidden" id="wa-host" href="#" target="_blank" rel="noopener">Prévenir Junior sur WhatsApp</a>
-        <a class="btn block hidden" id="see-invite" href="./">Voir l'invitation</a>
-        <button class="link-btn" id="edit" type="button">Modifier ma réservation</button>
       </div>
     </div>
   </section>
 
-  <!-- ================= ENREGISTREMENT MOBILE (QR) ================= -->
-  <section class="reveal">
-    <div class="checkin">
-      <div id="qr" role="img" aria-label="QR code vers la réservation"></div>
-      <div>
-        <h3>Enregistrement mobile</h3>
-        <p>Scannez ce QR code pour accéder directement à la réservation, ou partagez l'invitation à un autre passager.</p>
-        <button class="ghost" id="share" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
-          Partager l'invitation
-        </button>
+  <!-- ============ PARTAGE ============ -->
+  <section aria-labelledby="sh-t">
+    <div class="wrap">
+      <div class="share">
+        <div id="qr" role="img" aria-label="QR code vers le check-in"></div>
+        <div>
+          <h3 id="sh-t">Enregistrement mobile</h3>
+          <p>Scannez ce code pour accéder directement au check-in, ou transmettez l'invitation à un autre passager.</p>
+          <button class="btn ghost" id="share" type="button">Partager l'invitation</button>
+        </div>
       </div>
     </div>
   </section>
@@ -527,8 +492,8 @@
 
 <footer>
   <div class="wrap">
-    <span class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="#c9a36f" stroke-width="1.2"/><path d="M20 3 23.5 20 20 37 16.5 20Z" fill="#c9a36f"/><path d="M3 20 20 16.5 37 20 20 23.5Z" fill="#7a5932"/></svg><b>JUNIOR 40 AIRWAYS</b></span>
-    <span>Vol J40 · Abidjan · 20.12.2026</span>
+    <span>Junior 40 Airways · Vol J40</span>
+    <span class="mono">ABJ · 20.12.2026 · 19:00</span>
   </div>
 </footer>
 
@@ -536,10 +501,9 @@
 <script>
 /* =========================================================
    RÉGLAGES
-   sheetUrl : adresse de l'application Web Google Apps Script
-              (se termine par /exec) — enregistre chaque réservation
-   whatsapp : (facultatif) numéro de Junior / de l'organisatrice,
-              format international SANS « + » ni espaces
+   sheetUrl : application Web Google Apps Script (…/exec)
+   whatsapp : (facultatif) numéro de l'organisateur, format
+              international sans « + » ni espaces
    ========================================================= */
 const CONFIG = {
   sheetUrl: "https://script.google.com/macros/s/AKfycbxkDprsgSryYhJYQquUvGuAAPR9KwGMOEgibTswWxqXDX3aB2H9wRiGv0LXmX5N2MN6cg/exec",
@@ -547,36 +511,36 @@ const CONFIG = {
   event: new Date("2026-12-20T19:00:00Z")   // Abidjan = GMT
 };
 
-/* Compte à rebours */
-(function(){
-  const pad = n => String(n).padStart(2,"0");
-  const $ = id => document.getElementById(id);
-  function tick(){
-    let t = Math.max(0, CONFIG.event - Date.now()) / 1000;
-    const D = Math.floor(t/86400); t -= D*86400;
-    const H = Math.floor(t/3600);  t -= H*3600;
-    const M = Math.floor(t/60), S = Math.floor(t - M*60);
-    $("cd-d").textContent = D; $("cd-h").textContent = pad(H);
-    $("cd-m").textContent = pad(M); $("cd-s").textContent = pad(S);
-  }
-  tick(); setInterval(tick, 1000);
-})();
-
-/* Apparition au défilement */
-(function(){
-  const items = document.querySelectorAll(".reveal");
-  if (!("IntersectionObserver" in window)) { items.forEach(e => e.classList.add("in")); return; }
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12});
-  items.forEach(e => io.observe(e));
-})();
-
-/* ---------- Outils carte d'embarquement ---------- */
 const $ = id => document.getElementById(id);
 const BASE_URL = location.origin + location.pathname;
+const INK = "#131D28", SURFACE = "#FBF7EE";
 
+/* ---------- Compte à rebours textuel ---------- */
+(function(){
+  function tick(){
+    const ms = CONFIG.event - Date.now();
+    if (ms <= 0) { $("countdown").innerHTML = "Statut : <b>embarquement en cours</b>."; return; }
+    const m = Math.floor(ms / 60000), d = Math.floor(m / 1440), h = Math.floor((m % 1440) / 60), mn = m % 60;
+    $("countdown").innerHTML = "Décollage dans <b>" + d + " jour" + (d > 1 ? "s" : "") + "</b>, " + h + " h " + String(mn).padStart(2, "0") + " min.";
+  }
+  tick(); setInterval(tick, 30000);
+})();
+
+/* ---------- Simulation de recherche ---------- */
+$("search-btn").addEventListener("click", () => {
+  const btn = $("search-btn");
+  btn.disabled = true; btn.textContent = "Recherche…";
+  $("flight").classList.add("hidden"); $("searching").classList.remove("hidden");
+  $("vol").scrollIntoView({behavior: "smooth"});
+  setTimeout(() => {
+    $("searching").classList.add("hidden"); $("flight").classList.remove("hidden");
+    btn.disabled = false; btn.textContent = "Rechercher les vols";
+  }, 900);
+});
+
+/* ---------- Carte d'embarquement : outils ---------- */
 function encodePass(p){
-  const json = JSON.stringify(p);
-  return btoa(unescape(encodeURIComponent(json))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+  return btoa(unescape(encodeURIComponent(JSON.stringify(p)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
 }
 function decodePass(s){
   try {
@@ -587,109 +551,95 @@ function decodePass(s){
 }
 function passLink(p){ return BASE_URL + "?bp=" + encodePass(p); }
 
+function makeQR(el, text, size){
+  el.innerHTML = "";
+  try { new QRCode(el, {text, width: size, height: size, colorDark: INK, colorLight: SURFACE, correctLevel: QRCode.CorrectLevel.M}); return true; }
+  catch (_) { return false; }
+}
+
 function fillPass(p){
   $("bp-name").textContent = p.n.toUpperCase();
   $("bp-pax").textContent = p.p;
   $("bp-seat").textContent = p.s;
   $("bp-ref").textContent = p.r;
+  makeQR($("bp-qr"), passLink(p), 208);
 }
 
-/* Dessine la carte d'embarquement en image (1080 × 1350) */
+/* Image de la carte (1080 × 1350), même style que la carte à l'écran */
 async function passImage(p){
   try { await document.fonts.ready; } catch(_){}
   const W = 1080, H = 1350, c = document.createElement("canvas");
   c.width = W; c.height = H;
   const g = c.getContext("2d");
-  const navy="#0b1530", bronze="#a97f4f", bronzeL="#c9a36f", bronzeD="#7a5932", paper="#f6efdf", ink="#0b1530";
-  const disp = w => `700 ${w}px Cinzel, Georgia, serif`;
-  const sans = (w, s) => `${w} ${s}px Manrope, Arial, sans-serif`;
+  const mono = (w, s) => `${w} ${s}px "IBM Plex Mono", Menlo, monospace`;
+  const sans = (w, s) => `${w} ${s}px Inter, "Helvetica Neue", Arial, sans-serif`;
+  const MUTED = "#4E5763";
 
-  // fond
-  const bg = g.createLinearGradient(0,0,0,H); bg.addColorStop(0,"#0b1530"); bg.addColorStop(1,"#1a2b5c");
-  g.fillStyle = bg; g.fillRect(0,0,W,H);
-  g.strokeStyle = "rgba(201,163,111,.08)"; g.lineWidth = 1;
-  for (let x=0; x<W; x+=72){ g.beginPath(); g.moveTo(x,0); g.lineTo(x,H); g.stroke(); }
-  for (let y=0; y<H; y+=72){ g.beginPath(); g.moveTo(0,y); g.lineTo(W,y); g.stroke(); }
+  g.fillStyle = "#EFE5CF"; g.fillRect(0, 0, W, H);
+  g.fillStyle = INK; g.font = sans(700, 30); g.textAlign = "left";
+  g.fillText("JUNIOR 40", 120, 120);
+  g.fillStyle = MUTED; g.font = sans(400, 30); g.fillText("Airways", 120 + g.measureText("JUNIOR 40 ").width + 10, 120);
 
-  // titre
-  g.textAlign = "center";
-  g.fillStyle = bronzeL; g.font = sans(700, 26); g.fillText("JUNIOR 40 AIRWAYS  ·  VOL J40", W/2, 110);
-  g.fillStyle = "#efe5cf"; g.font = disp(64); g.fillText("THE JOURNEY", W/2, 190);
+  const x0 = 120, y0 = 180, cw = W - 240, ch = 1040;
+  g.fillStyle = SURFACE; g.fillRect(x0, y0, cw, ch);
+  g.strokeStyle = INK; g.lineWidth = 2; g.strokeRect(x0 + 1, y0 + 1, cw - 2, ch - 2);
 
-  // carte
-  const x0=80, y0=250, cw=W-160, ch=980, r=28;
-  const rr = (x,y,w,h,rad) => { g.beginPath(); g.moveTo(x+rad,y); g.arcTo(x+w,y,x+w,y+h,rad); g.arcTo(x+w,y+h,x,y+h,rad); g.arcTo(x,y+h,x,y,rad); g.arcTo(x,y,x+w,y,rad); g.closePath(); };
-  g.save(); g.shadowColor="rgba(0,0,0,.45)"; g.shadowBlur=40; g.shadowOffsetY=16;
-  rr(x0,y0,cw,ch,r); g.fillStyle=paper; g.fill(); g.restore();
-  g.save(); rr(x0,y0,cw,ch,r); g.clip();
-  g.fillStyle = navy; g.fillRect(x0,y0,cw,110);
-  g.fillStyle = bronze; g.fillRect(x0,y0+110,cw,8);
-  g.restore();
-  g.textAlign = "left"; g.fillStyle="#efe5cf"; g.font = disp(38); g.fillText("BOARDING PASS", x0+44, y0+70);
-  g.textAlign = "right"; g.fillStyle=bronzeL; g.font = sans(700,22); g.fillText("VOL J40 · ABIDJAN", x0+cw-44, y0+68);
+  g.fillStyle = INK; g.font = sans(700, 24); g.fillText("JUNIOR 40 AIRWAYS", x0 + 40, y0 + 62);
+  g.textAlign = "right"; g.font = mono(500, 20); g.fillText("CARTE D'EMBARQUEMENT", x0 + cw - 40, y0 + 62);
+  g.fillRect(x0, y0 + 100, cw, 2);
 
-  // route
-  g.textAlign="left"; g.fillStyle=ink; g.font=disp(120); g.fillText("J40", x0+44, y0+290);
-  g.textAlign="right"; g.fillText("ABJ", x0+cw-44, y0+290);
-  g.textAlign="left"; g.fillStyle="#555a6b"; g.font=sans(500,24);
-  g.fillText("40 ans de voyage", x0+48, y0+335);
-  g.textAlign="right"; g.fillText("Abidjan, Côte d'Ivoire", x0+cw-48, y0+335);
-  g.strokeStyle=bronze; g.lineWidth=3; g.setLineDash([12,10]);
-  g.beginPath(); g.moveTo(x0+340,y0+250); g.lineTo(x0+cw-340,y0+250); g.stroke(); g.setLineDash([]);
-  g.save(); g.translate(W/2, y0+250); g.fillStyle=bronzeD;
-  g.fill(new Path2D("M0,-34 L6,-8 L34,8 L34,14 L6,6 L4,24 L12,30 L12,34 L0,30 L-12,34 L-12,30 L-4,24 L-6,6 L-34,14 L-34,8 L-6,-8 Z"));
-  g.restore();
+  g.textAlign = "left"; g.font = mono(600, 104); g.fillText("J40", x0 + 40, y0 + 240);
+  g.textAlign = "right"; g.fillText("ABJ", x0 + cw - 40, y0 + 240);
+  g.fillStyle = MUTED; g.font = mono(400, 20);
+  g.textAlign = "left"; g.fillText("40 ANS DE VOYAGE", x0 + 44, y0 + 280);
+  g.textAlign = "right"; g.fillText("ABIDJAN", x0 + cw - 44, y0 + 280);
+  g.textAlign = "center"; g.font = mono(400, 52); g.fillText("→", x0 + cw / 2, y0 + 225);
 
-  // champs
-  const field = (k, v, x, y, align="left") => {
-    g.textAlign=align; g.fillStyle=bronzeD; g.font=sans(700,22); g.fillText(k, x, y);
-    g.fillStyle=ink; g.font=sans(800,40); g.fillText(v, x, y+52);
+  const field = (k, v, x, y) => {
+    g.textAlign = "left"; g.fillStyle = MUTED; g.font = mono(500, 18); g.fillText(k, x, y);
+    g.fillStyle = INK; g.font = mono(600, 34); g.fillText(v, x, y + 46);
   };
-  let name = p.n.toUpperCase(); g.font = sans(800,40);
-  while (g.measureText(name).width > cw-100 && name.length > 4) name = name.slice(0,-2);
+  let name = p.n.toUpperCase(); g.font = mono(600, 34);
+  while (g.measureText(name).width > cw - 80 && name.length > 4) name = name.slice(0, -1);
   if (name !== p.n.toUpperCase()) name = name.trim() + "…";
-  field("PASSAGER", name, x0+44, y0+420);
-  const col = [x0+44, x0+44+cw/3, x0+44+2*cw/3];
-  field("DATE", "20 DÉC 2026", col[0], y0+540);
-  field("EMBARQUEMENT", "19:00", col[1], y0+540);
-  field("PASSAGERS", String(p.p), col[2], y0+540);
-  field("SIÈGE", p.s, col[0], y0+660);
-  field("PORTE", "SECRÈTE", col[1], y0+660);
-  field("CLASSE", "EXCEPTION", col[2], y0+660);
+  field("PASSAGER", name, x0 + 40, y0 + 360);
+  const col = [x0 + 40, x0 + 40 + (cw - 80) / 3, x0 + 40 + 2 * (cw - 80) / 3];
+  field("DATE", "20 DÉC 26", col[0], y0 + 480);
+  field("EMBARQ.", "19:00", col[1], y0 + 480);
+  field("PAX", String(p.p), col[2], y0 + 480);
+  field("CLASSE", "EXCEPTION", col[0], y0 + 590);
+  field("SIÈGE", p.s, col[1], y0 + 590);
+  field("PORTE", "SECRÈTE", col[2], y0 + 590);
 
-  // perforation
-  const py = y0+780;
-  g.fillStyle = "#13214a";
-  g.beginPath(); g.arc(x0, py, 26, 0, Math.PI*2); g.fill();
-  g.beginPath(); g.arc(x0+cw, py, 26, 0, Math.PI*2); g.fill();
-  g.strokeStyle="rgba(122,89,50,.5)"; g.lineWidth=3; g.setLineDash([14,12]);
-  g.beginPath(); g.moveTo(x0+40,py); g.lineTo(x0+cw-40,py); g.stroke(); g.setLineDash([]);
+  g.strokeStyle = INK; g.lineWidth = 2; g.setLineDash([10, 8]);
+  g.beginPath(); g.moveTo(x0 + 40, y0 + 700); g.lineTo(x0 + cw - 40, y0 + 700); g.stroke(); g.setLineDash([]);
 
-  // code-barres pseudo-aléatoire depuis la référence
-  let seed = 0; for (const ch of p.r + p.n) seed = (seed*31 + ch.charCodeAt(0)) >>> 0;
-  let bx = x0+44; g.fillStyle = ink;
-  while (bx < x0+560){ seed = (seed*1103515245 + 12345) >>> 0; const w = 2 + (seed>>>8)%5; if ((seed>>>4)%3) g.fillRect(bx, py+45, w, 110); bx += w + 2 + (seed>>>12)%4; }
-  g.textAlign="right"; g.fillStyle=bronzeD; g.font=sans(700,22); g.fillText("RÉFÉRENCE", x0+cw-44, py+70);
-  g.fillStyle=ink; g.font=disp(46); g.fillText(p.r, x0+cw-44, py+130);
+  const tmp = document.createElement("div");
+  if (makeQR(tmp, passLink(p), 260)) {
+    const q = tmp.querySelector("canvas");
+    if (q) g.drawImage(q, x0 + 40, y0 + 740, 260, 260);
+  }
+  field("RÉFÉRENCE", p.r, x0 + 340, y0 + 800);
+  g.fillStyle = MUTED; g.font = mono(400, 20);
+  g.fillText("Lieu communiqué avant le départ.", x0 + 340, y0 + 920);
+  g.fillText("Présentez cette carte à l'embarquement.", x0 + 340, y0 + 952);
 
-  // pied
-  g.textAlign="center"; g.fillStyle=bronzeL; g.font=sans(600,24);
-  g.fillText("Le lieu secret vous sera communiqué avant le départ", W/2, 1290);
+  g.textAlign = "center"; g.fillStyle = MUTED; g.font = sans(500, 22);
+  g.fillText("Dimanche 20 décembre 2026 · Abidjan", W / 2, H - 70);
   return new Promise(res => c.toBlob(res, "image/png"));
 }
 
 /* Numéro WhatsApp au format international */
 function toIntl(cc, raw){
-  let d = (raw || "").replace(/[^\d+]/g,"");
+  let d = (raw || "").replace(/[^\d+]/g, "");
   if (d.startsWith("+")) return d.slice(1);
   if (d.startsWith("00")) return d.slice(2);
   if (!cc) return d;
-  // Côte d'Ivoire : on garde le 0 (numéros à 10 chiffres). Ailleurs : on le retire.
-  if (cc !== "225") d = d.replace(/^0+/,"");
+  if (cc !== "225") d = d.replace(/^0+/, "");   // Côte d'Ivoire : le 0 fait partie du numéro
   return cc + d;
 }
 
-/* Réservation (RSVP) */
+/* ---------- Check-in (RSVP) ---------- */
 (function(){
   const form = $("rsvp-form");
   let pax = 1, current = null;
@@ -707,97 +657,80 @@ function toIntl(cc, raw){
   function showConfirmation(){
     $("booking").classList.add("hidden");
     $("confirmation").classList.remove("hidden");
-    $("confirmation").focus({preventScroll:true});
-    $("reserver").scrollIntoView({behavior:"smooth"});
+    $("confirmation").focus({preventScroll: true});
+    $("checkin").scrollIntoView({behavior: "smooth"});
   }
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
     $("err").textContent = "";
     const first = $("first").value.trim(), last = $("last").value.trim();
-    if (!first || !last) { $("err").textContent = "Merci d'indiquer votre prénom et votre nom."; (first ? $("last") : $("first")).focus(); return; }
+    if (!first || !last) { $("err").textContent = "Indiquez votre prénom et votre nom."; (first ? $("last") : $("first")).focus(); return; }
 
     const yes = form.presence.value === "oui";
     const rawPhone = $("phone").value.trim();
-    const digits = rawPhone.replace(/\D/g,"");
-    if (yes && digits.length < 8) { $("err").textContent = "Merci d'indiquer votre numéro WhatsApp pour recevoir votre carte."; $("phone").focus(); return; }
-    const phone = digits ? toIntl($("cc").value, rawPhone) : "";
+    if (yes && rawPhone.replace(/\D/g, "").length < 8) { $("err").textContent = "Indiquez votre numéro WhatsApp pour recevoir votre carte."; $("phone").focus(); return; }
+    const phone = rawPhone.replace(/\D/g, "") ? toIntl($("cc").value, rawPhone) : "";
     const note = $("note").value.trim();
     const full = first + " " + last;
 
-    // Siège et référence stables pour un même nom
-    let h = 0; for (const c of full.toUpperCase()) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    let h = 0; for (const ch of full.toUpperCase()) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
     const seat = (1 + h % 12) + "ABCDEF"[h % 6];
-    const ref = "J40-" + (h % 46656).toString(36).toUpperCase().padStart(3,"0") + (yes ? pax : 0);
+    const ref = "J40-" + (h % 46656).toString(36).toUpperCase().padStart(3, "0") + (yes ? pax : 0);
 
-    // 1) Enregistrement dans Google Sheets
-    const btn = form.querySelector("button[type=submit]");
-    btn.disabled = true; btn.style.opacity = .7;
+    // 1) Enregistrement Google Sheets
+    const btn = $("submit-btn");
+    btn.disabled = true; btn.textContent = "Enregistrement…";
     let saved = false;
     if (CONFIG.sheetUrl) {
       try {
         await fetch(CONFIG.sheetUrl, {
           method: "POST", mode: "no-cors",
           headers: {"Content-Type": "text/plain;charset=utf-8"},
-          body: JSON.stringify({
-            reference: ref, prenom: first, nom: last,
-            presence: yes ? "Oui" : "Non", passagers: yes ? pax : 0,
-            siege: yes ? seat : "", telephone: phone ? "+" + phone : "", message: note
-          })
+          body: JSON.stringify({reference: ref, prenom: first, nom: last, presence: yes ? "Oui" : "Non",
+            passagers: yes ? pax : 0, siege: yes ? seat : "", telephone: phone ? "+" + phone : "", message: note})
         });
         saved = true;
       } catch (_) { saved = false; }
     }
-    btn.disabled = false; btn.style.opacity = "";
+    btn.disabled = false; btn.textContent = "Confirmer ma présence";
 
-    const s = $("saved");
-    s.classList.toggle("warn", CONFIG.sheetUrl && !saved);
-    s.textContent = !CONFIG.sheetUrl ? "" : saved ? "✓ Réservation enregistrée" : "La connexion a échoué. Réessayez dans un instant.";
-    if (CONFIG.sheetUrl && !saved) return;
+    if (CONFIG.sheetUrl && !saved) { $("err").textContent = "La connexion a échoué. Vérifiez votre réseau, puis réessayez."; return; }
+    $("saved").textContent = CONFIG.sheetUrl ? "Réponse enregistrée" : "";
 
     // 2) Carte d'embarquement
-    $("see-invite").classList.add("hidden");
-    $("edit").classList.remove("hidden");
+    $("see-invite").classList.add("hidden"); $("edit").classList.remove("hidden");
     if (!yes) {
-      $("bp").classList.add("hidden");
-      $("wa-self").classList.add("hidden");
-      $("save-img").classList.add("hidden");
+      current = null;
+      ["bp", "wa-self", "save-img"].forEach(id => $(id).classList.add("hidden"));
       $("conf-title").textContent = "Merci pour votre réponse";
-      $("conf-text").textContent = "Junior sera triste de ne pas vous avoir à bord, mais votre réponse a bien été transmise.";
+      $("conf-text").textContent = "Junior regrettera de ne pas vous avoir à bord. Votre réponse a bien été transmise.";
     } else {
       current = {n: full, p: pax, s: seat, r: ref};
       fillPass(current);
-      $("bp").classList.remove("hidden");
-      $("wa-self").classList.remove("hidden");
-      $("save-img").classList.remove("hidden");
-      $("conf-title").textContent = "Bienvenue à bord, " + first + " ✈️";
-      $("conf-text").textContent = "Votre siège est réservé. Envoyez-vous votre carte d'embarquement sur WhatsApp pour la garder avec vous.";
-
+      ["bp", "wa-self", "save-img"].forEach(id => $(id).classList.remove("hidden"));
+      $("conf-title").textContent = "Bienvenue à bord, " + first;
+      $("conf-text").textContent = "Votre siège est réservé. Envoyez-vous la carte sur WhatsApp pour la garder avec vous.";
       const msg = [
-        "✈️ *JUNIOR 40 AIRWAYS – CARTE D'EMBARQUEMENT*",
+        "*JUNIOR 40 AIRWAYS · CARTE D'EMBARQUEMENT*",
         "",
-        "Passager : *" + full + "*",
+        "Passager : " + full,
         "Vol J40 · Abidjan (ABJ)",
-        "📅 Dimanche 20 décembre 2026",
-        "🕖 Embarquement : 19h00",
-        "💺 Siège " + seat + " · " + pax + " passager" + (pax > 1 ? "s" : ""),
-        "🔒 Porte : secrète, communiquée avant le départ",
+        "Date : dimanche 20 décembre 2026",
+        "Embarquement : 19:00",
+        "Siège : " + seat + " · Pax : " + pax,
+        "Porte : secrète, communiquée avant le départ",
         "Réf. " + ref,
         "",
-        "Ma carte d'embarquement :",
-        passLink(current)
+        "Ma carte : " + passLink(current)
       ].join("\n");
       $("wa-self").href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
     }
 
     if (CONFIG.whatsapp) {
-      const hostMsg = [
-        "✈️ *JUNIOR 40 – Réponse à l'invitation*",
-        "Passager : " + full,
-        "Présence : " + (yes ? "Oui ✅ (" + pax + " pers.)" : "Non"),
-        phone ? "Téléphone : +" + phone : "",
-        note ? "Message : " + note : "",
-        yes ? "Réf. " + ref : ""
+      const hostMsg = ["*JUNIOR 40 · Réponse à l'invitation*", "Passager : " + full,
+        "Présence : " + (yes ? "Oui (" + pax + " pers.)" : "Non"),
+        phone ? "Téléphone : +" + phone : "", note ? "Message : " + note : "", yes ? "Réf. " + ref : ""
       ].filter(Boolean).join("\n");
       $("wa-host").href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(hostMsg);
       $("wa-host").classList.remove("hidden");
@@ -810,7 +743,8 @@ function toIntl(cc, raw){
     const blob = await passImage(current);
     const file = new File([blob], "carte-embarquement-J40.png", {type: "image/png"});
     if (navigator.canShare && navigator.canShare({files: [file]})) {
-      try { await navigator.share({files: [file], title: "Carte d'embarquement J40", text: "Ma carte d'embarquement – JUNIOR 40 ✈️"}); return; } catch (_) { return; }
+      try { await navigator.share({files: [file], title: "Carte d'embarquement J40"}); } catch (_) {}
+      return;
     }
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob); a.download = file.name;
@@ -825,35 +759,26 @@ function toIntl(cc, raw){
   });
 
   // Ouverture d'une carte personnelle (?bp=…)
-  const bp = new URLSearchParams(location.search).get("bp");
-  const p = bp && decodePass(bp);
+  const p = decodePass(new URLSearchParams(location.search).get("bp") || "");
   if (p) {
-    current = p;
-    fillPass(p);
-    $("conf-title").textContent = "Carte d'embarquement de " + p.n.split(" ")[0] + " ✈️";
-    $("conf-text").textContent = "Gardez-la précieusement : le lieu secret vous sera communiqué avant le départ.";
-    ["wa-self","wa-host","edit"].forEach(id => $(id).classList.add("hidden"));
+    current = p; fillPass(p);
+    $("conf-title").textContent = "Carte d'embarquement de " + p.n.split(" ")[0];
+    $("conf-text").textContent = "Le lieu de la soirée vous sera communiqué avant le départ.";
+    ["wa-self", "wa-host", "edit"].forEach(id => $(id).classList.add("hidden"));
     $("see-invite").classList.remove("hidden");
     $("booking").classList.add("hidden");
     $("confirmation").classList.remove("hidden");
-    window.addEventListener("load", () => setTimeout(() => $("reserver").scrollIntoView({behavior:"smooth"}), 300));
+    window.addEventListener("load", () => setTimeout(() => $("checkin").scrollIntoView(), 200));
   }
 })();
 
-/* QR code vers la réservation */
-(function(){
-  const target = location.origin + location.pathname + "#reserver";
-  try {
-    new QRCode(document.getElementById("qr"), {text: target, width: 200, height: 200, colorDark: "#0b1530", colorLight: "#efe5cf", correctLevel: QRCode.CorrectLevel.M});
-  } catch (_) { document.getElementById("qr").classList.add("hidden"); }
-})();
+/* ---------- QR de partage ---------- */
+if (!makeQR($("qr"), BASE_URL + "#checkin", 240)) $("qr").classList.add("hidden");
 
-/* Partage */
-document.getElementById("share").addEventListener("click", async () => {
-  const url = location.origin + location.pathname;
-  const text = "✈️ JUNIOR 40 – THE JOURNEY · Vol J40 · Dimanche 20 décembre 2026 · Abidjan. Réservez votre siège :";
-  if (navigator.share) { try { await navigator.share({title: "JUNIOR 40 – The Journey", text, url}); } catch (_) {} }
-  else { window.open("https://wa.me/?text=" + encodeURIComponent(text + "\n" + url), "_blank"); }
+$("share").addEventListener("click", async () => {
+  const text = "JUNIOR 40 – THE JOURNEY · Vol J40 · Dimanche 20 décembre 2026 · Abidjan. Confirmez votre présence :";
+  if (navigator.share) { try { await navigator.share({title: "JUNIOR 40 – The Journey", text, url: BASE_URL}); } catch (_) {} return; }
+  window.open("https://wa.me/?text=" + encodeURIComponent(text + "\n" + BASE_URL), "_blank");
 });
 </script>
 </body>
