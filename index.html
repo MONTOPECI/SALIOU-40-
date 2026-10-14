@@ -35,8 +35,6 @@
     --r:14px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  /* Paillettes à l'ouverture */
-  #sparkles{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:100;transition:opacity .8s ease}
 
   html{scroll-behavior:smooth}
   body{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -907,52 +905,6 @@ function toIntl(cc, raw){
   }
 })();
 
-/* Paillettes ivoire à l'ouverture du site */
-(function(){
-  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const cv = document.createElement("canvas");
-  cv.id = "sparkles"; cv.setAttribute("aria-hidden", "true");
-  document.body.appendChild(cv);
-  const g = cv.getContext("2d");
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  let W, H;
-  function size(){ W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0); }
-  size(); addEventListener("resize", size);
-
-  const COLORS = ["#efe5cf", "#f7f1e3", "#ffffff", "#e6d9bc", "#d9bf8f"];
-  const N = Math.round(Math.min(220, Math.max(110, W / 6)));
-  const rnd = (a, b) => a + Math.random() * (b - a);
-  const parts = Array.from({length: N}, () => ({
-    x: rnd(0, W), y: rnd(-H, H * 0.25),
-    vx: rnd(-0.35, 0.35), vy: rnd(1.1, 2.6),
-    r: rnd(1.6, 4.2), rot: rnd(0, Math.PI), vr: rnd(-0.08, 0.08),
-    tw: rnd(0, Math.PI * 2), vt: rnd(0.08, 0.2),
-    star: Math.random() < 0.35, c: COLORS[(Math.random() * COLORS.length) | 0]
-  }));
-
-  function star(x, y, r, rot){
-    g.save(); g.translate(x, y); g.rotate(rot); g.beginPath();
-    for (let i = 0; i < 8; i++) { const rr = i % 2 ? r * 0.35 : r * 1.9; const a = i * Math.PI / 4; g.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); }
-    g.closePath(); g.fill(); g.restore();
-  }
-
-  const DURATION = 4200, start = performance.now();
-  function frame(t){
-    const el = t - start;
-    g.clearRect(0, 0, W, H);
-    for (const p of parts) {
-      p.x += p.vx + Math.sin((el / 600) + p.tw) * 0.25; p.y += p.vy; p.rot += p.vr; p.tw += p.vt;
-      const glow = 0.75 + 0.25 * Math.sin(p.tw);
-      g.globalAlpha = glow; g.fillStyle = p.c; g.shadowColor = "#fff6dc"; g.shadowBlur = p.star ? 8 : 4;
-      if (p.star) star(p.x, p.y, p.r, p.rot);
-      else { g.beginPath(); g.ellipse(p.x, p.y, p.r, p.r * 0.6, p.rot, 0, Math.PI * 2); g.fill(); }
-    }
-    g.globalAlpha = 1;
-    if (el < DURATION) requestAnimationFrame(frame);
-    else { cv.style.opacity = "0"; setTimeout(() => cv.remove(), 900); }
-  }
-  requestAnimationFrame(frame);
-})();
 
 </script>
 </body>
