@@ -35,6 +35,19 @@
     --r:14px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  /* ================= INTRO VIDÉO ================= */
+  .intro-video{position:fixed;inset:0;z-index:200;background:#0b1530;display:grid;place-items:center;transition:opacity .9s ease,visibility .9s ease}
+  .intro-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .intro-video.done{opacity:0;visibility:hidden;pointer-events:none}
+  .intro-skip{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));z-index:1;
+    font:600 .8rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#efe5cf;background:rgba(11,21,48,.45);
+    border:1px solid rgba(239,229,207,.5);border-radius:999px;padding:11px 18px;cursor:pointer}
+  .intro-skip:hover{background:rgba(11,21,48,.7)}
+  .intro-play{position:relative;z-index:1;display:none;font:700 .9rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;
+    color:#0b1530;background:#efe5cf;border:0;border-radius:999px;padding:16px 26px;cursor:pointer}
+  .intro-video.paused .intro-play{display:block}
+  body.intro-on{overflow:hidden}
+
 
   html{scroll-behavior:smooth}
   body{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -76,14 +89,6 @@
   .skyline{position:relative;margin-top:28px;pointer-events:none}
   .skyline picture,.skyline img{display:block;width:100%;max-width:100%;height:auto;margin:0}
   .skyline img{opacity:.92}
-  /* Avion dessiné d'un seul trait, même style que la skyline */
-  .plane-sketch{position:absolute;right:max(20px,4%);bottom:calc(100% - 2px);width:clamp(140px,38vw,400px);height:auto;color:#efe5cf;opacity:.92;overflow:visible}
-  .plane-sketch path{fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;
-    stroke-dasharray:1;stroke-dashoffset:0;animation:sketch 2.8s ease-out .3s both}
-  @keyframes sketch{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-  @media (prefers-reduced-motion:reduce){.plane-sketch path{animation:none}}
-  @media (max-width:899px){.skyline{margin-top:76px}}
-  @media (min-width:900px){.plane-sketch{bottom:calc(100% + 40px);right:6%;width:clamp(150px,30vw,400px)}}
   .kicker{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--bronze-l);border:1px solid rgba(201,163,111,.45);padding:6px 12px;border-radius:999px}
   .kicker i{width:6px;height:6px;border-radius:50%;background:var(--bronze-l);box-shadow:0 0 0 4px rgba(201,163,111,.2)}
   h1{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(2.2rem,8.6vw,4.4rem);line-height:1.02;letter-spacing:.02em;margin:18px 0 6px;
@@ -266,7 +271,47 @@
   @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.board-row .st i{animation:none}}
 </style>
 </head>
-<body>
+<body class="intro-on">
+<div class="intro-video" id="intro" aria-label="Vidéo d'introduction">
+  <video id="intro-v" poster="assets/intro-poster.jpg" muted autoplay playsinline preload="auto" aria-hidden="true">
+    <source src="assets/intro.mp4" type="video/mp4">
+    <source src="assets/intro.webm" type="video/webm">
+  </video>
+  <button class="intro-play" id="intro-play" type="button">Embarquer ✈</button>
+  <button class="intro-skip" id="intro-skip" type="button">Passer</button>
+</div>
+<script>
+/* Intro vidéo à l'ouverture du site */
+(function(){
+  const box = document.getElementById("intro"), v = document.getElementById("intro-v");
+  let closed = false;
+  function close(){
+    if (closed) return; closed = true;
+    box.classList.add("done"); document.body.classList.remove("intro-on");
+    try { v.pause(); } catch(_){}
+    setTimeout(() => box.remove(), 1000);
+  }
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isPass = /[?&]bp=/.test(location.search);
+  if (reduce || isPass) { box.remove(); document.body.classList.remove("intro-on"); return; }
+
+  v.addEventListener("ended", close);
+  document.getElementById("intro-skip").addEventListener("click", close);
+  document.getElementById("intro-play").addEventListener("click", () => {
+    box.classList.remove("paused");
+    const p = v.play(); if (p && p.catch) p.catch(close);
+  });
+  // Si le téléphone bloque la lecture automatique : bouton « Embarquer »
+  const p = v.play();
+  if (p && p.catch) p.catch(() => box.classList.add("paused"));
+  setTimeout(() => { if (!closed && v.paused && v.currentTime === 0) box.classList.add("paused"); }, 2500);
+  // Sécurité : la page s'affiche quoi qu'il arrive
+  setTimeout(close, 15000);
+  const last = v.querySelector("source:last-of-type");
+  if (last) last.addEventListener("error", close);
+})();
+</script>
+
 
 <!-- ================= NAVIGATION ================= -->
 <header class="topbar">
@@ -294,26 +339,6 @@
     <p class="intro">Certaines destinations marquent une vie… Aujourd'hui, je vous invite à embarquer avec moi pour une soirée d'exception, à l'occasion de mes 40 ans.</p>
   </div>
   <div class="wrap skyline" aria-hidden="true">
-    <svg class="plane-sketch" viewBox="0 0 420 170" focusable="false">
-      <defs>
-        <filter id="hand" x="-5%" y="-5%" width="110%" height="110%">
-          <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="7"/>
-          <feDisplacementMap in="SourceGraphic" scale="3.2"/>
-        </filter>
-      </defs>
-      <g filter="url(#hand)">
-        <!-- traînée qui descend en boucle, puis l'avion en un trait, nez vers le bas : il atterrit -->
-        <path pathLength="1" transform="rotate(13 270 80)" d="M4 14 C 40 18, 62 36, 78 32 C 98 27, 92 2, 74 8 C 58 14, 80 46, 112 54
-          C 136 60, 152 72, 166 86
-          L 150 40 C 149 33, 156 31, 160 36 L 196 72
-          C 240 66, 300 60, 346 58 C 372 57, 392 64, 394 72 C 395 80, 380 86, 352 88
-          C 300 92, 236 94, 192 92 C 176 91, 164 88, 160 84
-          M 168 84 L 140 100 C 136 103, 140 106, 146 104 L 196 90
-          M 276 90 L 226 136 C 221 141, 228 145, 234 141 L 312 89
-          M 262 76 C 250 70, 246 84, 258 82 M 284 74 C 272 68, 268 82, 280 80 M 306 72 C 294 66, 290 80, 302 78
-          M 352 66 C 366 63, 380 66, 386 71"/>
-      </g>
-    </svg>
     <picture>
       <source srcset="assets/skyline.webp" type="image/webp">
       <img src="assets/skyline.png" alt="" width="2243" height="582" decoding="async">
