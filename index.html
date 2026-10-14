@@ -20,7 +20,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root{
@@ -29,9 +29,9 @@
     --ivory:#efe5cf; --ivory-2:#e6d9bc; --paper:#f6efdf;
     --ink:#1b1f2e; --ink-2:#555a6b; --line:rgba(122,89,50,.28);
     --ok:#2f6b4f;
-    --sans:'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --serif:'Cormorant Garamond', Georgia, serif;
-    --display:'Cinzel', Georgia, serif;
+    --sans:'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    --display:'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
     --r:14px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -76,10 +76,10 @@
   .skyline img{opacity:.92}
   .kicker{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--bronze-l);border:1px solid rgba(201,163,111,.45);padding:6px 12px;border-radius:999px}
   .kicker i{width:6px;height:6px;border-radius:50%;background:var(--bronze-l);box-shadow:0 0 0 4px rgba(201,163,111,.2)}
-  h1{font-family:var(--display);font-weight:700;font-size:clamp(2.3rem,9vw,4.2rem);line-height:1.02;letter-spacing:.04em;margin:18px 0 6px}
+  h1{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(2.3rem,9vw,4.2rem);line-height:1.02;letter-spacing:.04em;margin:18px 0 6px}
   h1 em{font-style:normal;background:linear-gradient(180deg,#e6c58f,var(--bronze) 60%,var(--bronze-d));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .hero .sub{font-family:var(--display);letter-spacing:.22em;font-size:clamp(.82rem,3.4vw,1.05rem);color:var(--bronze-l)}
-  .hero .intro{font-family:var(--serif);font-style:italic;font-size:clamp(1.25rem,4.6vw,1.5rem);line-height:1.4;color:var(--ivory-2);margin-top:22px;max-width:560px}
+  .hero .sub{font-family:var(--display);text-transform:uppercase;font-weight:600;letter-spacing:.22em;font-size:clamp(.82rem,3.4vw,1.05rem);color:var(--bronze-l)}
+  .hero .intro{font-family:var(--sans);font-weight:300;font-size:clamp(1.08rem,4vw,1.3rem);line-height:1.55;color:var(--ivory-2);margin-top:22px;max-width:560px}
 
   /* ================= WIDGET DE RECHERCHE ================= */
   .search{position:relative;z-index:5;margin-top:-112px;border-radius:var(--r);box-shadow:0 24px 60px rgba(11,21,48,.28);border:1px solid var(--line);overflow:hidden}
@@ -116,7 +116,7 @@
   /* ================= SECTIONS ================= */
   section{padding:48px 0 8px;scroll-margin-top:62px}
   .h2{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-  .h2 h2{font-family:var(--display);font-size:1.45rem;letter-spacing:.06em;color:var(--navy)}
+  .h2 h2{font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:1.45rem;letter-spacing:.06em;color:var(--navy)}
   .h2 span{font-size:.86rem;color:var(--ink-2)}
 
   /* Résultat de vol */
@@ -137,7 +137,7 @@
   .line .bar svg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg);width:22px;height:22px;color:var(--navy);background:#fffaf0;padding:2px}
   .fare{text-align:right;border-left:1px dashed var(--line);padding-left:18px}
   .fare .cls{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-d)}
-  .fare .price{font-family:var(--display);font-size:1.7rem;color:var(--navy);font-weight:700;line-height:1.1}
+  .fare .price{font-family:var(--display);text-transform:uppercase;font-size:1.7rem;color:var(--navy);font-weight:700;line-height:1.1}
   .fare .old{font-size:.8rem;color:var(--ink-2)}
   .fare .btn{margin-top:10px;padding:11px 18px;font-size:.92rem}
   .amen{display:flex;gap:16px;flex-wrap:wrap;padding:12px 18px;background:rgba(169,127,79,.08);border-top:1px solid var(--line);font-size:.82rem;color:var(--ink-2)}
@@ -161,14 +161,14 @@
   /* Compte à rebours (tableau des départs) */
   .board{background:var(--navy);color:var(--ivory);border-radius:var(--r);padding:20px 18px;border:1px solid rgba(169,127,79,.4)}
   .board-head{display:grid;grid-template-columns:1.2fr 1fr .8fr 1fr;gap:8px;font-size:.66rem;letter-spacing:.18em;color:var(--bronze-l);font-weight:700;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid rgba(169,127,79,.3)}
-  .board-row{display:grid;grid-template-columns:1.2fr 1fr .8fr 1fr;gap:8px;padding:12px 0 18px;font-family:'Courier New',monospace;font-weight:700;font-size:.98rem;letter-spacing:.06em}
+  .board-row{display:grid;grid-template-columns:1.2fr 1fr .8fr 1fr;gap:8px;padding:12px 0 18px;font-family:var(--mono);font-weight:700;font-size:.98rem;letter-spacing:.04em}
   .board-row .st{color:#e7c27a}
   .board-row .st i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e7c27a;margin-right:6px;animation:blink 1.4s infinite}
   @keyframes blink{50%{opacity:.25}}
   .cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
   .cd div{background:#0f1c40;border:1px solid rgba(169,127,79,.35);border-radius:8px;text-align:center;padding:12px 4px 8px;position:relative}
   .cd div::after{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid rgba(0,0,0,.45)}
-  .cd b{display:block;font-family:'Courier New',monospace;font-size:clamp(1.5rem,7vw,2.2rem);line-height:1;font-variant-numeric:tabular-nums}
+  .cd b{display:block;font-family:var(--mono);font-size:clamp(1.5rem,7vw,2.2rem);line-height:1;font-variant-numeric:tabular-nums}
   .cd small{font-size:.6rem;letter-spacing:.18em;color:var(--bronze-l);font-weight:700;text-transform:uppercase}
   @media (max-width:520px){.board-head,.board-row{grid-template-columns:1fr 1fr}.board-head span:nth-child(n+3),.board-row span:nth-child(n+3){display:none}}
 
@@ -207,18 +207,18 @@
   .sum-row span:first-child{color:var(--ink-2)}
   .sum-row span:last-child{font-weight:700;color:var(--navy);text-align:right}
   .sum-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:14px}
-  .sum-total b{font-family:var(--display);font-size:1.5rem;color:var(--navy)}
+  .sum-total b{font-family:var(--display);text-transform:uppercase;font-size:1.5rem;color:var(--navy)}
   .deadline{margin-top:16px;padding:12px 14px;border-radius:10px;background:rgba(139,46,31,.07);color:#7a2a1d;font-size:.86rem;display:flex;gap:10px;align-items:flex-start}
   .deadline svg{width:18px;height:18px;flex:none;margin-top:1px}
 
   /* Carte d'embarquement générée */
-  .bp{border-radius:var(--r);overflow:hidden;box-shadow:0 20px 50px rgba(11,21,48,.25);border:1px solid var(--line);max-width:560px;margin:0 auto}
+  .bp{font-family:var(--mono);border-radius:var(--r);overflow:hidden;box-shadow:0 20px 50px rgba(11,21,48,.25);border:1px solid var(--line);max-width:560px;margin:0 auto}
   .bp-head{background:var(--navy);color:var(--ivory);display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:3px solid var(--bronze)}
-  .bp-head b{font-family:var(--display);letter-spacing:.14em;font-size:.95rem}
+  .bp-head b{font-family:var(--mono);font-weight:700;letter-spacing:.08em;font-size:.95rem}
   .bp-head small{font-size:.66rem;letter-spacing:.22em;color:var(--bronze-l);font-weight:700}
   .bp-body{padding:20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px 12px}
   .bp-body .route{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center}
-  .bp-body .code{font-family:var(--display);font-size:2.2rem;font-weight:700;color:var(--navy);line-height:1}
+  .bp-body .code{font-family:var(--mono);font-size:2.2rem;letter-spacing:-.01em;font-weight:700;color:var(--navy);line-height:1}
   .bp-body .route svg{width:28px;color:var(--bronze-d);transform:rotate(90deg)}
   .bp-f .k{font-size:.62rem;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--bronze-d)}
   .bp-f .v{font-weight:700;color:var(--navy);font-size:1rem}
@@ -228,7 +228,7 @@
   .bp-stub{padding:8px 20px 20px;display:flex;justify-content:space-between;align-items:flex-end;gap:14px}
   .barcode{height:42px;flex:1;max-width:240px;opacity:.8;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 13px)}
   .confirm-txt{text-align:center;max-width:520px;margin:0 auto 20px}
-  .confirm-txt h3{font-family:var(--display);color:var(--navy);font-size:1.35rem;letter-spacing:.05em}
+  .confirm-txt h3{font-family:var(--display);text-transform:uppercase;font-weight:700;color:var(--navy);font-size:1.35rem;letter-spacing:.05em}
   .confirm-txt p{color:var(--ink-2);margin-top:6px}
   .confirm-actions{max-width:560px;margin:18px auto 0;display:grid;gap:10px}
   .phone-row{display:grid;grid-template-columns:auto 1fr;gap:8px}
@@ -243,7 +243,7 @@
   .checkin{display:flex;gap:18px;align-items:center;background:var(--navy);color:var(--ivory);border-radius:var(--r);padding:20px;border:1px solid rgba(169,127,79,.4)}
   #qr{flex:none;width:120px;height:120px;padding:8px;background:var(--ivory);border-radius:8px}
   #qr img,#qr canvas{width:100%!important;height:100%!important}
-  .checkin h3{font-family:var(--display);letter-spacing:.06em;font-size:1.1rem}
+  .checkin h3{font-family:var(--display);text-transform:uppercase;font-weight:700;letter-spacing:.06em;font-size:1.1rem}
   .checkin p{font-size:.9rem;color:var(--ivory-2);margin:4px 0 12px}
   .ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(201,163,111,.6);background:none;color:var(--bronze-l);font:inherit;font-weight:600;font-size:.86rem;padding:9px 14px;border-radius:999px;cursor:pointer}
   .ghost svg{width:15px;height:15px}
@@ -595,8 +595,9 @@ async function passImage(p){
   c.width = W; c.height = H;
   const g = c.getContext("2d");
   const navy="#0b1530", bronze="#a97f4f", bronzeL="#c9a36f", bronzeD="#7a5932", paper="#f6efdf", ink="#0b1530";
-  const disp = w => `700 ${w}px Cinzel, Georgia, serif`;
-  const sans = (w, s) => `${w} ${s}px Manrope, Arial, sans-serif`;
+  const disp = w => `700 ${w}px "Bodoni Moda", Didot, Georgia, serif`;
+  const mono = (w, s) => `${w} ${s}px "JetBrains Mono", Menlo, monospace`;
+  const sans = (w, s) => `${w} ${s}px Inter, Arial, sans-serif`;
 
   // fond
   const bg = g.createLinearGradient(0,0,0,H); bg.addColorStop(0,"#0b1530"); bg.addColorStop(1,"#1a2b5c");
@@ -619,13 +620,13 @@ async function passImage(p){
   g.fillStyle = navy; g.fillRect(x0,y0,cw,110);
   g.fillStyle = bronze; g.fillRect(x0,y0+110,cw,8);
   g.restore();
-  g.textAlign = "left"; g.fillStyle="#efe5cf"; g.font = disp(38); g.fillText("BOARDING PASS", x0+44, y0+70);
-  g.textAlign = "right"; g.fillStyle=bronzeL; g.font = sans(700,22); g.fillText("VOL J40 · ABIDJAN", x0+cw-44, y0+68);
+  g.textAlign = "left"; g.fillStyle="#efe5cf"; g.font = mono(700, 34); g.fillText("BOARDING PASS", x0+44, y0+70);
+  g.textAlign = "right"; g.fillStyle=bronzeL; g.font = mono(600,20); g.fillText("VOL J40 · ABIDJAN", x0+cw-44, y0+68);
 
   // route
-  g.textAlign="left"; g.fillStyle=ink; g.font=disp(120); g.fillText("J40", x0+44, y0+290);
+  g.textAlign="left"; g.fillStyle=ink; g.font=mono(700,116); g.fillText("J40", x0+44, y0+290);
   g.textAlign="right"; g.fillText("ABJ", x0+cw-44, y0+290);
-  g.textAlign="left"; g.fillStyle="#555a6b"; g.font=sans(500,24);
+  g.textAlign="left"; g.fillStyle="#555a6b"; g.font=mono(500,22);
   g.fillText("40 ans de voyage", x0+48, y0+335);
   g.textAlign="right"; g.fillText("Abidjan, Côte d'Ivoire", x0+cw-48, y0+335);
   g.strokeStyle=bronze; g.lineWidth=3; g.setLineDash([12,10]);
@@ -636,10 +637,10 @@ async function passImage(p){
 
   // champs
   const field = (k, v, x, y, align="left") => {
-    g.textAlign=align; g.fillStyle=bronzeD; g.font=sans(700,22); g.fillText(k, x, y);
-    g.fillStyle=ink; g.font=sans(800,40); g.fillText(v, x, y+52);
+    g.textAlign=align; g.fillStyle=bronzeD; g.font=mono(600,20); g.fillText(k, x, y);
+    g.fillStyle=ink; g.font=mono(700,36); g.fillText(v, x, y+52);
   };
-  let name = p.n.toUpperCase(); g.font = sans(800,40);
+  let name = p.n.toUpperCase(); g.font = mono(700,36);
   while (g.measureText(name).width > cw-100 && name.length > 4) name = name.slice(0,-2);
   if (name !== p.n.toUpperCase()) name = name.trim() + "…";
   field("PASSAGER", name, x0+44, y0+420);
@@ -663,8 +664,8 @@ async function passImage(p){
   let seed = 0; for (const ch of p.r + p.n) seed = (seed*31 + ch.charCodeAt(0)) >>> 0;
   let bx = x0+44; g.fillStyle = ink;
   while (bx < x0+560){ seed = (seed*1103515245 + 12345) >>> 0; const w = 2 + (seed>>>8)%5; if ((seed>>>4)%3) g.fillRect(bx, py+45, w, 110); bx += w + 2 + (seed>>>12)%4; }
-  g.textAlign="right"; g.fillStyle=bronzeD; g.font=sans(700,22); g.fillText("RÉFÉRENCE", x0+cw-44, py+70);
-  g.fillStyle=ink; g.font=disp(46); g.fillText(p.r, x0+cw-44, py+130);
+  g.textAlign="right"; g.fillStyle=bronzeD; g.font=mono(600,20); g.fillText("RÉFÉRENCE", x0+cw-44, py+70);
+  g.fillStyle=ink; g.font=mono(700,44); g.fillText(p.r, x0+cw-44, py+130);
 
   // pied
   g.textAlign="center"; g.fillStyle=bronzeL; g.font=sans(600,24);
