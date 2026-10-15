@@ -166,7 +166,8 @@
   .fare{text-align:right;border-left:1px dashed var(--line);padding-left:18px}
   .fare .cls{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-d)}
   .fare .price{font-family:var(--display);text-transform:uppercase;font-size:1.7rem;color:var(--ink);font-weight:700;line-height:1.1}
-  .fare .old{font-size:.8rem;color:var(--ink-2)}
+  .fare .old{font-size:.95rem;font-weight:500;color:var(--ink);margin-top:4px;max-width:26ch;margin-left:auto}
+  @media (max-width:640px){.fare .old{margin-left:0}}
   .fare .btn{margin-top:10px;padding:11px 18px;font-size:.92rem}
   .amen{display:flex;gap:16px;flex-wrap:wrap;padding:12px 18px;background:rgba(169,127,79,.08);border-top:1px solid var(--line);font-size:.82rem;color:var(--ink-2)}
   .amen span{display:inline-flex;align-items:center;gap:6px}
@@ -387,10 +388,9 @@
         <div class="fare">
           <div>
             <div class="cls">Invité privilège</div>
-            <div class="price">Offert</div>
             <div class="old">Votre présence est le plus beau des cadeaux</div>
           </div>
-          <a class="btn" href="#reserver">Sélectionner</a>
+          <a class="btn" href="#reserver">Confirmer</a>
         </div>
       </div>
       <div class="amen">
