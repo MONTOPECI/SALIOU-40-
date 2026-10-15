@@ -251,9 +251,12 @@
   .bp-head b{font-family:var(--mono);font-weight:700;letter-spacing:.08em;font-size:.95rem}
   .bp-head small{font-size:.66rem;letter-spacing:.22em;color:var(--bronze-l);font-weight:700}
   .bp-body{padding:20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px 12px}
-  .bp-body .route{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center}
-  .bp-body .code{font-family:var(--mono);font-size:2.2rem;letter-spacing:-.01em;font-weight:700;color:var(--ink);line-height:1}
-  .bp-body .route svg{width:28px;color:var(--bronze-d);transform:rotate(90deg)}
+  .bp-body .route{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .bp-body .route .k{font-size:.62rem;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--bronze-d);margin-bottom:4px}
+  .bp-body .route .city{font-size:.7rem;color:var(--ink-2);margin-top:6px;max-width:20ch}
+  .bp-body .route > div:last-child .city{margin-left:auto}
+  .bp-body .code{font-family:var(--mono);font-size:clamp(1.7rem,7.5vw,2.2rem);white-space:nowrap;letter-spacing:-.01em;font-weight:700;color:var(--ink);line-height:1}
+  .bp-body .route svg{width:28px;color:var(--bronze-d);transform:rotate(90deg);align-self:center;flex:none}
   .bp-f .k{font-size:.62rem;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--bronze-d)}
   .bp-f .v{font-weight:700;color:var(--ink);font-size:1rem}
   .bp-f.wide{grid-column:1/-1}
@@ -515,9 +518,9 @@
         <div class="bp-head"><b>BOARDING PASS</b><small>JMS AIRWAYS</small></div>
         <div class="bp-body">
           <div class="route">
-            <div><div class="code">J40</div></div>
+            <div><div class="k">Départ</div><div class="code">ABJ</div><div class="city">Abidjan, Cocody, Côte d'Ivoire</div></div>
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>
-            <div style="text-align:right"><div class="code">ABJ</div></div>
+            <div style="text-align:right"><div class="k">Arrivée</div><div class="code">40 ans</div><div class="city">de Junior</div></div>
           </div>
           <div class="bp-f wide"><div class="k">Passager : Invité Privilège</div><div class="v" id="bp-name">—</div></div>
           <div class="bp-f wide hidden" id="bp-with-row"><div class="k">Accompagné de</div><div class="v" id="bp-with">—</div></div>
@@ -657,14 +660,18 @@ async function passImage(p){
   g.textAlign = "right"; g.fillStyle=bronzeL; g.font = mono(600,20); g.fillText("VOL J40 · ABIDJAN", x0+cw-44, y0+68);
 
   // route
-  g.textAlign="left"; g.fillStyle=ink; g.font=mono(700,116); g.fillText("J40", x0+44, y0+290);
-  g.textAlign="right"; g.fillText("ABJ", x0+cw-44, y0+290);
-  g.textAlign="left"; g.fillStyle="#555a6b"; g.font=mono(500,22);
-  g.fillText("40 ans de voyage", x0+48, y0+335);
-  g.textAlign="right"; g.fillText("Abidjan, Côte d'Ivoire", x0+cw-48, y0+335);
+  g.fillStyle=bronzeD; g.font=mono(600,20);
+  g.textAlign="left"; g.fillText("DÉPART", x0+44, y0+175);
+  g.textAlign="right"; g.fillText("ARRIVÉE", x0+cw-44, y0+175);
+  g.fillStyle=ink; g.font=mono(700,92);
+  g.textAlign="left"; g.fillText("ABJ", x0+44, y0+280);
+  g.textAlign="right"; g.fillText("40 ans", x0+cw-44, y0+280);
+  g.fillStyle="#555a6b"; g.font=mono(500,22);
+  g.textAlign="left"; g.fillText("Abidjan, Cocody, Côte d'Ivoire", x0+48, y0+325);
+  g.textAlign="right"; g.fillText("de Junior", x0+cw-48, y0+325);
   g.strokeStyle=bronze; g.lineWidth=3; g.setLineDash([12,10]);
-  g.beginPath(); g.moveTo(x0+340,y0+250); g.lineTo(x0+cw-340,y0+250); g.stroke(); g.setLineDash([]);
-  g.save(); g.translate(W/2, y0+250); g.fillStyle=bronzeD;
+  g.beginPath(); g.moveTo(x0+245,y0+245); g.lineTo(x0+505,y0+245); g.stroke(); g.setLineDash([]);
+  g.save(); g.translate(x0+375, y0+245); g.fillStyle=bronzeD;
   g.fill(new Path2D("M0,-34 L6,-8 L34,8 L34,14 L6,6 L4,24 L12,30 L12,34 L0,30 L-12,34 L-12,30 L-4,24 L-6,6 L-34,14 L-34,8 L-6,-8 Z"));
   g.restore();
 
