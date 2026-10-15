@@ -231,6 +231,7 @@
   .choice input:focus-visible+label{box-shadow:0 0 0 3px rgba(169,127,79,.35)}
   .stepper{display:inline-flex;align-items:center;border:1px solid rgba(27,31,46,.18);border-radius:10px;background:#fff}
   .stepper button{width:46px;height:46px;border:0;background:none;font-size:1.3rem;cursor:pointer;color:var(--ink)}
+  .stepper button:disabled{opacity:.3;cursor:not-allowed}
   .stepper output{min-width:40px;text-align:center;font-weight:700;font-size:1.1rem}
   .err{color:#8b2e1f;font-size:.88rem;min-height:1.2em}
 
@@ -458,9 +459,9 @@
             </div>
           </div>
           <div id="guests-row">
-            <span class="lbl" id="pax-l">Nombre de passagers (vous compris)</span>
+            <span class="lbl" id="pax-l">Nombre de passagers (vous compris, 2 maximum)</span>
             <div class="stepper" aria-labelledby="pax-l">
-              <button type="button" data-step="-1" aria-label="Retirer un passager">−</button>
+              <button type="button" data-step="-1" aria-label="Retirer un passager" disabled>−</button>
               <output id="pax" aria-live="polite">1</output>
               <button type="button" data-step="1" aria-label="Ajouter un passager">+</button>
             </div>
@@ -723,10 +724,13 @@ function toIntl(cc, raw){
 /* Réservation (RSVP) */
 (function(){
   const form = $("rsvp-form");
+  const MAX_PAX = 2;   // nombre maximum de passagers par réservation (vous compris)
   let pax = 1, current = null;
 
   form.querySelectorAll("[data-step]").forEach(b => b.addEventListener("click", () => {
-    pax = Math.min(10, Math.max(1, pax + Number(b.dataset.step)));
+    pax = Math.min(MAX_PAX, Math.max(1, pax + Number(b.dataset.step)));
+    form.querySelector('[data-step="1"]').disabled = pax >= MAX_PAX;
+    form.querySelector('[data-step="-1"]').disabled = pax <= 1;
     $("pax").textContent = pax;
     renderCompanions();
   }));
