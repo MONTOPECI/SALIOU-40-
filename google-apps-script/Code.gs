@@ -3,6 +3,7 @@
  * Enregistre chaque réservation du site dans ce Google Sheet.
  * Version 5 : une ligne par invité. Si un invité modifie sa réponse, sa ligne est mise à jour
  *             (repérée par son prénom + nom) au lieu d'en ajouter une nouvelle.
+ * Version 6 : menu « JMS 40 » dans le Sheet pour préparer l'annonce du lieu sur WhatsApp.
  *
  * Installation : voir google-apps-script/INSTALLATION.md
  */
@@ -12,7 +13,7 @@
 const SHEET_ID = "";
 
 const SHEET_NAME = "Réservations";
-const VERSION = "version 5, mise à jour des réponses modifiées";
+const VERSION = "version 6, mise à jour des réponses + annonce du lieu";
 const HEADERS = [
   "Date de réponse", "Référence", "Prénom", "Nom", "Présence",
   "Passagers", "Modifiée le", "Téléphone WhatsApp", "Message", "Accompagnants"
@@ -206,4 +207,100 @@ function clean_(v) {
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+
+/* =====================================================================
+ * MENU « JMS 40 » : annonce du lieu aux invités confirmés
+ * ===================================================================== */
+const ANNONCE_SHEET = "Annonce du lieu";
+
+/** Ajoute le menu à l'ouverture du Google Sheet. */
+function onOpen() {
+  SpreadsheetApp.getUi().createMenu("JMS 40")
+    .addItem("Préparer l'annonce du lieu", "prepareReveal")
+    .addSeparator()
+    .addItem("Vider l'onglet d'annonce", "clearReveal")
+    .addToUi();
+}
+
+/** Demande l'adresse puis crée un lien WhatsApp prêt à envoyer pour chaque invité « Oui ». */
+function prepareReveal() {
+  const ui = SpreadsheetApp.getUi();
+  const a = ui.prompt("Annonce du lieu (1/2)",
+    "Adresse exacte de la soirée (ex. : Villa Les Palmiers, Rue des Jardins, Cocody, Abidjan) :",
+    ui.ButtonSet.OK_CANCEL);
+  if (a.getSelectedButton() !== ui.Button.OK || !a.getResponseText().trim()) return;
+  const address = a.getResponseText().trim();
+
+  const m = ui.prompt("Annonce du lieu (2/2)",
+    "Lien Google Maps (facultatif, laissez vide si vous n'en avez pas) :",
+    ui.ButtonSet.OK_CANCEL);
+  if (m.getSelectedButton() !== ui.Button.OK) return;
+  const maps = m.getResponseText().trim();
+
+  const src = getSheet_();
+  const last = src.getLastRow();
+  if (last < 2) { ui.alert("Aucune réservation pour le moment."); return; }
+  const data = src.getRange(2, 1, last - 1, HEADERS.length).getValues();
+
+  const rows = [], skipped = [];
+  data.forEach(function (r) {
+    const prenom = String(r[2] || "").trim(), nom = String(r[3] || "").trim();
+    if (String(r[4]) !== "Oui" || String(r[1]) === "TEST" || !prenom) return;
+    const phone = String(r[7] || "").replace(/\D/g, "");
+    if (phone.length < 8) { skipped.push(prenom + " " + nom); return; }
+    const msg = message_(prenom, address, maps);
+    const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
+    rows.push([prenom, nom, "+" + phone, Number(r[5]) || 1, String(r[9] || ""),
+               '=HYPERLINK("' + url.replace(/"/g, '""') + '","Envoyer ✈")', false]);
+  });
+
+  const ss = src.getParent();
+  let sh = ss.getSheetByName(ANNONCE_SHEET);
+  if (!sh) sh = ss.insertSheet(ANNONCE_SHEET);
+  sh.clear();
+  const head = ["Prénom", "Nom", "Téléphone WhatsApp", "Passagers", "Accompagnants", "Message WhatsApp", "Envoyé ?"];
+  sh.getRange(1, 1, 1, head.length).setValues([head])
+    .setFontWeight("bold").setBackground(HEAD_STYLE.bg).setFontColor(HEAD_STYLE.fg);
+  sh.setFrozenRows(1);
+  if (rows.length) {
+    // (Apps Script attend toujours la syntaxe de formule anglaise, avec « , »)
+    sh.getRange(2, 1, rows.length, head.length).setValues(rows);
+    sh.getRange(2, 7, rows.length, 1).insertCheckboxes();
+    sh.getRange(2, 3, rows.length, 1).setNumberFormat("@");
+  }
+  sh.getRange(rows.length + 3, 1).setValue("Adresse annoncée : " + address + (maps ? "  ·  " + maps : ""));
+  sh.getRange(rows.length + 4, 1).setValue("Mode d'emploi : cliquez sur « Envoyer ✈ », WhatsApp s'ouvre avec le message prêt, appuyez sur Envoyer, puis cochez « Envoyé ? ».");
+  sh.autoResizeColumns(1, head.length);
+  ss.setActiveSheet(sh);
+
+  ui.alert("Annonce prête",
+    rows.length + " invité(s) confirmé(s) dans l'onglet « " + ANNONCE_SHEET + " »." +
+    (skipped.length ? "\n\nSans numéro WhatsApp valide (à contacter autrement) : " + skipped.join(", ") : ""),
+    ui.ButtonSet.OK);
+}
+
+/** Texte du message envoyé à chaque invité. Modifiable librement. */
+function message_(prenom, address, maps) {
+  return [
+    "Bonjour " + prenom + " ✈️",
+    "",
+    "La porte d'embarquement du vol J40 est enfin révélée !",
+    "",
+    "📍 " + address,
+    maps ? "🗺️ " + maps : "",
+    "",
+    "Rendez-vous le dimanche 20 décembre 2026, embarquement à 19h00.",
+    "Votre présence est le plus beau des cadeaux.",
+    "",
+    "JMS Airways"
+  ].filter(function (l, i, arr) { return l !== "" || arr[i - 1] !== ""; }).join("\n");
+}
+
+/** Vide l'onglet d'annonce (par exemple pour recommencer avec une autre adresse). */
+function clearReveal() {
+  const sh = getSheet_().getParent().getSheetByName(ANNONCE_SHEET);
+  if (sh) sh.clear();
+  SpreadsheetApp.getUi().alert("L'onglet « " + ANNONCE_SHEET + " » a été vidé.");
 }
