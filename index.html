@@ -259,7 +259,9 @@
   .bp-f.wide{grid-column:1/-1}
   .bp-perf{height:20px;position:relative;background:radial-gradient(circle at 0 50%,var(--paper) 10px,transparent 11px) left/20px 20px no-repeat,radial-gradient(circle at 100% 50%,var(--paper) 10px,transparent 11px) right/20px 20px no-repeat}
   .bp-perf::after{content:"";position:absolute;left:22px;right:22px;top:50%;border-top:2px dashed var(--line)}
-  .bp-stub{padding:8px 20px 20px;display:flex;justify-content:space-between;align-items:flex-end;gap:14px}
+  @media (max-width:440px){.bp-f .v{font-size:.86rem;white-space:nowrap}}
+  .bp-note{font-family:var(--sans);font-style:italic;font-size:.82rem;color:var(--ink-2);text-align:center;padding:0 20px 16px;margin:0}
+  .bp-stub{padding:8px 20px 14px;display:flex;justify-content:space-between;align-items:flex-end;gap:14px}
   .barcode{height:42px;flex:1;max-width:240px;opacity:.8;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 13px)}
   .confirm-txt{text-align:center;max-width:520px;margin:0 auto 20px}
   .confirm-txt h3{font-family:var(--display);text-transform:uppercase;font-weight:700;color:var(--ink);font-size:1.35rem;letter-spacing:.05em}
@@ -517,17 +519,18 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>
             <div style="text-align:right"><div class="code">ABJ</div></div>
           </div>
-          <div class="bp-f wide"><div class="k">Passager</div><div class="v" id="bp-name">—</div></div>
+          <div class="bp-f wide"><div class="k">Passager : Invité Privilège</div><div class="v" id="bp-name">—</div></div>
           <div class="bp-f wide hidden" id="bp-with-row"><div class="k">Accompagné de</div><div class="v" id="bp-with">—</div></div>
           <div class="bp-f"><div class="k">Date</div><div class="v">20 DÉC 26</div></div>
           <div class="bp-f"><div class="k">Embarq.</div><div class="v">19:00</div></div>
           <div class="bp-f"><div class="k">Pax</div><div class="v" id="bp-pax">1</div></div>
-          <div class="bp-f"><div class="k">Classe</div><div class="v">EXCEPTION</div></div>
+          <div class="bp-f"><div class="k">Classe</div><div class="v">FIRST CLASS</div></div>
           <div class="bp-f"><div class="k">Vol</div><div class="v">J40</div></div>
           <div class="bp-f"><div class="k">Porte</div><div class="v">SECRÈTE</div></div>
         </div>
         <div class="bp-perf" aria-hidden="true"></div>
         <div class="bp-stub"><div class="barcode" aria-hidden="true"></div><div class="bp-f" style="text-align:right"><div class="k">Réf.</div><div class="v" id="bp-ref">—</div></div></div>
+        <p class="bp-note">Votre présence est le plus beau des cadeaux</p>
       </div>
       <div class="confirm-actions">
         <p class="saved" id="saved" role="status"></p>
@@ -673,7 +676,7 @@ async function passImage(p){
   let name = p.n.toUpperCase(); g.font = mono(700,36);
   while (g.measureText(name).width > cw-100 && name.length > 4) name = name.slice(0,-2);
   if (name !== p.n.toUpperCase()) name = name.trim() + "…";
-  field("PASSAGER", name, x0+44, y0+420);
+  field("PASSAGER : INVITÉ PRIVILÈGE", name, x0+44, y0+420);
   if (Array.isArray(p.a) && p.a.length) {
     let w = "+ " + p.a.join(", ").toUpperCase();
     g.textAlign="left"; g.fillStyle="#555a6b"; g.font=mono(500,22);
@@ -687,7 +690,7 @@ async function passImage(p){
   field("PASSAGERS", String(p.p), col[2], y0+540);
   field("VOL", "J40", col[0], y0+660);
   field("PORTE", "SECRÈTE", col[1], y0+660);
-  field("CLASSE", "EXCEPTION", col[2], y0+660);
+  field("CLASSE", "FIRST CLASS", col[2], y0+660);
 
   // perforation
   const py = y0+780;
@@ -700,9 +703,11 @@ async function passImage(p){
   // code-barres pseudo-aléatoire depuis la référence
   let seed = 0; for (const ch of p.r + p.n) seed = (seed*31 + ch.charCodeAt(0)) >>> 0;
   let bx = x0+44; g.fillStyle = ink;
-  while (bx < x0+560){ seed = (seed*1103515245 + 12345) >>> 0; const w = 2 + (seed>>>8)%5; if ((seed>>>4)%3) g.fillRect(bx, py+45, w, 110); bx += w + 2 + (seed>>>12)%4; }
+  while (bx < x0+560){ seed = (seed*1103515245 + 12345) >>> 0; const w = 2 + (seed>>>8)%5; if ((seed>>>4)%3) g.fillRect(bx, py+40, w, 96); bx += w + 2 + (seed>>>12)%4; }
   g.textAlign="right"; g.fillStyle=bronzeD; g.font=mono(600,20); g.fillText("RÉFÉRENCE", x0+cw-44, py+70);
   g.fillStyle=ink; g.font=mono(700,44); g.fillText(p.r, x0+cw-44, py+130);
+  g.textAlign="center"; g.fillStyle="#555a6b"; g.font="italic 400 24px Inter, Arial, sans-serif";
+  g.fillText("Votre présence est le plus beau des cadeaux", W/2, py+182);
 
   // pied
   g.textAlign="center"; g.fillStyle=bronzeL; g.font=sans(600,24);
