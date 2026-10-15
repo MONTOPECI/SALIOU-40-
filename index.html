@@ -147,6 +147,13 @@
   .btn.block{width:100%}
   .btn.dark,.btn.wa{background:var(--pearl);background-size:200% 200%;color:var(--ink)}
   .btn.wa svg{color:#1f8f57}
+  /* Boutons d'action principaux : bleu nuit #131d28, texte ivoire */
+  .btn.navy{background:#131d28;color:#f6efdf;border-color:#131d28;
+    box-shadow:inset 0 1px 0 rgba(246,239,223,.14),0 6px 18px rgba(19,29,40,.28)}
+  .btn.navy::before{background:radial-gradient(120% 80% at 20% 0%,rgba(246,239,223,.12),transparent 55%)}
+  .btn.navy::after{background:linear-gradient(100deg,transparent,rgba(246,239,223,.18),transparent)}
+  .btn.navy:hover{background:#1b2938;box-shadow:inset 0 1px 0 rgba(246,239,223,.18),0 10px 24px rgba(19,29,40,.32)}
+  .btn.navy svg{color:#f6efdf}
   @media (prefers-reduced-motion:reduce){.btn,.btn::after{transition:none}}
   .search .btn{margin-top:14px}
   @media (max-width:640px){
@@ -411,7 +418,7 @@
             <div class="cls">Invité privilège</div>
             <div class="old">Votre présence est le plus beau des cadeaux</div>
           </div>
-          <a class="btn" href="#reserver">Confirmer</a>
+          <a class="btn navy" href="#reserver">Confirmer</a>
         </div>
       </div>
       <div class="amen">
@@ -516,7 +523,7 @@
             <span>Réservation avant le <b>10 novembre 2026</b>, pour finaliser le traiteur.</span>
           </div>
           <p class="err" id="err" role="alert"></p>
-          <button class="btn dark block" type="submit">Confirmer ma réservation
+          <button class="btn navy block" type="submit">Confirmer ma réservation
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
         </form>
