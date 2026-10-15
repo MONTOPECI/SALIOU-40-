@@ -199,7 +199,7 @@
   .cd div::after{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid rgba(0,0,0,.45)}
   .cd b{display:block;font-family:var(--mono);font-size:clamp(1.5rem,7vw,2.2rem);line-height:1;font-variant-numeric:tabular-nums}
   .cd small{font-size:.6rem;letter-spacing:.18em;color:var(--bronze-l);font-weight:700;text-transform:uppercase}
-  @media (max-width:520px){.board-head,.board-row{grid-template-columns:1fr 1fr}.board-head span:nth-child(n+3),.board-row span:nth-child(n+3){display:none}}
+  @media (max-width:520px){.board-head,.board-row{grid-template-columns:64px 1fr}.board-head span:nth-child(n+3),.board-row span:nth-child(n+3){display:none}}
 
   /* ================= RÉSERVATION (RSVP) ================= */
   .checkout{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
@@ -412,7 +412,7 @@
     <div class="h2"><h2 id="dep">Départs</h2><span>Abidjan · heure locale</span></div>
     <div class="board">
       <div class="board-head"><span>Vol</span><span>Destination</span><span>Heure</span><span>Statut</span></div>
-      <div class="board-row"><span>J40</span><span>ABIDJAN</span><span>19:00</span><span class="st"><i></i>À L'HEURE</span></div>
+      <div class="board-row"><span>J40</span><span>40 ANS DE JUNIOR</span><span>19:00</span><span class="st"><i></i>À L'HEURE</span></div>
       <div class="cd" role="timer" aria-label="Compte à rebours avant le départ">
         <div><b id="cd-d">--</b><small>Jours</small></div>
         <div><b id="cd-h">--</b><small>Heures</small></div>
