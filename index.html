@@ -201,7 +201,7 @@
   @media (max-width:520px){.board-head,.board-row{grid-template-columns:1fr 1fr}.board-head span:nth-child(n+3),.board-row span:nth-child(n+3){display:none}}
 
   /* ================= RÉSERVATION (RSVP) ================= */
-  .checkout{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;align-items:start}
+  .checkout{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
   @media (max-width:820px){.checkout{grid-template-columns:1fr}}
   .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px}
   .steps{display:flex;gap:8px;margin-bottom:20px;font-size:.8rem;font-weight:600;color:var(--ink-2)}
@@ -240,7 +240,7 @@
   .sum-row span:last-child{font-weight:700;color:var(--ink);text-align:right}
   .sum-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:14px}
   .sum-total b{font-family:var(--display);text-transform:uppercase;font-size:1.5rem;color:var(--ink)}
-  .deadline{margin-top:16px;padding:12px 14px;border-radius:10px;background:rgba(139,46,31,.07);color:#7a2a1d;font-size:.86rem;display:flex;gap:10px;align-items:flex-start}
+  .deadline{margin-top:0;padding:12px 14px;border-radius:10px;background:rgba(139,46,31,.07);color:#7a2a1d;font-size:.86rem;display:flex;gap:10px;align-items:flex-start}
   .deadline svg{width:18px;height:18px;flex:none;margin-top:1px}
 
   /* Carte d'embarquement générée */
@@ -489,6 +489,10 @@
             <p class="hint">Pour recevoir votre carte d'embarquement et le lieu secret.</p>
           </div>
           <div><label for="note">Message pour Junior (facultatif)</label><textarea id="note" placeholder="Un mot, une allergie, un souvenir de voyage…"></textarea></div>
+          <div class="deadline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span>Réservation avant le <b>10 novembre 2026</b>, pour finaliser le traiteur.</span>
+          </div>
           <p class="err" id="err" role="alert"></p>
           <button class="btn dark block" type="submit">Confirmer ma réservation
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -496,19 +500,6 @@
         </form>
       </div>
 
-      <aside class="card summary paper">
-        <h3>Récapitulatif du voyage</h3>
-        <div class="sum-row"><span>Vol</span><span>J40 · Direct</span></div>
-        <div class="sum-row"><span>Destination</span><span>Abidjan (ABJ)</span></div>
-        <div class="sum-row"><span>Date</span><span>Dim. 20 déc. 2026</span></div>
-        <div class="sum-row"><span>Embarquement</span><span>19h00</span></div>
-        <div class="sum-row"><span>Passagers</span><span id="sum-pax">1</span></div>
-        <div class="sum-total"><span>Total</span><b>Offert</b></div>
-        <div class="deadline">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          <span>Réservation avant le <b>10 novembre 2026</b>, pour finaliser le traiteur.</span>
-        </div>
-      </aside>
     </div>
 
     <!-- Confirmation : carte d'embarquement générée -->
@@ -736,7 +727,7 @@ function toIntl(cc, raw){
 
   form.querySelectorAll("[data-step]").forEach(b => b.addEventListener("click", () => {
     pax = Math.min(10, Math.max(1, pax + Number(b.dataset.step)));
-    $("pax").textContent = pax; $("sum-pax").textContent = pax;
+    $("pax").textContent = pax;
     renderCompanions();
   }));
 
@@ -771,7 +762,6 @@ function toIntl(cc, raw){
   form.querySelectorAll("input[name=presence]").forEach(r => r.addEventListener("change", () => {
     const yes = form.presence.value === "oui";
     $("guests-row").classList.toggle("hidden", !yes);
-    $("sum-pax").textContent = yes ? pax : "—";
   }));
 
   function showConfirmation(){
