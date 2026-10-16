@@ -171,6 +171,9 @@
 
   /* Résultat de vol */
   .flight{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 10px 30px rgba(11,21,48,.08)}
+  .top-right{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .status{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-d)}
+  @media (max-width:480px){.status{font-size:.6rem;letter-spacing:.08em}.top-right{gap:8px}.flight-top .badge{font-size:.58rem;padding:4px 8px}.line{font-size:.66rem}}
   .flight-top{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line);font-size:.8rem;gap:10px;flex-wrap:wrap}
   .badge{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
   .badge.gold{background:rgba(169,127,79,.16);color:var(--bronze-d)}
@@ -403,7 +406,7 @@
     <article class="flight">
       <div class="flight-top">
         <span><b>Vol J40</b> · JMS Airways</span>
-        <span class="badge red">● Places limitées</span>
+        <span class="top-right"><span class="status">Statut : First Class</span><span class="badge red">● Places limitées</span></span>
       </div>
       <div class="flight-main">
         <div class="legs">
@@ -415,7 +418,7 @@
         </div>
         <div class="fare">
           <div>
-            <div class="cls">Statut : First Class</div>
+            <div class="cls">Invité privilège</div>
             <div class="old">Votre présence est le plus beau des cadeaux</div>
           </div>
           <a class="btn navy" href="#reserver">Confirmer</a>
