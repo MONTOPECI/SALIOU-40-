@@ -275,7 +275,7 @@
   /* Carte d'embarquement générée */
   .bp{font-family:var(--mono);border-radius:var(--r);overflow:hidden;box-shadow:0 20px 50px rgba(11,21,48,.25);border:1px solid var(--line);max-width:560px;margin:0 auto}
   .bp-head{background:var(--navy);color:var(--ivory);display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:3px solid var(--bronze)}
-  .bp-head b{font-family:var(--mono);font-weight:700;letter-spacing:.08em;font-size:.95rem}
+  .bp-head b{font-family:var(--mono);font-weight:700;letter-spacing:.06em;font-size:clamp(.74rem,3.5vw,.95rem)}
   .bp-head small{font-size:.66rem;letter-spacing:.22em;color:var(--bronze-l);font-weight:700}
   .bp-body{padding:20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px 12px}
   .bp-body .route{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
@@ -406,7 +406,7 @@
     <article class="flight">
       <div class="flight-top">
         <span><b>Vol J40</b> · JMS Airways</span>
-        <span class="top-right"><span class="status">Statut : First Class</span><span class="badge red">● Places limitées</span></span>
+        <span class="top-right"><span class="status">Statut : Première classe</span><span class="badge red">● Places limitées</span></span>
       </div>
       <div class="flight-main">
         <div class="legs">
@@ -542,7 +542,7 @@
         <p id="conf-text">Dernière étape : envoyez votre confirmation à Junior sur WhatsApp.</p>
       </div>
       <div class="bp paper" id="bp">
-        <div class="bp-head"><b>BOARDING PASS</b><small>JMS AIRWAYS</small></div>
+        <div class="bp-head"><b>CARTE D'EMBARQUEMENT</b><small>JMS AIRWAYS</small></div>
         <div class="bp-body">
           <div class="route">
             <div><div class="k">Départ</div><div class="code">ABJ</div><div class="city">Abidjan, Cocody,<br>Côte d'Ivoire</div></div>
@@ -553,8 +553,8 @@
           <div class="bp-f wide hidden" id="bp-with-row"><div class="k">Accompagné de</div><div class="v" id="bp-with">—</div></div>
           <div class="bp-f"><div class="k">Date</div><div class="v">20 DÉC 26</div></div>
           <div class="bp-f"><div class="k">Embarq.</div><div class="v">19:00</div></div>
-          <div class="bp-f"><div class="k">Pax</div><div class="v" id="bp-pax">1</div></div>
-          <div class="bp-f"><div class="k">Classe</div><div class="v">FIRST CLASS</div></div>
+          <div class="bp-f"><div class="k">Passagers</div><div class="v" id="bp-pax">1</div></div>
+          <div class="bp-f"><div class="k">Classe</div><div class="v">PREMIÈRE</div></div>
           <div class="bp-f"><div class="k">Vol</div><div class="v">J40</div></div>
           <div class="bp-f"><div class="k">Porte</div><div class="v">SECRÈTE</div></div>
         </div>
@@ -683,7 +683,7 @@ async function passImage(p){
   g.fillStyle = navy; g.fillRect(x0,y0,cw,110);
   g.fillStyle = bronze; g.fillRect(x0,y0+110,cw,8);
   g.restore();
-  g.textAlign = "left"; g.fillStyle="#f6efdf"; g.font = mono(700, 34); g.fillText("BOARDING PASS", x0+44, y0+70);
+  g.textAlign = "left"; g.fillStyle="#f6efdf"; g.font = mono(700, 30); g.fillText("CARTE D'EMBARQUEMENT", x0+44, y0+70);
   g.textAlign = "right"; g.fillStyle=bronzeL; g.font = mono(600,20); g.fillText("VOL J40 · ABIDJAN", x0+cw-44, y0+68);
 
   // route
@@ -724,7 +724,7 @@ async function passImage(p){
   field("PASSAGERS", String(p.p), col[2], y0+540);
   field("VOL", "J40", col[0], y0+660);
   field("PORTE", "SECRÈTE", col[1], y0+660);
-  field("CLASSE", "FIRST CLASS", col[2], y0+660);
+  field("CLASSE", "PREMIÈRE", col[2], y0+660);
 
   // perforation
   const py = y0+780;
