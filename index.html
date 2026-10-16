@@ -286,6 +286,7 @@
   .bp-body .route .k{font-size:.62rem;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--bronze-d);margin-bottom:4px}
   .bp-body .route .city{font-size:.7rem;color:var(--ink-2);margin-top:6px;max-width:20ch}
   .bp-body .route > div:last-child .city{margin-left:auto}
+  .bp-body .code-sm{font-size:clamp(1rem,4.6vw,1.35rem)!important;line-height:1.15!important;margin-top:4px}
   .bp-body .code{font-family:var(--mono);font-size:clamp(1.7rem,7.5vw,2.2rem);white-space:nowrap;letter-spacing:-.01em;font-weight:700;color:var(--ink);line-height:1}
   .bp-body .route svg{width:28px;color:var(--bronze-d);transform:rotate(90deg);align-self:center;flex:none}
   .bp-f .k{font-size:.62rem;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--bronze-d)}
@@ -551,7 +552,7 @@
           <div class="route">
             <div><div class="k">Départ</div><div class="code">ABJ</div><div class="city">Abidjan, Cocody,<br>Côte d'Ivoire</div></div>
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>
-            <div style="text-align:right"><div class="k">Arrivée</div><div class="code">40 ans</div><div class="city">de Junior</div></div>
+            <div style="text-align:right"><div class="k">Arrivée</div><div class="code code-sm">Une nuit<br>d'exception</div></div>
           </div>
           <div class="bp-f wide"><div class="k">Passager : Invité Privilège</div><div class="v" id="bp-name">—</div></div>
           <div class="bp-f wide hidden" id="bp-with-row"><div class="k">Accompagné de</div><div class="v" id="bp-with">—</div></div>
@@ -696,10 +697,9 @@ async function passImage(p){
   g.textAlign="right"; g.fillText("ARRIVÉE", x0+cw-44, y0+175);
   g.fillStyle=ink; g.font=mono(700,92);
   g.textAlign="left"; g.fillText("ABJ", x0+44, y0+280);
-  g.textAlign="right"; g.fillText("40 ans", x0+cw-44, y0+280);
+  g.textAlign="right"; g.font=mono(700,48); g.fillText("Une nuit", x0+cw-44, y0+232); g.fillText("d'exception", x0+cw-44, y0+286);
   g.fillStyle="#555a6b"; g.font=mono(500,22);
   g.textAlign="left"; g.fillText("Abidjan, Cocody,", x0+48, y0+325); g.fillText("Côte d'Ivoire", x0+48, y0+355);
-  g.textAlign="right"; g.fillText("de Junior", x0+cw-48, y0+325);
   g.strokeStyle=bronze; g.lineWidth=3; g.setLineDash([12,10]);
   g.beginPath(); g.moveTo(x0+245,y0+245); g.lineTo(x0+505,y0+245); g.stroke(); g.setLineDash([]);
   g.save(); g.translate(x0+375, y0+245); g.fillStyle=bronzeD;
