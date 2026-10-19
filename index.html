@@ -495,15 +495,6 @@
               <input type="radio" name="presence" id="p-no" value="non"><label for="p-no">Je ne pourrai pas</label>
             </div>
           </div>
-          <div id="guests-row">
-            <span class="lbl" id="pax-l">Nombre de passagers (vous compris, 2 maximum)</span>
-            <div class="stepper" aria-labelledby="pax-l">
-              <button type="button" data-step="-1" aria-label="Retirer un passager" disabled>−</button>
-              <output id="pax" aria-live="polite">1</output>
-              <button type="button" data-step="1" aria-label="Ajouter un passager">+</button>
-            </div>
-            <div id="companions" class="companions hidden" aria-live="polite"></div>
-          </div>
           <div>
             <label for="phone">Numéro WhatsApp</label>
             <div class="phone-row">
@@ -767,7 +758,7 @@ function toIntl(cc, raw){
 /* Réservation (RSVP) */
 (function(){
   const form = $("rsvp-form");
-  const MAX_PAX = 2;   // nombre maximum de passagers par réservation (vous compris)
+  const MAX_PAX = 1;   // un seul passager par réservation (un nom par formulaire)
   let pax = 1, current = null;
 
   form.querySelectorAll("[data-step]").forEach(b => b.addEventListener("click", () => {
@@ -808,7 +799,7 @@ function toIntl(cc, raw){
   }
   form.querySelectorAll("input[name=presence]").forEach(r => r.addEventListener("change", () => {
     const yes = form.presence.value === "oui";
-    $("guests-row").classList.toggle("hidden", !yes);
+    const gr = $("guests-row"); if (gr) gr.classList.toggle("hidden", !yes);
   }));
 
   function showConfirmation(){
