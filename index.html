@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>JMS Airways – Junior's Birthday</title>
-<meta name="description" content="Vol J40 · Dimanche 20 décembre 2026 · Embarquement 19h00 · Abidjan. Réservez votre siège pour les 40 ans de Junior.">
+<meta name="description" content="Vol J40 · Dimanche 20 décembre 2026 · Embarquement 19h00 · Abidjan. Les réservations pour les 40 ans de Junior sont clôturées.">
 <meta name="theme-color" content="#0b1530">
 
 <!-- Aperçu WhatsApp / réseaux sociaux -->
@@ -243,6 +243,10 @@
   .steps .on b{background:var(--navy);color:var(--ivory);border-color:var(--navy)}
   .steps .done b{background:var(--ok);color:#fff;border-color:var(--ok)}
   form{display:grid;gap:16px}
+  .closed-card{text-align:center;max-width:560px;margin:0 auto;padding:32px 24px}
+  .closed-card svg{width:40px;height:40px;color:var(--bronze-d);margin:0 auto 12px;display:block}
+  .closed-card h3{font-family:var(--display);text-transform:uppercase;font-weight:700;color:var(--ink);font-size:1.35rem;letter-spacing:.05em;margin-bottom:10px}
+  .closed-card p{color:var(--ink-2);margin-top:8px}
   label,.lbl{display:block;font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
   input[type=text],input[type=tel],textarea{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:#fff;border:1px solid rgba(27,31,46,.18);border-radius:10px;padding:13px 14px;outline:none;transition:border-color .2s,box-shadow .2s}
   textarea{min-height:80px;resize:vertical}
@@ -382,7 +386,7 @@
     <nav class="nav">
       <a href="#vol">Mon vol</a>
       <a href="#infos">Infos voyageurs</a>
-      <a class="cta" href="#reserver">Réserver</a>
+      <a class="cta" href="#reserver">Clôturé</a>
     </nav>
   </div>
 </header>
@@ -411,7 +415,7 @@
     <article class="flight">
       <div class="flight-top">
         <span><b>Vol J40</b> · JMS Airways</span>
-        <span class="top-right"><span class="status">Statut : Première classe</span><span class="badge red">● Places limitées</span></span>
+        <span class="top-right"><span class="status">Statut : Première classe</span><span class="badge red">● Embarquement clôturé</span></span>
       </div>
       <div class="flight-main">
         <div class="legs">
@@ -426,7 +430,7 @@
             <div class="cls">Invité privilège</div>
             <div class="old">Votre présence est le plus beau des cadeaux</div>
           </div>
-          <a class="btn navy" href="#reserver">Confirmer</a>
+          <a class="btn navy" href="#reserver">Réservations clôturées</a>
         </div>
       </div>
       <div class="amen">
@@ -480,7 +484,15 @@
   <section id="reserver" class="reveal">
     <div class="h2"><h2>Réserver mon siège</h2><span>Confirmation de présence</span></div>
 
-    <div id="booking" class="checkout">
+    <!-- Réservations clôturées. Pour les rouvrir : retirer "hidden" de #booking et l'ajouter à #closed -->
+    <div id="closed" class="card closed-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      <h3>Embarquement clôturé</h3>
+      <p>Les réservations pour le vol J40 sont désormais fermées. Merci à toutes celles et ceux qui ont confirmé leur présence&nbsp;!</p>
+      <p>Vous avez déjà réservé&nbsp;? Votre carte d'embarquement reste valable : le lieu secret vous sera communiqué avant le départ.</p>
+    </div>
+
+    <div id="booking" class="checkout hidden">
       <div class="card">
         <div class="steps"><span class="on"><b>1</b>Passager</span><span><b>2</b>Carte d'embarquement</span></div>
         <form id="rsvp-form" novalidate>
@@ -953,6 +965,7 @@ function toIntl(cc, raw){
     ["wa-self","wa-host","edit"].forEach(id => $(id).classList.add("hidden"));
     $("see-invite").classList.remove("hidden");
     $("booking").classList.add("hidden");
+    $("closed").classList.add("hidden");
     $("confirmation").classList.remove("hidden");
     window.addEventListener("load", () => setTimeout(() => $("reserver").scrollIntoView({behavior:"smooth"}), 300));
   }
